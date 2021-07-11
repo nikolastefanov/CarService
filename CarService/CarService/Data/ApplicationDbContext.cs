@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+﻿using CarService.Data.Models;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -12,5 +13,9 @@ namespace CarService.Data
             : base(options)
         {
         }
+
+        public DbSet<Car> Cars { get; set; }
+
+        public DbSet<Issue> Issues { get; set; }
     }
 }
