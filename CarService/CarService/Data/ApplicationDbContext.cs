@@ -17,5 +17,19 @@ namespace CarService.Data
         public DbSet<Car> Cars { get; set; }
 
         public DbSet<Issue> Issues { get; set; }
+
+        public DbSet<Order> Orders { get; set; }
+
+        public DbSet<Review> Reviews { get; set; }
+
+        public DbSet<SparePart> SpareParts { get; set; }
+
+
+       //TODO: User entity??????
+      //  public DbSet<User> Users { get; set; }
+
+        public DbSet<Work> Works { get; set; }
+
+
     }
 }
