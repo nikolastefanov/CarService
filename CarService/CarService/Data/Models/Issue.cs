@@ -8,6 +8,11 @@ namespace CarService.Data.Models
 
     public class Issue
     {
+
+        public Issue()
+        {
+            this.Works = new HashSet<Work>();
+        }
         public int Id { get; set; }
 
         public string Description { get; set; }
@@ -16,9 +21,12 @@ namespace CarService.Data.Models
 
         public Car Car { get; set; }
 
-        public int WorkId { get; set; }
 
-        public Work Work { get; set; }
+        public int IssueTypeId { get; set; }
+
+        public IssueType IssueType { get; set; }
+
+        public ICollection<Work> Works { get; set; }
 
 
         //⦁	Has a IsFixed – a bool indicating if the issue has been fixed or not (required)

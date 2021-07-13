@@ -12,8 +12,14 @@ namespace CarService.Data.Models
 
         public string Name { get; set; }
 
-        public string Manufactorer { get; set; }
+        public string Manufacturer { get; set; }
 
         public decimal Price { get; set; }
+
+        public string OrderId { get; set; }
+
+        public Order Order { get; set; }
+
+        public int Available { get; set; }
     }
 }

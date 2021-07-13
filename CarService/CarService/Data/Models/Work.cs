@@ -13,10 +13,15 @@ namespace CarService.Data.Models
 
         public string Content { get; set; }
 
+        public decimal PriceWork { get; set; }
+
         public int IssueId { get; set; }
 
         public Issue Issue { get; set; }
 
+        public string OrderId { get; set; }
+
+        public Order Order { get; set; }
 
 
     }

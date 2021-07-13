@@ -5,6 +5,7 @@ namespace CarService.Data.Models
     using System.Collections.Generic;
     using System.Linq;
     using System.Threading.Tasks;
+
     public class Car
     {
         public int Id { get; set; }
@@ -27,8 +28,6 @@ namespace CarService.Data.Models
 
 
         
-        //⦁	Has a OwnerId – a string (required)
-        //⦁	Has a Owner – a User object
-        //⦁	Has Issues collection – an Issue type
+      
     }
 }

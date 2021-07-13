@@ -15,9 +15,6 @@ namespace CarService.Data.Models
         public string AddressLine { get; set; }
         public string City { get; set; }
 
-
-      //  public string Country { get; set; }  ??????
-
         public ICollection<Order> Orders { get; set; }
 
         public ICollection<Review> Reviews { get; set; }
