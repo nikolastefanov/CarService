@@ -16,7 +16,7 @@ namespace CarService.Data.Migrations
 #pragma warning disable 612, 618
             modelBuilder
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
-                .HasAnnotation("ProductVersion", "5.0.7")
+                .HasAnnotation("ProductVersion", "5.0.8")
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
             modelBuilder.Entity("CarService.Data.Models.Car", b =>
@@ -27,26 +27,28 @@ namespace CarService.Data.Migrations
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("ImageUrl")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Model")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("OwnerId")
-                        .HasColumnType("nvarchar(450)");
+                        .IsRequired()
+                        .HasMaxLength(20)
+                        .HasColumnType("nvarchar(20)");
 
                     b.Property<string>("PlateNumber")
-                        .HasColumnType("nvarchar(max)");
+                        .IsRequired()
+                        .HasMaxLength(20)
+                        .HasColumnType("nvarchar(20)");
 
-                    b.Property<int>("UserId")
-                        .HasColumnType("int");
+                    b.Property<string>("UserId")
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<int>("Year")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("OwnerId");
+                    b.HasIndex("UserId");
 
                     b.ToTable("Cars");
                 });
@@ -62,7 +64,9 @@ namespace CarService.Data.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("Description")
-                        .HasColumnType("nvarchar(max)");
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
 
                     b.Property<int>("IssueTypeId")
                         .HasColumnType("int");
@@ -84,7 +88,9 @@ namespace CarService.Data.Migrations
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("Name")
-                        .HasColumnType("nvarchar(max)");
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
 
                     b.HasKey("Id");
 
@@ -119,17 +125,16 @@ namespace CarService.Data.Migrations
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("Content")
-                        .HasColumnType("nvarchar(max)");
+                        .IsRequired()
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
 
-                    b.Property<string>("OwnerId")
+                    b.Property<string>("UserId")
                         .HasColumnType("nvarchar(450)");
-
-                    b.Property<int>("UserId")
-                        .HasColumnType("int");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("OwnerId");
+                    b.HasIndex("UserId");
 
                     b.ToTable("Reviews");
                 });
@@ -144,11 +149,18 @@ namespace CarService.Data.Migrations
                     b.Property<int>("Available")
                         .HasColumnType("int");
 
+                    b.Property<int>("IssueTypeId")
+                        .HasColumnType("int");
+
                     b.Property<string>("Manufacturer")
-                        .HasColumnType("nvarchar(max)");
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
 
                     b.Property<string>("Name")
-                        .HasColumnType("nvarchar(max)");
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
 
                     b.Property<string>("OrderId")
                         .HasColumnType("nvarchar(450)");
@@ -157,6 +169,8 @@ namespace CarService.Data.Migrations
                         .HasColumnType("decimal(18,2)");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("IssueTypeId");
 
                     b.HasIndex("OrderId");
 
@@ -170,11 +184,10 @@ namespace CarService.Data.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<string>("Content")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("IssueId")
-                        .HasColumnType("int");
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
 
                     b.Property<string>("OrderId")
                         .HasColumnType("nvarchar(450)");
@@ -183,8 +196,6 @@ namespace CarService.Data.Migrations
                         .HasColumnType("decimal(18,2)");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("IssueId");
 
                     b.HasIndex("OrderId");
 
@@ -401,28 +412,16 @@ namespace CarService.Data.Migrations
                 {
                     b.HasBaseType("Microsoft.AspNetCore.Identity.IdentityUser");
 
-                    b.Property<string>("AddressLine")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("City")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("FirstName")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("LastName")
-                        .HasColumnType("nvarchar(max)");
-
                     b.HasDiscriminator().HasValue("User");
                 });
 
             modelBuilder.Entity("CarService.Data.Models.Car", b =>
                 {
-                    b.HasOne("CarService.Data.Models.User", "Owner")
+                    b.HasOne("CarService.Data.Models.User", "User")
                         .WithMany("Cars")
-                        .HasForeignKey("OwnerId");
+                        .HasForeignKey("UserId");
 
-                    b.Navigation("Owner");
+                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("CarService.Data.Models.Issue", b =>
@@ -452,46 +451,48 @@ namespace CarService.Data.Migrations
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
-                    b.HasOne("CarService.Data.Models.User", null)
+                    b.HasOne("CarService.Data.Models.User", "User")
                         .WithMany("Orders")
                         .HasForeignKey("UserId");
 
                     b.Navigation("Car");
+
+                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("CarService.Data.Models.Review", b =>
                 {
-                    b.HasOne("CarService.Data.Models.User", "Owner")
+                    b.HasOne("CarService.Data.Models.User", "User")
                         .WithMany("Reviews")
-                        .HasForeignKey("OwnerId");
+                        .HasForeignKey("UserId");
 
-                    b.Navigation("Owner");
+                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("CarService.Data.Models.SparePart", b =>
                 {
+                    b.HasOne("CarService.Data.Models.IssueType", "IssueType")
+                        .WithMany("SpareParts")
+                        .HasForeignKey("IssueTypeId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
                     b.HasOne("CarService.Data.Models.Order", "Order")
                         .WithMany("SpareParts")
                         .HasForeignKey("OrderId")
                         .OnDelete(DeleteBehavior.Restrict);
+
+                    b.Navigation("IssueType");
 
                     b.Navigation("Order");
                 });
 
             modelBuilder.Entity("CarService.Data.Models.Work", b =>
                 {
-                    b.HasOne("CarService.Data.Models.Issue", "Issue")
-                        .WithMany("Works")
-                        .HasForeignKey("IssueId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
                     b.HasOne("CarService.Data.Models.Order", "Order")
                         .WithMany("Works")
                         .HasForeignKey("OrderId")
                         .OnDelete(DeleteBehavior.Restrict);
-
-                    b.Navigation("Issue");
 
                     b.Navigation("Order");
                 });
@@ -554,14 +555,11 @@ namespace CarService.Data.Migrations
                     b.Navigation("Orders");
                 });
 
-            modelBuilder.Entity("CarService.Data.Models.Issue", b =>
-                {
-                    b.Navigation("Works");
-                });
-
             modelBuilder.Entity("CarService.Data.Models.IssueType", b =>
                 {
                     b.Navigation("Issues");
+
+                    b.Navigation("SpareParts");
                 });
 
             modelBuilder.Entity("CarService.Data.Models.Order", b =>

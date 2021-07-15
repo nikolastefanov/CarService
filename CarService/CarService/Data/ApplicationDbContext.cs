@@ -24,60 +24,48 @@ namespace CarService.Data
 
         public DbSet<SparePart> SpareParts { get; set; }
 
-
-       //TODO: User entity??????
-          public DbSet<User> Users { get; set; }
-
         public DbSet<Work> Works { get; set; }
 
         public DbSet<IssueType> IssueTypes { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
-
-            builder.Entity<Issue>()
-             .HasOne(i => i.IssueType)
-             .WithMany(i => i.Issues)
-             .HasForeignKey(i => i.IssueTypeId)
-             .OnDelete(DeleteBehavior.Restrict);
-
-
-            builder.Entity<Work>()
-                .HasOne(w=>w.Issue)
-                .WithMany(w=>w.Works)
-                .HasForeignKey(w=>w.IssueId)
-                .OnDelete(DeleteBehavior.Restrict);
-
-            builder.Entity<Work>()
-               .HasOne(w=>w.Order)
-               .WithMany(w=>w.Works)
-               .HasForeignKey(w=>w.OrderId)
-               .OnDelete(DeleteBehavior.Restrict);
-
-            builder.Entity<Issue>()
-               .HasOne(i=>i.Car)
-               .WithMany(i=>i.Issues)
-               .HasForeignKey(i=>i.CarId)
-               .OnDelete(DeleteBehavior.Restrict);
-
             builder.Entity<Issue>()
                .HasOne(i => i.Car)
-               .WithMany(i => i.Issues)
+               .WithMany(c => c.Issues)
                .HasForeignKey(i => i.CarId)
                .OnDelete(DeleteBehavior.Restrict);
-
+          
+          
+            builder.Entity<Issue>()
+             .HasOne(i => i.IssueType)
+             .WithMany(it => it.Issues)
+             .HasForeignKey(i => i.IssueTypeId)
+             .OnDelete(DeleteBehavior.Restrict);
+          
+            builder.Entity<Work>()
+               .HasOne(w=>w.Order)
+               .WithMany(o=>o.Works)
+               .HasForeignKey(w=>w.OrderId)
+               .OnDelete(DeleteBehavior.Restrict);
+          
             builder.Entity<SparePart>()
                .HasOne(sp=>sp.Order)
-              .WithMany(sp=>sp.SpareParts)
+              .WithMany(o=>o.SpareParts)
               .HasForeignKey(sp=>sp.OrderId)
                .OnDelete(DeleteBehavior.Restrict);
-
+          
             builder.Entity<Order>()
                .HasOne(o=>o.Car)
                .WithMany(c=>c.Orders)
-               .HasForeignKey(c=>c.CarId)     
+               .HasForeignKey(o=>o.CarId)     
                .OnDelete(DeleteBehavior.Restrict);
-
+          
+            builder.Entity<SparePart>()
+             .HasOne(sp => sp.IssueType)
+             .WithMany(it=>it.SpareParts)
+             .HasForeignKey(sp => sp.IssueTypeId)
+             .OnDelete(DeleteBehavior.Restrict);
 
             base.OnModelCreating(builder);
         }

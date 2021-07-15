@@ -3,6 +3,7 @@ namespace CarService.Data.Models
 {
     using System;
     using System.Collections.Generic;
+    using System.ComponentModel.DataAnnotations;
     using System.Linq;
     using System.Threading.Tasks;
 
@@ -10,16 +11,24 @@ namespace CarService.Data.Models
     {
         public int Id { get; set; }
 
+        [Required]
+        [MaxLength(100)]
         public string Name { get; set; }
 
+        [Required]
+        [MaxLength(50)]
         public string Manufacturer { get; set; }
 
         public decimal Price { get; set; }
+
+        public int Available { get; set; }
 
         public string OrderId { get; set; }
 
         public Order Order { get; set; }
 
-        public int Available { get; set; }
+        public int IssueTypeId { get; set; }
+
+        public IssueType IssueType { get; set; }
     }
 }

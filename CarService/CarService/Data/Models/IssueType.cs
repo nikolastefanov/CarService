@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -11,11 +12,16 @@ namespace CarService.Data.Models
         public IssueType()
         {
             this.Issues = new HashSet<Issue>();
+            this.SpareParts = new HashSet<SparePart>();
         }
         public int Id { get; set; }
 
+        [Required]
+        [MaxLength(50)]
         public string Name { get; set; }
 
-        public ICollection<Issue> Issues { get; set; }
+        public IEnumerable<Issue> Issues { get; set; }
+
+        public IEnumerable<SparePart> SpareParts { get; set; }
     }
 }

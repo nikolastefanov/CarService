@@ -12,6 +12,9 @@ namespace CarService.Data.Models
         public Order()
         {
             this.Id = Guid.NewGuid().ToString();
+            this.SpareParts = new HashSet<SparePart>();
+            this.Works = new HashSet<Work>();
+
         }
         public string Id { get; set; }
 
@@ -19,9 +22,13 @@ namespace CarService.Data.Models
 
         public Car Car { get; set; }
 
-        public ICollection<Work> Works { get; set; }
+        public string UserId { get; set; }
 
-        public ICollection<SparePart> SpareParts { get; set; }
+        public User User { get; set; }
+
+        public IEnumerable<Work> Works { get; set; }
+
+        public IEnumerable<SparePart> SpareParts { get; set; }
 
     }
 }

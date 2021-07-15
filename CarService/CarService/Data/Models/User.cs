@@ -10,16 +10,18 @@ namespace CarService.Data.Models
 
     public class User : IdentityUser
     {
-        public string FirstName { get; set; }
-        public string LastName { get; set; }
-        public string AddressLine { get; set; }
-        public string City { get; set; }
+        public User()
+        {
+            this.Orders = new HashSet<Order>();
+            this.Reviews = new HashSet<Review>();
+            this.Cars = new HashSet<Car>();
+        }
+     
+        public IEnumerable<Order> Orders { get; set; }
 
-        public ICollection<Order> Orders { get; set; }
+        public IEnumerable<Review> Reviews { get; set; }
 
-        public ICollection<Review> Reviews { get; set; }
-
-        public ICollection<Car> Cars { get; set; }
+        public IEnumerable<Car> Cars { get; set; }
 
     }
 }
