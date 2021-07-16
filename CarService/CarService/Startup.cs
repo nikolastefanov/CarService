@@ -1,4 +1,5 @@
 using CarService.Data;
+using CarService.Infrastructure;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -48,13 +49,14 @@ namespace CarService
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
-          using (var serviceScope = app.ApplicationServices.CreateScope())
-          {
-               var dbContext = serviceScope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
-               dbContext.Database.EnsureCreated();
-           }
-            
-                if (env.IsDevelopment())
+         //using (var serviceScope = app.ApplicationServices.CreateScope())
+         //{
+         //     var dbContext = serviceScope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
+         //     dbContext.Database.EnsureCreated();
+         // }
+            app.PrepareDatabase();
+
+            if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
                 app.UseMigrationsEndPoint();

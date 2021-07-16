@@ -19,6 +19,10 @@ namespace CarService.Data.Models
 
         [Required]
         [MaxLength(20)]
+        public string Make { get; set; }
+
+        [Required]
+        [MaxLength(20)]
         public string Model { get; set; }
 
         [Required]

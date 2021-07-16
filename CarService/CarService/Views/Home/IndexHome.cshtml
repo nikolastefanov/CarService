@@ -1,0 +1,25 @@
+﻿
+@model List<IndexHomeViewModel>
+
+@{
+    this.ViewData["Title"] = "Services";
+}
+
+<div class="text-center">
+    <h1 class="display-4">@this.ViewData["Title"]</h1>
+</div>
+
+<div class="row">
+    @foreach (var issueType in Model)
+    {
+<div class="col-md-4">
+    <div class="card mb-3">
+        <img class="card-img-top" src="@issueType.ImageUrl" alt="@issueType.Name ">
+        <div class="card-body text-center">
+            <h5 class="card-title text-center">@issueType.Name </h5>
+            
+        </div>
+    </div>
+</div>}
+</div>
+

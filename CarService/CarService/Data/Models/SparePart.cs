@@ -19,6 +19,8 @@ namespace CarService.Data.Models
         [MaxLength(50)]
         public string Manufacturer { get; set; }
 
+        public string ImageUrl{get;set;}
+
         public decimal Price { get; set; }
 
         public int Available { get; set; }

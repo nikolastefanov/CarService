@@ -20,6 +20,8 @@ namespace CarService.Data.Models
         [MaxLength(50)]
         public string Name { get; set; }
 
+        public string ImageUrl { get; set; }
+
         public IEnumerable<Issue> Issues { get; set; }
 
         public IEnumerable<SparePart> SpareParts { get; set; }

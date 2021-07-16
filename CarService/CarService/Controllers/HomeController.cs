@@ -1,4 +1,6 @@
-﻿using CarService.Models;
+﻿using CarService.Data;
+using CarService.Models;
+using CarService.Models.Home;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System;
@@ -11,17 +13,34 @@ namespace CarService.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly ILogger<HomeController> _logger;
+        private readonly ApplicationDbContext data;
 
-        public HomeController(ILogger<HomeController> logger)
+        public HomeController(ApplicationDbContext data)
         {
-            _logger = logger;
+            this.data = data;
         }
+ 
 
         public IActionResult Index()
         {
             return View();
         }
+
+        public IActionResult IndexHome()
+        {
+            var issueType = this.data.IssueTypes
+                 .Select(x => new IndexHomeViewModel
+                 {
+                     Name=x.Name,
+                     ImageUrl=x.ImageUrl,
+                 })
+                 .ToList();
+
+
+            
+            return View(issueType);
+        }
+
 
         public IActionResult Privacy()
         {
