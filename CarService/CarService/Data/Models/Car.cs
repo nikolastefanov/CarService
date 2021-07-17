@@ -7,6 +7,8 @@ namespace CarService.Data.Models
     using System.Linq;
     using System.Threading.Tasks;
 
+    using static Data.DataConstants.Car;
+
     public class Car
     {
 
@@ -18,17 +20,18 @@ namespace CarService.Data.Models
         public int Id { get; set; }
 
         [Required]
-        [MaxLength(20)]
+        [MaxLength(MakeMaxLength)]
         public string Make { get; set; }
 
         [Required]
-        [MaxLength(20)]
+        [MaxLength(ModelMaxLength)]
         public string Model { get; set; }
 
         [Required]
-        [MaxLength(20)]
+        [MaxLength(PlateNumberMaxLength)]
         public string PlateNumber { get; set; }
         
+        [Range(YearMinValue,YearMaxValue)]
         public int Year { get; set; }
         
         [Required]

@@ -7,12 +7,14 @@ namespace CarService.Data.Models
     using System.Linq;
     using System.Threading.Tasks;
 
+    using static Data.DataConstants.Review;
+
     public class Review
     {
         public int Id { get; set; }
 
         [Required]
-        [MaxLength(200)]
+        [MaxLength(ContentMaxLength)]
         public string Content { get; set; }
 
         public string UserId { get; set; }

@@ -7,12 +7,14 @@ namespace CarService.Data.Models
     using System.Linq;
     using System.Threading.Tasks;
 
+    using static Data.DataConstants.Issue;
+
     public class Issue
     {
         public int Id { get; set; }
 
         [Required]
-        [MaxLength(100)]
+        [MaxLength(DescripMaxLength)]
         public string Description { get; set; }
 
         public int CarId {get;set;}

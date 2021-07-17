@@ -18,6 +18,12 @@ namespace CarService.Data.Models
         }
         public string Id { get; set; }
 
+        public decimal PriceWork { get; set; }
+
+        public decimal PriceSparePart { get; set; }
+
+        public decimal TotalPrice { get; set; }
+
         public int CarId { get; set; }
 
         public Car Car { get; set; }

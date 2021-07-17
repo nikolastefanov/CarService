@@ -1,4 +1,5 @@
 ﻿using CarService.Data.Models;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -28,6 +29,8 @@ namespace CarService.Data
 
         public DbSet<IssueType> IssueTypes { get; set; }
 
+        public DbSet<Mechanic> Mechanics { get; set; }
+
         protected override void OnModelCreating(ModelBuilder builder)
         {
             builder.Entity<Issue>()
@@ -48,7 +51,14 @@ namespace CarService.Data
                .WithMany(o=>o.Works)
                .HasForeignKey(w=>w.OrderId)
                .OnDelete(DeleteBehavior.Restrict);
-          
+
+         //   builder.Entity<Work>()
+         //      .HasOne(w => w.User)
+         //      .WithMany(m => m.Works)
+         //      .HasForeignKey(w => w.UserId)
+         //      .OnDelete(DeleteBehavior.Restrict);
+
+
             builder.Entity<SparePart>()
                .HasOne(sp=>sp.Order)
               .WithMany(o=>o.SpareParts)
@@ -66,6 +76,13 @@ namespace CarService.Data
              .WithMany(it=>it.SpareParts)
              .HasForeignKey(sp => sp.IssueTypeId)
              .OnDelete(DeleteBehavior.Restrict);
+
+            builder
+               .Entity<Mechanic>()
+               .HasOne<IdentityUser>()
+               .WithOne()
+               .HasForeignKey<Mechanic>(d => d.UserId)
+               .OnDelete(DeleteBehavior.Restrict);
 
             base.OnModelCreating(builder);
         }

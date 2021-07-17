@@ -7,16 +7,18 @@ namespace CarService.Data.Models
     using System.Linq;
     using System.Threading.Tasks;
 
+    using static Data.DataConstants.SparePart;
+
     public class SparePart
     {
         public int Id { get; set; }
 
         [Required]
-        [MaxLength(100)]
+        [MaxLength(NameMaxLength)]
         public string Name { get; set; }
 
         [Required]
-        [MaxLength(50)]
+        [MaxLength(ManufactorerMaxLength)]
         public string Manufacturer { get; set; }
 
         public string ImageUrl{get;set;}

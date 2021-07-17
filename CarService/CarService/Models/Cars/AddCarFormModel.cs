@@ -7,22 +7,26 @@ namespace CarService.Models.Cars
     using System.Linq;
     using System.Threading.Tasks;
 
-    using static Data.DataConstants;
+    using static Data.DataConstants.Car;
+    using static Data.DataConstants.IssueType;
+    using static Data.DataConstants.Issue;
+
+
 
 
     public class AddCarFormModel
     {
 
         [Required]
-        [StringLength(CarBrandMaxLength, MinimumLength = CarBrandMinLength)]
+        [StringLength(MakeMaxLength, MinimumLength = MakeMinLength)]
         public string Make { get; init; }
 
         [Required]
-        [StringLength(CarModelMaxLength, MinimumLength = CarModelMinLength)]
+        [StringLength(ModelMaxLength, MinimumLength = ModelMinLength)]
         public string Model { get; init; }
 
         [Required]
-        [StringLength(CarNumberMaxLength, MinimumLength = CarNumberMinLength)]
+        [StringLength(PlateNumberMaxLength, MinimumLength = PlateNumberMinLength)]
         public string PlateNumber { get; set; }
 
         [Display(Name = "Image URL")]
@@ -30,15 +34,15 @@ namespace CarService.Models.Cars
         [Url]
         public string ImageUrl { get; init; }
 
-        [Range(CarYearMinValue, CarYearMaxValue)]
+        [Range(YearMinValue, YearMaxValue)]
         public int Year { get; init; }
 
         [Required]
-        [StringLength(CarIssueTypeMaxLength, MinimumLength = CarIssueTypeMinLength)]
+        [StringLength(IsTypeNameMaxLength, MinimumLength = IsTypeNameMinLength)]
         public string IssueType { get; set; }
 
         [Required]
-        [StringLength(CarIssueMaxLength, MinimumLength = CarIssueMinLength)]
+        [StringLength(InpMaxLength, MinimumLength = InpMinLength)]
         public string Issue { get; set; }
     }
 }

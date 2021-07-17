@@ -6,20 +6,60 @@ namespace CarService.Data
     using System.Linq;
     using System.Threading.Tasks;
 
+
     public class DataConstants
     {
-        public const int CarBrandMinLength = 2;
-        public const int CarBrandMaxLength = 20;
-        public const int CarModelMinLength = 2;
-        public const int CarModelMaxLength = 30;
-        public const int CarDescriptionMinLength = 10;
-        public const int CarYearMinValue = 2000;
-        public const int CarYearMaxValue = 2050;
-        public const int CarNumberMaxLength = 8;
-        public const int CarNumberMinLength = 8;
-        public const int CarIssueMaxLength=100;
-        public const int CarIssueMinLength=5;
-        public const int CarIssueTypeMaxLength = 100;
-        public const int CarIssueTypeMinLength = 5;
+        public class Car
+        {
+            public const int MakeMinLength = 2;
+            public const int MakeMaxLength = 20;
+            public const int ModelMinLength = 2;
+            public const int ModelMaxLength = 30;
+            public const int PlateNumberMaxLength = 30;
+            public const int PlateNumberMinLength = 8;
+            public const int YearMinValue = 1950;
+            public const int YearMaxValue = 2021;
+        }
+
+
+        public class Mechanic
+        {
+            public const int NameMaxLength = 20;
+        }
+
+
+        public class Issue
+        {
+            public const int DescripMaxLength = 300;
+            public const int DescripMinLength = 5;
+            public const int InpMaxLength = 300;
+            public const int InpMinLength = 5;
+        }
+
+
+        public class IssueType
+        {
+            public const int IsTypeNameMaxLength = 100;
+            public const int IsTypeNameMinLength = 5;
+        }
+
+
+        public class Review
+        {
+            public const int ContentMaxLength = 300;
+        }
+
+
+        public class SparePart
+        {
+            public const int NameMaxLength = 100;
+            public const int ManufactorerMaxLength = 50;
+        }
+
+
+        public class Work
+        {
+            public const int DescripMaxLength = 300;
+        }
     }
 }
