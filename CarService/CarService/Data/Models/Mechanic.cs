@@ -25,8 +25,6 @@ namespace CarService.Data.Models
         [Required]
         public string UserId { get; set; }
 
-        public User User { get; set; }
-
         public IEnumerable<Work> Works { get; set; }
     }
 }

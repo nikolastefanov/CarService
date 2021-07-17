@@ -52,11 +52,12 @@ namespace CarService.Data
                .HasForeignKey(w=>w.OrderId)
                .OnDelete(DeleteBehavior.Restrict);
 
-         //   builder.Entity<Work>()
-         //      .HasOne(w => w.User)
-         //      .WithMany(m => m.Works)
-         //      .HasForeignKey(w => w.UserId)
-         //      .OnDelete(DeleteBehavior.Restrict);
+            builder
+               .Entity<Mechanic>()
+               .HasOne<IdentityUser>()
+               .WithOne()
+               .HasForeignKey<Mechanic>(d => d.UserId)
+               .OnDelete(DeleteBehavior.Restrict);
 
 
             builder.Entity<SparePart>()

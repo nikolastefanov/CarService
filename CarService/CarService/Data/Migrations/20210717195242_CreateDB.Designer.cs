@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CarService.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20210717181238_CreteDB11")]
-    partial class CreteDB11
+    [Migration("20210717195242_CreateDB")]
+    partial class CreateDB
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -123,16 +123,10 @@ namespace CarService.Data.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(450)");
 
-                    b.Property<string>("UserId1")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(450)");
-
                     b.HasKey("Id");
 
                     b.HasIndex("UserId")
                         .IsUnique();
-
-                    b.HasIndex("UserId1");
 
                     b.ToTable("Mechanics");
                 });
@@ -237,10 +231,14 @@ namespace CarService.Data.Migrations
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("Description")
+                        .IsRequired()
                         .HasMaxLength(300)
                         .HasColumnType("nvarchar(300)");
 
-                    b.Property<int?>("MechanicId")
+                    b.Property<string>("MechanicId")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int?>("MechanicId1")
                         .HasColumnType("int");
 
                     b.Property<string>("OrderId")
@@ -249,16 +247,11 @@ namespace CarService.Data.Migrations
                     b.Property<decimal>("PriceWork")
                         .HasColumnType("decimal(18,2)");
 
-                    b.Property<string>("UserId")
-                        .HasColumnType("nvarchar(450)");
-
                     b.HasKey("Id");
 
-                    b.HasIndex("MechanicId");
+                    b.HasIndex("MechanicId1");
 
                     b.HasIndex("OrderId");
-
-                    b.HasIndex("UserId");
 
                     b.ToTable("Works");
                 });
@@ -511,14 +504,6 @@ namespace CarService.Data.Migrations
                         .HasForeignKey("CarService.Data.Models.Mechanic", "UserId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
-
-                    b.HasOne("CarService.Data.Models.User", "User")
-                        .WithMany()
-                        .HasForeignKey("UserId1")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("CarService.Data.Models.Order", b =>
@@ -567,22 +552,18 @@ namespace CarService.Data.Migrations
 
             modelBuilder.Entity("CarService.Data.Models.Work", b =>
                 {
-                    b.HasOne("CarService.Data.Models.Mechanic", null)
+                    b.HasOne("CarService.Data.Models.Mechanic", "Mechanic")
                         .WithMany("Works")
-                        .HasForeignKey("MechanicId");
+                        .HasForeignKey("MechanicId1");
 
                     b.HasOne("CarService.Data.Models.Order", "Order")
                         .WithMany("Works")
                         .HasForeignKey("OrderId")
                         .OnDelete(DeleteBehavior.Restrict);
 
-                    b.HasOne("CarService.Data.Models.User", "User")
-                        .WithMany()
-                        .HasForeignKey("UserId");
+                    b.Navigation("Mechanic");
 
                     b.Navigation("Order");
-
-                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
