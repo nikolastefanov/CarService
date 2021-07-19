@@ -20,7 +20,7 @@ namespace CarService.Data.Models
 
         public Order Order { get; set; }
 
-        public string MechanicId { get; set; }
+        public int MechanicId { get; set; }
 
         public Mechanic Mechanic { get; set; }
 

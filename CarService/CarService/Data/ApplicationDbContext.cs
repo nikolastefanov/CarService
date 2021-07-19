@@ -59,6 +59,13 @@ namespace CarService.Data
                .HasForeignKey<Mechanic>(d => d.UserId)
                .OnDelete(DeleteBehavior.Restrict);
 
+            builder
+                .Entity<Work>()
+                .HasOne(w => w.Mechanic)
+                .WithMany(m => m.Works)
+                .HasForeignKey(w => w.MechanicId)
+                .OnDelete(DeleteBehavior.Restrict);
+
 
             builder.Entity<SparePart>()
                .HasOne(sp=>sp.Order)
