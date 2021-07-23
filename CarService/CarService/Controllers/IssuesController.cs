@@ -27,18 +27,18 @@ namespace CarService.Controllers
        [HttpPost]
        public IActionResult AddIssue(IssueInputFormModel issue, int carId)
        {
-           if (!this.data.IssueTypes.Any(c => c.Id == issue.IssueTypeId))
-           {
-               this.ModelState.AddModelError(nameof(issue.IssueTypeId), "Category does not exist.");
-           }
-     
-           if (!ModelState.IsValid)
-           {
-               issue.IssueTypes = this.GetIssueTypes();
-     
-               return View(issue);
-           }
-     
+         // if (!this.data.IssueTypes.Any(c => c.Id == issue.IssueTypeId))
+         // {
+         //     this.ModelState.AddModelError(nameof(issue.IssueTypeId), "IssueType does not exist.");
+         // }
+         //
+         // if (!ModelState.IsValid)
+         // {
+         //     issue.IssueTypes = this.GetIssueTypes();
+         //
+         //     return View(issue);
+         // }
+         //
            var issueData = new Issue
            {
                Description=issue.Description,
