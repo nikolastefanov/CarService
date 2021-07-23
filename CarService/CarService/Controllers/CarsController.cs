@@ -40,8 +40,10 @@ namespace CarService.Controllers
             this.data.Cars.Add(carData);
             this.data.SaveChanges();
 
-            return RedirectToAction("AddIssue","Issues");
           
+
+            return RedirectToAction("All","Cars");
+         
         }
 
         public IActionResult All()
