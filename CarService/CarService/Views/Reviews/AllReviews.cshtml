@@ -1,11 +1,64 @@
-﻿@model List<ReviewAllViewModel>
+﻿@model List<ReviewViewModel>
 
 @{
     this.ViewData["Title"] = "Review";
 }
 
-<h1>@this.ViewData["Title"]</h1>
 
-<h1>ALL REviews!!!</h1>
+<div class="container-fluid text-center">
 
-<a asp-controller="Reviews" asp-action="Create"> Write a review !!!</a>
+    <h1>@this.ViewData["Title"]</h1>
+
+    <h1>ALL Reviews!!!</h1>
+
+    <a asp-controller="Reviews" asp-action="Create" class="btn btn-primary"> Write a review !!!</a>
+
+    <br />
+    <br />
+    @foreach (var review in Model)
+    {
+        <div class="form-control">
+            <ul>
+
+                @review.Id  @review.Content
+            </ul>
+            <br />
+        </div>
+
+    }
+
+</div>
+
+
+<div class="container">
+    <h2>Hover Rows</h2>
+    <p>The .table-hover class enables a hover state (grey background on mouse over) on table rows:</p>
+    <table class="table table-hover">
+        <thead>
+            <tr>
+                <th>Firstname</th>
+                <th>Lastname</th>
+                <th>Email</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>John</td>
+                <td>Doe</td>
+                <td>john@example.com</td>
+            </tr>
+            <tr>
+                <td>Mary</td>
+                <td>Moe</td>
+                <td>mary@example.com</td>
+            </tr>
+            <tr>
+                <td>July</td>
+                <td>Dooley</td>
+                <td>july@example.com</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+

@@ -31,6 +31,7 @@ namespace CarService.Controllers
             var issueType = this.data.IssueTypes
                  .Select(x => new IndexHomeViewModel
                  {
+                     Id=x.Id,
                      Name=x.Name,
                      ImageUrl=x.ImageUrl,
                  })

@@ -5,10 +5,11 @@ using System.Threading.Tasks;
 
 namespace CarService.Models.Reviews
 {
-    public class ReviewAllViewModel
+    public class ReviewViewModel
     {
+        public int Id { get; set; }
         public string Content { get; set; }
 
-        public string UserId { get; set; }
+       // public string UserId { get; set; }
     }
 }

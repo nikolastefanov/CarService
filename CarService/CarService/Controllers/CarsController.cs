@@ -24,7 +24,7 @@ namespace CarService.Controllers
         }
 
         [HttpPost]
-        public IActionResult Add(AddCarFormModel car)
+        public IActionResult Add(AddCarFormModel car, int issueId)
         {
 
             var carData = new Car

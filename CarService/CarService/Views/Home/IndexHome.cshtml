@@ -22,7 +22,7 @@
                          <div class="card mb-3">                                                                                            
                              <img src="@issueType.ImageUrl" class="card-img-top img-fluid card-image rounded" data-toggle="tooltip">         
                              <div class="card-body text-center">                                                                            
-                                 <a asp-controller="Cars" asp-action="Add" class="btn btn-primary " >@issueType.Name</a>                     
+                                 <a asp-controller="Cars" asp-action="Add"  asp-route-issueTypeId="@issueType.Id" class="btn btn-primary " >@issueType.Name</a>                     
                              </div>                                                                                                         
                          </div>                                                                                                             
                      </div>                                                                                                                                                                                                                                                                                        

@@ -2,6 +2,7 @@
 namespace CarService.Controllers
 {
     using CarService.Data;
+    using CarService.Data.Models;
     using CarService.Models.Reviews;
     using Microsoft.AspNetCore.Mvc;
     using System;
@@ -27,29 +28,30 @@ namespace CarService.Controllers
         [HttpPost]
         public IActionResult Create(ReviewInputFormModel review)
         {
-            var reviewData = new ReviewInputFormModel
+            var reviewData = new Review
             {
                 Content=review.Content,
             };
 
-           // data.Reviews.Add(reviewData);
-            data.SaveChanges();
+           this.data.Reviews.Add(reviewData);
+            this.data.SaveChanges();
 
 
-            return this.View();
+            return RedirectToAction("AllReviews","Reviews");
         }
 
         public IActionResult AllReviews()
         {
 
-           // var reviewsAll = data.Reviews
-           //     .Select(x => new ReviewAllViewModel
-           //     {
-           //         
-           //         
-           //     });
-           //
-            return this.View();
+            var reviewsAll = data.Reviews
+                .Select(x => new ReviewViewModel
+                {
+                    Id = x.Id,
+                    Content = x.Content,
+                })
+                .ToList();
+           
+            return this.View(reviewsAll);
         }
     }
 }
