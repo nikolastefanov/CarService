@@ -47,44 +47,10 @@ namespace CarService.Infrastructure
             }
 
 
-          // if (data.SpareParts.Any())
-          // {
-          //     return;
-          // }
+         
 
 
-
-
-         // data.SpareParts.AddRange(new[]
-         //     {
-         //        new SparePart
-         //        {
-         //            Name = "Turbocharger",
-         //            Manufacturer="SKF",
-         //            ImageUrl=" ",
-         //            Price=200.0M,
-         //            Available=10,
-         //            IssueTypeId=data.IssueTypes
-         //                          .Where(it => it.Name == "Engine") 
-         //                            .FirstOrDefault().Id,
-         //
-         //        },
-         // });
-
-
-
-
-            //       new SparePart { Name = "Transmission" },
-            //       new SparePart { Name = "Diagnostics" },
-            //       new SparePart { Name = "Brake system" },
-            //       new SparePart { Name = "Electrical installation" },
-            //       new SparePart { Name = "Coupe" },
-            //       new SparePart { Name = "Tires " },
-            //       new SparePart { Name = "air conditioner" },
-            //       new SparePart { Name = "Technical review" },
-           
-             
-            //   data.SaveChanges();
+         
 
            return;
         }

@@ -1,45 +1,24 @@
-﻿using CarService.Data;
-using CarService.Models;
-using CarService.Models.Home;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Logging;
-using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Threading.Tasks;
+﻿
 
 namespace CarService.Controllers
 {
+    using CarService.Data;
+    using CarService.Models;
+    using Microsoft.AspNetCore.Mvc;
+    using Microsoft.Extensions.Logging;
+    using System;
+    using System.Collections.Generic;
+    using System.Diagnostics;
+    using System.Linq;
+    using System.Threading.Tasks;
+
+
     public class HomeController : Controller
     {
-        private readonly ApplicationDbContext data;
-
-        public HomeController(ApplicationDbContext data)
-        {
-            this.data = data;
-        }
- 
 
         public IActionResult Index()
         {
             return View();
-        }
-
-        public IActionResult IndexHome()
-        {
-            var issueType = this.data.IssueTypes
-                 .Select(x => new IndexHomeViewModel
-                 {
-                     Id=x.Id,
-                     Name=x.Name,
-                     ImageUrl=x.ImageUrl,
-                 })
-                 .ToList();
-
-
-            
-            return View(issueType);
         }
 
 

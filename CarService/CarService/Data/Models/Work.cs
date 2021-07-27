@@ -14,7 +14,7 @@ namespace CarService.Data.Models
         [MaxLength(DescripMaxLength)]
         public string Description{ get; set; }
 
-        public decimal PriceWork { get; set; }
+        public decimal Price { get; set; }
 
         public string OrderId { get; set; }
 

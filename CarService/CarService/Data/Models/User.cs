@@ -17,6 +17,7 @@ namespace CarService.Data.Models
             this.Cars = new HashSet<Car>();
         }
      
+
         public IEnumerable<Order> Orders { get; set; }
 
         public IEnumerable<Review> Reviews { get; set; }

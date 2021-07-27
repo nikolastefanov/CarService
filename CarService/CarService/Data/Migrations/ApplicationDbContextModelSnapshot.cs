@@ -137,12 +137,6 @@ namespace CarService.Data.Migrations
                     b.Property<int>("CarId")
                         .HasColumnType("int");
 
-                    b.Property<decimal>("PriceSparePart")
-                        .HasColumnType("decimal(18,2)");
-
-                    b.Property<decimal>("PriceWork")
-                        .HasColumnType("decimal(18,2)");
-
                     b.Property<decimal>("TotalPrice")
                         .HasColumnType("decimal(18,2)");
 
@@ -180,47 +174,6 @@ namespace CarService.Data.Migrations
                     b.ToTable("Reviews");
                 });
 
-            modelBuilder.Entity("CarService.Data.Models.SparePart", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<int>("Available")
-                        .HasColumnType("int");
-
-                    b.Property<string>("ImageUrl")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("IssueTypeId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("Manufacturer")
-                        .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
-
-                    b.Property<string>("OrderId")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<decimal>("Price")
-                        .HasColumnType("decimal(18,2)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("IssueTypeId");
-
-                    b.HasIndex("OrderId");
-
-                    b.ToTable("SpareParts");
-                });
-
             modelBuilder.Entity("CarService.Data.Models.Work", b =>
                 {
                     b.Property<int>("Id")
@@ -239,7 +192,7 @@ namespace CarService.Data.Migrations
                     b.Property<string>("OrderId")
                         .HasColumnType("nvarchar(450)");
 
-                    b.Property<decimal>("PriceWork")
+                    b.Property<decimal>("Price")
                         .HasColumnType("decimal(18,2)");
 
                     b.HasKey("Id");
@@ -461,6 +414,9 @@ namespace CarService.Data.Migrations
                 {
                     b.HasBaseType("Microsoft.AspNetCore.Identity.IdentityUser");
 
+                    b.Property<string>("FullName")
+                        .HasColumnType("nvarchar(max)");
+
                     b.HasDiscriminator().HasValue("User");
                 });
 
@@ -525,24 +481,6 @@ namespace CarService.Data.Migrations
                         .HasForeignKey("UserId");
 
                     b.Navigation("User");
-                });
-
-            modelBuilder.Entity("CarService.Data.Models.SparePart", b =>
-                {
-                    b.HasOne("CarService.Data.Models.IssueType", "IssueType")
-                        .WithMany("SpareParts")
-                        .HasForeignKey("IssueTypeId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
-                    b.HasOne("CarService.Data.Models.Order", "Order")
-                        .WithMany("SpareParts")
-                        .HasForeignKey("OrderId")
-                        .OnDelete(DeleteBehavior.Restrict);
-
-                    b.Navigation("IssueType");
-
-                    b.Navigation("Order");
                 });
 
             modelBuilder.Entity("CarService.Data.Models.Work", b =>
@@ -624,8 +562,6 @@ namespace CarService.Data.Migrations
             modelBuilder.Entity("CarService.Data.Models.IssueType", b =>
                 {
                     b.Navigation("Issues");
-
-                    b.Navigation("SpareParts");
                 });
 
             modelBuilder.Entity("CarService.Data.Models.Mechanic", b =>
@@ -635,8 +571,6 @@ namespace CarService.Data.Migrations
 
             modelBuilder.Entity("CarService.Data.Models.Order", b =>
                 {
-                    b.Navigation("SpareParts");
-
                     b.Navigation("Works");
                 });
 

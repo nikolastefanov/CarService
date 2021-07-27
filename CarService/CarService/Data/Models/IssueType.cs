@@ -14,7 +14,7 @@ namespace CarService.Data.Models
         public IssueType()
         {
             this.Issues = new HashSet<Issue>();
-            this.SpareParts = new HashSet<SparePart>();
+        
         }
         public int Id { get; set; }
 
@@ -26,6 +26,5 @@ namespace CarService.Data.Models
 
         public IEnumerable<Issue> Issues { get; set; }
 
-        public IEnumerable<SparePart> SpareParts { get; set; }
     }
 }

@@ -1,5 +1,7 @@
 using CarService.Data;
+using CarService.Data.Models;
 using CarService.Infrastructure;
+using CarService.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -33,7 +35,7 @@ namespace CarService
                     Configuration.GetConnectionString("DefaultConnection")));
             services.AddDatabaseDeveloperPageExceptionFilter();
 
-            services.AddDefaultIdentity<IdentityUser>(options =>
+            services.AddDefaultIdentity<User>(options =>
             {
                 options.Password.RequireDigit = false;
                 options.Password.RequireLowercase = false;
@@ -44,6 +46,8 @@ namespace CarService
             }) 
                     .AddEntityFrameworkStores<ApplicationDbContext>();
             services.AddControllersWithViews();
+
+            services.AddTransient<IIssueTypesService, IssueTypesService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

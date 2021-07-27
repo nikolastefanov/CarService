@@ -12,15 +12,11 @@ namespace CarService.Data.Models
         public Order()
         {
             this.Id = Guid.NewGuid().ToString();
-            this.SpareParts = new HashSet<SparePart>();
+ 
             this.Works = new HashSet<Work>();
 
         }
         public string Id { get; set; }
-
-        public decimal PriceWork { get; set; }
-
-        public decimal PriceSparePart { get; set; }
 
         public decimal TotalPrice { get; set; }
 
@@ -34,7 +30,7 @@ namespace CarService.Data.Models
 
         public IEnumerable<Work> Works { get; set; }
 
-        public IEnumerable<SparePart> SpareParts { get; set; }
+
 
     }
 }

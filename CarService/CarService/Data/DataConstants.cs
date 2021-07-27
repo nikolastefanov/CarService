@@ -50,11 +50,6 @@ namespace CarService.Data
         }
 
 
-        public class SparePart
-        {
-            public const int NameMaxLength = 100;
-            public const int ManufactorerMaxLength = 50;
-        }
 
 
         public class Work
