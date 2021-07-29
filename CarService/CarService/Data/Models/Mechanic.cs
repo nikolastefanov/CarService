@@ -10,21 +10,16 @@ namespace CarService.Data.Models
 
     using static Data.DataConstants.Mechanic;
 
-    public class Mechanic 
-    {
-        public Mechanic()
-        {
-            this.Works = new HashSet<Work>();
-        }
+    public class Mechanic
+    { 
         public int Id { get; init; }
 
         [Required]
         [MaxLength(NameMaxLength)]
-        public string Name { get; set; }
+        public string FullName { get; set; }
 
         [Required]
         public string UserId { get; set; }
-
-        public IEnumerable<Work> Works { get; set; }
+     
     }
 }

@@ -1,19 +1,19 @@
 ﻿
+
 namespace CarService.Models.Cars
 {
+    using CarService.Models.IssueTypes;
     using System;
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
     using System.Linq;
     using System.Threading.Tasks;
 
-    using static Data.DataConstants.Car;
-    using static Data.DataConstants.IssueType;
-    using static Data.DataConstants.Issue;
-    using CarService.Models.IssueTypes;
+    using static CarService.Data.DataConstants.Car;
 
-    public class AddCarFormModel
+    public class EditCarViewModel
     {
+        public int Id { get; set; }
 
         [Required]
         [StringLength(MakeMaxLength, MinimumLength = MakeMinLength)]
@@ -33,12 +33,10 @@ namespace CarService.Models.Cars
         public string ImageUrl { get; init; }
 
         [Range(YearMinValue, YearMaxValue)]
-        public int Year { get; init; }       
+        public int Year { get; init; }
 
         public int IssueTypeId { get; set; }
 
         public IEnumerable<IndexIssueTypeViewModel> IssueTypes { get; set; }
-        
-           
     }
 }

@@ -8,7 +8,7 @@ using System.Text;
 
 namespace CarService.Data
 {
-    public class ApplicationDbContext : IdentityDbContext
+    public class ApplicationDbContext : IdentityDbContext<User>
     {
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
             : base(options)
@@ -40,12 +40,7 @@ namespace CarService.Data
                .HasForeignKey(i => i.CarId)
                .OnDelete(DeleteBehavior.Restrict);
           
-          
-            builder.Entity<Issue>()
-             .HasOne(i => i.IssueType)
-             .WithMany(it => it.Issues)
-             .HasForeignKey(i => i.IssueTypeId)
-             .OnDelete(DeleteBehavior.Restrict);
+        
           
             builder.Entity<Work>()
                .HasOne(w=>w.Order)
@@ -53,30 +48,27 @@ namespace CarService.Data
                .HasForeignKey(w=>w.OrderId)
                .OnDelete(DeleteBehavior.Restrict);
 
+            builder.Entity<Work>()
+               .HasOne(w => w.Issue)
+               .WithMany(o => o.Works)
+               .HasForeignKey(w => w.IssueId)
+               .OnDelete(DeleteBehavior.Restrict);
+
+            builder.Entity<Car>()
+               .HasOne(w => w.IssueType)
+               .WithMany(o => o.Cars)
+               .HasForeignKey(w => w.IssueTypeId)
+               .OnDelete(DeleteBehavior.Restrict);
+
+
             builder
                .Entity<Mechanic>()
-               .HasOne<IdentityUser>()
+               .HasOne<User>()
                .WithOne()
                .HasForeignKey<Mechanic>(d => d.UserId)
                .OnDelete(DeleteBehavior.Restrict);
 
-            builder
-                .Entity<Work>()
-                .HasOne(w => w.Mechanic)
-                .WithMany(m => m.Works)
-                .HasForeignKey(w => w.MechanicId)
-                .OnDelete(DeleteBehavior.Restrict);
-
-
-   
-          
-            builder.Entity<Order>()
-               .HasOne(o=>o.Car)
-               .WithMany(c=>c.Orders)
-               .HasForeignKey(o=>o.CarId)     
-               .OnDelete(DeleteBehavior.Restrict);
-     
-
+    
            
 
             base.OnModelCreating(builder);

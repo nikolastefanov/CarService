@@ -11,6 +11,11 @@ namespace CarService.Data.Models
 
     public class Issue
     {
+        public Issue()
+        {
+            this.Works = new HashSet<Work>();
+        }
+
         public int Id { get; set; }
 
         [Required]
@@ -21,9 +26,6 @@ namespace CarService.Data.Models
 
         public Car Car { get; set; }
 
-        public int IssueTypeId { get; set; }
-
-        public IssueType IssueType { get; set; }
-
+        public IEnumerable<Work> Works { get; set; }
     }
 }

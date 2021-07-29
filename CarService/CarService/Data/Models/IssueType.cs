@@ -11,11 +11,12 @@ namespace CarService.Data.Models
 
     public class IssueType
     {
+
         public IssueType()
         {
-            this.Issues = new HashSet<Issue>();
-        
+            this.Cars = new HashSet<Car>();
         }
+        
         public int Id { get; set; }
 
         [Required]
@@ -24,7 +25,7 @@ namespace CarService.Data.Models
 
         public string ImageUrl { get; set; }
 
-        public IEnumerable<Issue> Issues { get; set; }
-
+     
+        public IEnumerable<Car> Cars { get; set; }
     }
 }

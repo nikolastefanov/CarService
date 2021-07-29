@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace CarService.Models.Cars
+namespace CarService.Services.Cars
 {
-    public class CarListingViewModel
+    public class CarListingServiceModel
     {
         public int Id { get; init; }
 
@@ -13,13 +13,15 @@ namespace CarService.Models.Cars
 
         public string Model { get; init; }
 
-        public string PlateNumber { get; set; }
+        public string PlateNumber{get; set;}
 
-        public string ImageUrl { get; init; }
+        public string ImageUrl { get; set; }
+
 
         public int Year { get; init; }
 
-        public string IssueType { get; set; }
+        public int IssueTypeId { get; set; }
 
+        public string IssueType { get; set; }
     }
 }

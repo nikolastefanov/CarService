@@ -11,11 +11,9 @@ namespace CarService.Data.Models
 
     public class Car
     {
-
         public Car()
         {
             this.Issues = new HashSet<Issue>();
-            this.Orders = new HashSet<Order>();
         }
         public int Id { get; set; }
 
@@ -28,7 +26,7 @@ namespace CarService.Data.Models
         public string Model { get; set; }
 
         [Required]
-        [MaxLength(PlateNumberMaxLength)]
+        [RegularExpression("CarRegexPlateNumber")]
         public string PlateNumber { get; set; }
         
         [Range(YearMinValue,YearMaxValue)]
@@ -41,13 +39,13 @@ namespace CarService.Data.Models
         public string UserId { get; set; }
 
         public User User { get; set; }
-        
-        public IEnumerable<Issue> Issues { get; set; }
 
-        public IEnumerable<Order> Orders { get; set; }
+        public int IssueTypeId { get; set; }
 
+        public IssueType IssueType { get; set; }
 
-        
+      public  IEnumerable<Issue> Issues { get; set; }
+
       
     }
 }

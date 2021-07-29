@@ -13,6 +13,7 @@ namespace CarService.Data
         {
             public const int MakeMinLength = 2;
             public const int MakeMaxLength = 20;
+            public const string CarRegexPlateNumber = "";
             public const int ModelMinLength = 2;
             public const int ModelMaxLength = 30;
             public const int PlateNumberMaxLength = 30;

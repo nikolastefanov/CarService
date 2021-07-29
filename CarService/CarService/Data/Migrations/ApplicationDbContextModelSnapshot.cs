@@ -30,6 +30,9 @@ namespace CarService.Data.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int>("IssueTypeId")
+                        .HasColumnType("int");
+
                     b.Property<string>("Make")
                         .IsRequired()
                         .HasMaxLength(20)
@@ -53,6 +56,8 @@ namespace CarService.Data.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("IssueTypeId");
+
                     b.HasIndex("UserId");
 
                     b.ToTable("Cars");
@@ -73,14 +78,9 @@ namespace CarService.Data.Migrations
                         .HasMaxLength(300)
                         .HasColumnType("nvarchar(300)");
 
-                    b.Property<int>("IssueTypeId")
-                        .HasColumnType("int");
-
                     b.HasKey("Id");
 
                     b.HasIndex("CarId");
-
-                    b.HasIndex("IssueTypeId");
 
                     b.ToTable("Issues");
                 });
@@ -112,7 +112,7 @@ namespace CarService.Data.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<string>("Name")
+                    b.Property<string>("FullName")
                         .IsRequired()
                         .HasMaxLength(20)
                         .HasColumnType("nvarchar(20)");
@@ -134,9 +134,6 @@ namespace CarService.Data.Migrations
                     b.Property<string>("Id")
                         .HasColumnType("nvarchar(450)");
 
-                    b.Property<int>("CarId")
-                        .HasColumnType("int");
-
                     b.Property<decimal>("TotalPrice")
                         .HasColumnType("decimal(18,2)");
 
@@ -144,8 +141,6 @@ namespace CarService.Data.Migrations
                         .HasColumnType("nvarchar(450)");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("CarId");
 
                     b.HasIndex("UserId");
 
@@ -174,6 +169,71 @@ namespace CarService.Data.Migrations
                     b.ToTable("Reviews");
                 });
 
+            modelBuilder.Entity("CarService.Data.Models.User", b =>
+                {
+                    b.Property<string>("Id")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<int>("AccessFailedCount")
+                        .HasColumnType("int");
+
+                    b.Property<string>("ConcurrencyStamp")
+                        .IsConcurrencyToken()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Email")
+                        .HasMaxLength(256)
+                        .HasColumnType("nvarchar(256)");
+
+                    b.Property<bool>("EmailConfirmed")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("LockoutEnabled")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTimeOffset?>("LockoutEnd")
+                        .HasColumnType("datetimeoffset");
+
+                    b.Property<string>("NormalizedEmail")
+                        .HasMaxLength(256)
+                        .HasColumnType("nvarchar(256)");
+
+                    b.Property<string>("NormalizedUserName")
+                        .HasMaxLength(256)
+                        .HasColumnType("nvarchar(256)");
+
+                    b.Property<string>("PasswordHash")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("PhoneNumber")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("PhoneNumberConfirmed")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("SecurityStamp")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("TwoFactorEnabled")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("UserName")
+                        .HasMaxLength(256)
+                        .HasColumnType("nvarchar(256)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("NormalizedEmail")
+                        .HasDatabaseName("EmailIndex");
+
+                    b.HasIndex("NormalizedUserName")
+                        .IsUnique()
+                        .HasDatabaseName("UserNameIndex")
+                        .HasFilter("[NormalizedUserName] IS NOT NULL");
+
+                    b.ToTable("AspNetUsers");
+                });
+
             modelBuilder.Entity("CarService.Data.Models.Work", b =>
                 {
                     b.Property<int>("Id")
@@ -186,7 +246,7 @@ namespace CarService.Data.Migrations
                         .HasMaxLength(300)
                         .HasColumnType("nvarchar(300)");
 
-                    b.Property<int>("MechanicId")
+                    b.Property<int>("IssueId")
                         .HasColumnType("int");
 
                     b.Property<string>("OrderId")
@@ -197,7 +257,7 @@ namespace CarService.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("MechanicId");
+                    b.HasIndex("IssueId");
 
                     b.HasIndex("OrderId");
 
@@ -253,77 +313,6 @@ namespace CarService.Data.Migrations
                     b.HasIndex("RoleId");
 
                     b.ToTable("AspNetRoleClaims");
-                });
-
-            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUser", b =>
-                {
-                    b.Property<string>("Id")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<int>("AccessFailedCount")
-                        .HasColumnType("int");
-
-                    b.Property<string>("ConcurrencyStamp")
-                        .IsConcurrencyToken()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Discriminator")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Email")
-                        .HasMaxLength(256)
-                        .HasColumnType("nvarchar(256)");
-
-                    b.Property<bool>("EmailConfirmed")
-                        .HasColumnType("bit");
-
-                    b.Property<bool>("LockoutEnabled")
-                        .HasColumnType("bit");
-
-                    b.Property<DateTimeOffset?>("LockoutEnd")
-                        .HasColumnType("datetimeoffset");
-
-                    b.Property<string>("NormalizedEmail")
-                        .HasMaxLength(256)
-                        .HasColumnType("nvarchar(256)");
-
-                    b.Property<string>("NormalizedUserName")
-                        .HasMaxLength(256)
-                        .HasColumnType("nvarchar(256)");
-
-                    b.Property<string>("PasswordHash")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("PhoneNumber")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<bool>("PhoneNumberConfirmed")
-                        .HasColumnType("bit");
-
-                    b.Property<string>("SecurityStamp")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<bool>("TwoFactorEnabled")
-                        .HasColumnType("bit");
-
-                    b.Property<string>("UserName")
-                        .HasMaxLength(256)
-                        .HasColumnType("nvarchar(256)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("NormalizedEmail")
-                        .HasDatabaseName("EmailIndex");
-
-                    b.HasIndex("NormalizedUserName")
-                        .IsUnique()
-                        .HasDatabaseName("UserNameIndex")
-                        .HasFilter("[NormalizedUserName] IS NOT NULL");
-
-                    b.ToTable("AspNetUsers");
-
-                    b.HasDiscriminator<string>("Discriminator").HasValue("IdentityUser");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
@@ -410,21 +399,19 @@ namespace CarService.Data.Migrations
                     b.ToTable("AspNetUserTokens");
                 });
 
-            modelBuilder.Entity("CarService.Data.Models.User", b =>
-                {
-                    b.HasBaseType("Microsoft.AspNetCore.Identity.IdentityUser");
-
-                    b.Property<string>("FullName")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasDiscriminator().HasValue("User");
-                });
-
             modelBuilder.Entity("CarService.Data.Models.Car", b =>
                 {
+                    b.HasOne("CarService.Data.Models.IssueType", "IssueType")
+                        .WithMany("Cars")
+                        .HasForeignKey("IssueTypeId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
                     b.HasOne("CarService.Data.Models.User", "User")
                         .WithMany("Cars")
                         .HasForeignKey("UserId");
+
+                    b.Navigation("IssueType");
 
                     b.Navigation("User");
                 });
@@ -437,20 +424,12 @@ namespace CarService.Data.Migrations
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
-                    b.HasOne("CarService.Data.Models.IssueType", "IssueType")
-                        .WithMany("Issues")
-                        .HasForeignKey("IssueTypeId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
                     b.Navigation("Car");
-
-                    b.Navigation("IssueType");
                 });
 
             modelBuilder.Entity("CarService.Data.Models.Mechanic", b =>
                 {
-                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", null)
+                    b.HasOne("CarService.Data.Models.User", null)
                         .WithOne()
                         .HasForeignKey("CarService.Data.Models.Mechanic", "UserId")
                         .OnDelete(DeleteBehavior.Restrict)
@@ -459,17 +438,9 @@ namespace CarService.Data.Migrations
 
             modelBuilder.Entity("CarService.Data.Models.Order", b =>
                 {
-                    b.HasOne("CarService.Data.Models.Car", "Car")
-                        .WithMany("Orders")
-                        .HasForeignKey("CarId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
                     b.HasOne("CarService.Data.Models.User", "User")
                         .WithMany("Orders")
                         .HasForeignKey("UserId");
-
-                    b.Navigation("Car");
 
                     b.Navigation("User");
                 });
@@ -485,9 +456,9 @@ namespace CarService.Data.Migrations
 
             modelBuilder.Entity("CarService.Data.Models.Work", b =>
                 {
-                    b.HasOne("CarService.Data.Models.Mechanic", "Mechanic")
+                    b.HasOne("CarService.Data.Models.Issue", "Issue")
                         .WithMany("Works")
-                        .HasForeignKey("MechanicId")
+                        .HasForeignKey("IssueId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
@@ -496,7 +467,7 @@ namespace CarService.Data.Migrations
                         .HasForeignKey("OrderId")
                         .OnDelete(DeleteBehavior.Restrict);
 
-                    b.Navigation("Mechanic");
+                    b.Navigation("Issue");
 
                     b.Navigation("Order");
                 });
@@ -512,7 +483,7 @@ namespace CarService.Data.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
                 {
-                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", null)
+                    b.HasOne("CarService.Data.Models.User", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -521,7 +492,7 @@ namespace CarService.Data.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<string>", b =>
                 {
-                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", null)
+                    b.HasOne("CarService.Data.Models.User", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -536,7 +507,7 @@ namespace CarService.Data.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", null)
+                    b.HasOne("CarService.Data.Models.User", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -545,7 +516,7 @@ namespace CarService.Data.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>
                 {
-                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", null)
+                    b.HasOne("CarService.Data.Models.User", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -555,18 +526,16 @@ namespace CarService.Data.Migrations
             modelBuilder.Entity("CarService.Data.Models.Car", b =>
                 {
                     b.Navigation("Issues");
+                });
 
-                    b.Navigation("Orders");
+            modelBuilder.Entity("CarService.Data.Models.Issue", b =>
+                {
+                    b.Navigation("Works");
                 });
 
             modelBuilder.Entity("CarService.Data.Models.IssueType", b =>
                 {
-                    b.Navigation("Issues");
-                });
-
-            modelBuilder.Entity("CarService.Data.Models.Mechanic", b =>
-                {
-                    b.Navigation("Works");
+                    b.Navigation("Cars");
                 });
 
             modelBuilder.Entity("CarService.Data.Models.Order", b =>

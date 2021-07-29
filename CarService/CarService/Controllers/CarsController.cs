@@ -4,6 +4,8 @@ namespace CarService.Controllers
     using CarService.Data;
     using CarService.Data.Models;
     using CarService.Models.Cars;
+    using CarService.Models.IssueTypes;
+    using CarService.Services.Cars;
     using Microsoft.AspNetCore.Mvc;
     using System;
     using System.Collections.Generic;
@@ -11,36 +13,43 @@ namespace CarService.Controllers
     using System.Threading.Tasks;
     public class CarsController : Controller
     {
-        private readonly ApplicationDbContext data;
+        private readonly ICarsService carsService;
 
-        public CarsController(ApplicationDbContext data)
+        public CarsController(ICarsService carsService)
         {
-            this.data = data;
+            this.carsService = carsService;
         }
 
         public IActionResult Add()
         {
-            return this.View();
+            var issueTypes = carsService
+                .AllIssueTypes()
+                .Select(x => new IndexIssueTypeViewModel
+                {
+                    Id = x.Id,
+                    Name = x.Name,
+                    ImageUrl=x.ImageUrl,
+                }).ToList();
+
+
+            return this.View(new AddCarFormModel
+            {
+                IssueTypes= issueTypes,
+
+            }) ;
         }
 
         [HttpPost]
-        public IActionResult Add(AddCarFormModel car, int issueId)
+        public IActionResult Add(AddCarFormModel car)
         {
 
-            var carData = new Car
-            {
-                Make = car.Make,
-                Model = car.Model,
-                ImageUrl = car.ImageUrl,
-                Year = car.Year,
-               PlateNumber=car.PlateNumber,
-
-            };
-
-            this.data.Cars.Add(carData);
-            this.data.SaveChanges();
-
-          
+            this.carsService.AddCar(car.Make
+                ,car.Model
+                ,car.PlateNumber
+                ,car.ImageUrl
+                ,car.Year
+                ,car.IssueTypeId
+                );                     
 
             return RedirectToAction("All","Cars");
          
@@ -48,7 +57,77 @@ namespace CarService.Controllers
 
         public IActionResult All()
         {
-            return this.View();
+            var carsData = this.carsService
+                .GetAllCar()
+                .Select(x => new CarListingViewModel
+                {
+                    Id=x.Id,
+                    Make=x.Make,
+                    Model=x.Model,
+                    PlateNumber=x.PlateNumber,
+                    ImageUrl=x.ImageUrl,
+                    Year=x.Year,
+                    IssueType=x.IssueType,
+                })
+                .ToList();
+
+            return this.View(carsData);
+        }
+
+        public IActionResult Edit(int carId)
+        {
+         
+            var carEdit = this.carsService.CarDetails(carId);
+                
+
+           var issueTypes = this.carsService
+                   .AllIssueTypes()
+                   .Select(x => new IndexIssueTypeViewModel
+                   {
+                       Id = x.Id,
+                       Name = x.Name,
+                       ImageUrl = x.ImageUrl,
+                   }).ToList();
+           
+
+            return this.View(new EditCarViewModel
+            {
+                Id=carEdit.Id,
+                Make=carEdit.Make,
+                Model=carEdit.Model,
+                PlateNumber=carEdit.PlateNumber,
+                ImageUrl=carEdit.ImageUrl,
+                Year=carEdit.Year,
+                IssueTypeId=carEdit.IssueTypeId,
+                IssueTypes=issueTypes,
+            });
+        }
+
+        [HttpPost]
+        public IActionResult Edit(int carId,EditCarViewModel car)
+        {
+            var carEdit=this.carsService.EditCar(
+                             carId
+                             ,car.Make
+                             ,car.Model
+                             ,car.PlateNumber
+                             ,car.ImageUrl
+                             ,car.Year
+                             ,car.IssueTypeId);
+
+            if (!carEdit)
+            {
+                return BadRequest();
+            }
+
+            return RedirectToAction("All");
+        }
+
+        public IActionResult DeleteCar(int carId)
+        {
+            this.carsService.DeleteCar(carId);
+
+            return this.RedirectToAction("All");
         }
     }
 }

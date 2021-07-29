@@ -12,17 +12,12 @@ namespace CarService.Data.Models
         public Order()
         {
             this.Id = Guid.NewGuid().ToString();
- 
             this.Works = new HashSet<Work>();
 
         }
         public string Id { get; set; }
 
         public decimal TotalPrice { get; set; }
-
-        public int CarId { get; set; }
-
-        public Car Car { get; set; }
 
         public string UserId { get; set; }
 

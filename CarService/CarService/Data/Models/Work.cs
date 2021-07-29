@@ -20,9 +20,9 @@ namespace CarService.Data.Models
 
         public Order Order { get; set; }
 
-        public int MechanicId { get; set; }
+        public int IssueId { get; set; }
 
-        public Mechanic Mechanic { get; set; }
+        public Issue Issue { get; set; }
 
 
     }

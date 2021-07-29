@@ -6728,11 +6728,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\HP\\Documents\\Kurs_SoftUni\\A_C#_ASP_NET_Core_may_2021_my\\CarServiceMy\\CarService10Sakr\\CarService\\CarService.csproj",
+      "projectUniqueName": "C:\\Users\\HP\\Documents\\Kurs_SoftUni\\A_C#_ASP_NET_Core_may_2021_my\\CarServiceMy\\CarService13CarMechanic\\CarService\\CarService.csproj",
       "projectName": "CarService",
-      "projectPath": "C:\\Users\\HP\\Documents\\Kurs_SoftUni\\A_C#_ASP_NET_Core_may_2021_my\\CarServiceMy\\CarService10Sakr\\CarService\\CarService.csproj",
+      "projectPath": "C:\\Users\\HP\\Documents\\Kurs_SoftUni\\A_C#_ASP_NET_Core_may_2021_my\\CarServiceMy\\CarService13CarMechanic\\CarService\\CarService.csproj",
       "packagesPath": "C:\\Users\\HP\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\HP\\Documents\\Kurs_SoftUni\\A_C#_ASP_NET_Core_may_2021_my\\CarServiceMy\\CarService10Sakr\\CarService\\obj\\",
+      "outputPath": "C:\\Users\\HP\\Documents\\Kurs_SoftUni\\A_C#_ASP_NET_Core_may_2021_my\\CarServiceMy\\CarService13CarMechanic\\CarService\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages",
@@ -6817,7 +6817,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.301\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.302\\RuntimeIdentifierGraph.json"
       }
     }
   }

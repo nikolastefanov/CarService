@@ -1,4 +1,6 @@
-﻿<h1 class="text-center mt-2">Add a new car</h1>
+﻿@model AddCarFormModel
+
+<h1 class="text-center mt-2">Add a new car</h1>
 <div class="row mt-4 mb-4">
     <div id="card" class="card col-6 col-lg-3 game-card h-100 m-auto">
         <img id="card-image"
@@ -30,6 +32,20 @@
             <label for="plateNumber-input">Plate Number</label>
             <input name="plateNumber" type="text" class="form-control" id="plateNumber-input">
         </div>
+        <div class="form-group">
+            <label asp-for="IssueTypeId"></label>
+            <select asp-for="IssueTypeId" class="form-control">
+                @foreach (var category in Model.IssueTypes)
+                {
+    <option value="@category.Id">@category.Name</option>
+}
+            </select>
+            <span asp-validation-for="IssueTypeId" class="small text-danger"></span>
+        </div>
+
+
+
+
         <button type="submit" class="btn btn-block btn-primary">
             Add Car
         </button>

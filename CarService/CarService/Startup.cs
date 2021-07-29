@@ -2,6 +2,7 @@ using CarService.Data;
 using CarService.Data.Models;
 using CarService.Infrastructure;
 using CarService.Services;
+using CarService.Services.Cars;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -48,6 +49,8 @@ namespace CarService
             services.AddControllersWithViews();
 
             services.AddTransient<IIssueTypesService, IssueTypesService>();
+
+            services.AddTransient<ICarsService, CarsService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
