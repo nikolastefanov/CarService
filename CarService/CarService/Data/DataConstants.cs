@@ -25,7 +25,10 @@ namespace CarService.Data
 
         public class Mechanic
         {
+            public const int NameMinLength = 3;
             public const int NameMaxLength = 20;
+            public const int PhoneNumberMinLength = 5;
+            public const int PhoneNumberMaxLength = 10;
         }
 
 
@@ -55,7 +58,8 @@ namespace CarService.Data
 
         public class Work
         {
-            public const int DescripMaxLength = 300;
+            public const int WorkMinLength = 10;
+            public const int WorkMaxLength = 300;
         }
     }
 }

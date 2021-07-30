@@ -1,6 +1,8 @@
 ﻿
 namespace CarService.Controllers
 {
+    using CarService.Models.Works;
+    using CarService.Services.Works;
     using Microsoft.AspNetCore.Mvc;
     using System;
     using System.Collections.Generic;
@@ -11,9 +13,33 @@ namespace CarService.Controllers
 
     public class WorksController : Controller
     {
+        private readonly IWorksService worsService;
+
+        public WorksController(IWorksService worsService)
+        {
+            this.worsService = worsService;
+        }
+
+
         public IActionResult  AddWorks()
         {
             return this.View();
+        }
+
+        [HttpPost]
+        public IActionResult AddWorks(AddWorkViewModel work)
+        {
+            var isWork=this.worsService
+                .CreateWork(
+                work.Description
+                 , work.Price);
+
+            if (!isWork)
+            {
+                return BadRequest();
+            }
+
+            return this.RedirectToAction("AllWorks");
         }
 
         public IActionResult AllWorks()
@@ -21,7 +47,7 @@ namespace CarService.Controllers
             return this.View();
         }
 
-        public IActionResult UpdateWorks()
+        public IActionResult EditWorks()
         {
             return this.View();
         }

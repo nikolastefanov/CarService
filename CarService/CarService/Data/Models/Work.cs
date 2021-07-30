@@ -11,7 +11,7 @@ namespace CarService.Data.Models
         public int Id { get; set; }
 
         [Required]
-        [MaxLength(DescripMaxLength)]
+        [MaxLength(WorkMaxLength)]
         public string Description{ get; set; }
 
         public decimal Price { get; set; }

@@ -29,7 +29,7 @@
                         </li>
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="IssueTypes" asp-action="AddIssueType">AddIssueType</a>
-                        </li>             
+                        </li>
 
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Cars" asp-action="Add">Add Car</a>
@@ -47,6 +47,9 @@
                             <a class="nav-link text-dark" asp-area="" asp-controller="Orders" asp-action="CreateOrder">Create Order</a>
                         </li>
 
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Mechanics" asp-action="Become">Become Mechanic</a>
+                        </li>
 
                         @if (User.Identity.IsAuthenticated)
                         {
