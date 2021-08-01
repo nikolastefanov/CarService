@@ -7,9 +7,12 @@ namespace CarService.Models.Issues
     using System.Threading.Tasks;
 
 
-    public class IssueTypeViewModel
+    public class IssueViewModel
     {
         public int Id { get; set; }
-        public string  Name { get; set; }
+
+        public string Description { get; set; }
+
+        public int CarId { get; set; }
     }
 }

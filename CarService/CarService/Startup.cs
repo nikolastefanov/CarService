@@ -3,6 +3,7 @@ using CarService.Data.Models;
 using CarService.Infrastructure;
 using CarService.Services;
 using CarService.Services.Cars;
+using CarService.Services.Issues;
 using CarService.Services.Mechanics;
 using CarService.Services.Works;
 using Microsoft.AspNetCore.Builder;
@@ -57,6 +58,8 @@ namespace CarService
             services.AddTransient<IMechanicsService,MechanicsService>();
 
             services.AddTransient<IWorksService,WorksService>();
+
+            services.AddTransient<IIssuesService, IssuesService>();
 
         }
 
