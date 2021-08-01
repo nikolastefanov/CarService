@@ -10,5 +10,11 @@ namespace CarService.Services.Issues
         void AddIssueToCar(string description, int carId);
 
         CarIssuesServiceModel GetAllIssues(int carId);
+
+        CarIssuesServiceModel DetailsIssue(int issueId, int carId);
+
+        void DeleteToIssue(int issueId, int carId);
+
+        void EditIssue(int issueId, int carId, string description);
     }
 }

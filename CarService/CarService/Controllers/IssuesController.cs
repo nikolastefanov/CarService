@@ -22,14 +22,17 @@ namespace CarService.Controllers
             this.issuesService = issuesService;
         }
 
-            public IActionResult AddIssue()
+        public IActionResult AddIssue(int carId)
+        {
+            return this.View(new AddIssueViewModel
             {
-                return this.View();
-            }
-           
-          [HttpPost]
-          public IActionResult AddIssue(AddIssueViewModel issue, int carId)
-          {
+                CarId = carId
+            });
+        }
+
+        [HttpPost]
+        public IActionResult AddIssue(AddIssueViewModel issue, int carId)
+        {
             //   if (!this.data.IssueTypes.Any(c => c.Id == issue.IssueTypeId))
             //   {
             //       this.ModelState.AddModelError(nameof(issue.IssueTypeId), "IssueType does not exist.");
@@ -59,12 +62,12 @@ namespace CarService.Controllers
                 issue.Description
                 , issue.CarId);
 
-          
-              return RedirectToAction("All");
-          
-            }
 
-          
+            return RedirectToAction("AllIssues");
+
+        }
+
+
         public IActionResult AllIssues(int carId)
         {
 
@@ -78,15 +81,70 @@ namespace CarService.Controllers
                 ModelCar = carData.Model,
                 Year = carData.Year,
                 PlateNumber = carData.PlateNumber,
-               Issues=carData.Issues.Select(i=>new IssueViewModel
-                                        {
-                                          Id=i.Id,
-                                          Description=i.Description,
-                                          CarId=i.CarId,
-                                        }),
+                Issues = carData.Issues.Select(i => new IssueViewModel
+                {
+                    Id = i.Id,
+                    Description = i.Description,
+                    CarId = i.CarId,
+                }).ToList()
             };
 
             return this.View(carIssuesData);
+        }
+
+
+        public IActionResult EditIssue(int issueId,int carId)
+        {
+            var carData=this.issuesService.DetailsIssue(issueId, carId);
+            var carIssueData = new CarIssuesViewModel
+            {
+                Id = carData.Id,
+                Make = carData.Make,
+                ModelCar = carData.Model,
+                Year = carData.Year,
+                PlateNumber = carData.PlateNumber,
+                Issues = carData.Issues
+                .Where(i=>i.Id==issueId)
+                .Select(i => new IssueViewModel
+                {
+                    Id = i.Id,
+                    Description = i.Description,
+                    CarId = i.CarId,
+                })
+            };
+            return this.View(carIssueData);
+        }
+
+        [HttpPost]
+        public IActionResult EditIssue(int issueId,int carId, EditCarIssueViewModel issuesModel)
+        {
+            // public IActionResult Edit(int carId)
+            // {
+            //     var carEdit = this.carsService.EditCar(
+            //                      carId
+            //                      , car.Make
+            //                      , car.Model
+            //                      , car.PlateNumber
+            //                      , car.ImageUrl
+            //                      , car.Year
+            //                      , car.IssueTypeId);
+            //
+            //     if (!carEdit)
+
+             this.issuesService.EditIssue(
+                                          issueId
+                                          , carId
+                                          , issuesModel.Description);
+
+                    return this.View("AllIssues");
+        }
+
+        public IActionResult DeleteIssue(int issueId, int carId)
+        {
+
+            this.issuesService.DeleteToIssue(issueId, carId);
+
+            return Redirect($"/Issues/AllIssues?carId={carId}");
         }
     }
 }
