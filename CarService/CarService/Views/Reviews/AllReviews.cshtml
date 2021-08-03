@@ -48,7 +48,7 @@
         @foreach (var review in Model)
         {
             <li class="list-group-item">@review.Id  <textarea class="col-8" rows="5">@review.Content</textarea></li>
-            <li class="list-group-item text-right"> date.utc.now</li>
+            <li class="list-group-item text-right">@review.CreateOn</li>
 
         }
 

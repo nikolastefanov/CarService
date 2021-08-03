@@ -17,6 +17,8 @@ namespace CarService.Services.Issues
 
         public string Description { get; set; }
 
+        public bool IsFixed { get; set; }
+
         public int CarId { get; set; }
         
     }

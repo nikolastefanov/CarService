@@ -30,7 +30,8 @@ namespace CarService.Controllers
         {
             var reviewData = new Review
             {
-                Content=review.Content,
+                Content = review.Content,
+                CreateOn = DateTime.UtcNow,
             };
 
            this.data.Reviews.Add(reviewData);
@@ -48,6 +49,7 @@ namespace CarService.Controllers
                 {
                     Id = x.Id,
                     Content = x.Content,
+                    CreateOn=x.CreateOn.ToString(),
                 })
                 .ToList();
            

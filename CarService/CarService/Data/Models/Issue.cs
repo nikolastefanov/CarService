@@ -22,6 +22,10 @@ namespace CarService.Data.Models
         [MaxLength(DescripMaxLength)]
         public string Description { get; set; }
 
+        [Required]
+        public bool IsFixed { get; set; }
+
+        [Required]
         public int CarId {get;set;}
 
         public Car Car { get; set; }

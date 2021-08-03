@@ -1,4 +1,5 @@
-﻿
+﻿@model CreateOrderGetViewModel
+
 @{
     this.ViewData["Title"] = "CreateOrder";
 }
@@ -6,8 +7,22 @@
 
 <div class="container-fluid text-center">
 
-    <h1>@this.ViewData["Title"]</h1>
+    <h2>@this.ViewData["Title"]</h2>
 
 </div>
+<form method="post">
 
-<a asp-controller="Orders" asp-action="AllOrders">AllOrders</a>
+    <div class="container-fluid text-center">
+        <div class="card border-success mb-3" style="max-width: 20rem;">
+            <div class="card-header">Yous Order!!!</div>
+            <div class="card-body">
+                <h4 class="card-title">Success card title</h4>
+                <p class="card-text">Total Price: @Model.TotalPrice </p>
+            </div>
+        </div>
+    </div>
+
+    <button type="submit" class="btn btn-primary">OK!!!</button>
+
+</form>
+   

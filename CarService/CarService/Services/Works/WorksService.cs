@@ -18,10 +18,11 @@ namespace CarService.Services.Works
         {
             this.data = data;
         }
-        public bool CreateWork(string description, decimal price)
+        public bool CreateWork(int issueId,string description, decimal price)
         {
             var workData = new Work
             {
+                IssueId=issueId,
                 Description=description,
                 Price=price,
             };

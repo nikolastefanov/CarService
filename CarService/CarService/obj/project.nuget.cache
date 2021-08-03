@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "mJoxbkCU991TC7Llo8ZcVsQcziElM3fQHt6XeQZ3Rs4bDET42oK5cL/WWgxMrMCnoUzbntbYeHN7wYIbT6gOsQ==",
+  "dgSpecHash": "r0yU165O905izLxmdIm82C1PayPZcybN3n8bas2NMj9Qamb0CQm5Yz9WHM+svv33YJpb5zwwx/StR7U7ZMwBzw==",
   "success": true,
-  "projectFilePath": "C:\\Users\\HP\\Documents\\Kurs_SoftUni\\A_C#_ASP_NET_Core_may_2021_my\\CarServiceMy\\CarService15CarMechanic\\CarService\\CarService.csproj",
+  "projectFilePath": "C:\\Users\\HP\\Documents\\Kurs_SoftUni\\A_C#_ASP_NET_Core_may_2021_my\\CarServiceMy\\CarService17CarMechanic\\CarService\\CarService.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\HP\\.nuget\\packages\\humanizer.core\\2.8.26\\humanizer.core.2.8.26.nupkg.sha512",
     "C:\\Users\\HP\\.nuget\\packages\\microsoft.aspnetcore.cryptography.internal\\5.0.8\\microsoft.aspnetcore.cryptography.internal.5.0.8.nupkg.sha512",

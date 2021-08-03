@@ -8,6 +8,6 @@ namespace CarService.Services.Works
 
     public interface IWorksService
     {
-        bool CreateWork(string description, decimal price);
+        bool CreateWork(int issueId,string description, decimal price);
     }
 }

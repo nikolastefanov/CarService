@@ -27,11 +27,12 @@ namespace CarService.Controllers
         }
 
         [HttpPost]
-        public IActionResult AddWorks(AddWorkViewModel work)
+        public IActionResult AddWorks(int issueId,AddWorkViewModel work)
         {
             var isWork=this.worsService
                 .CreateWork(
-                work.Description
+                   issueId
+                  ,work.Description
                  , work.Price);
 
             if (!isWork)

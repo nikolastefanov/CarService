@@ -11,6 +11,7 @@ namespace CarService.Models.Works
 
     public class AddWorkViewModel
     {
+        public int IssueId { get; set; }
 
         [Required]
         [StringLength(WorkMaxLength, MinimumLength = WorkMinLength)]

@@ -11,13 +11,11 @@ namespace CarService.Data
     {
         public class Car
         {
-            public const int MakeMinLength = 2;
+            public const int MakeMinLength = 1;
             public const int MakeMaxLength = 20;
-            public const string CarRegexPlateNumber = "";
-            public const int ModelMinLength = 2;
+            public const string CarRegexPlateNumber = @"[A-Z]{2}[0-9]{4}[A-Z]{2}";
+            public const int ModelMinLength = 1;
             public const int ModelMaxLength = 30;
-            public const int PlateNumberMaxLength = 30;
-            public const int PlateNumberMinLength = 8;
             public const int YearMinValue = 1950;
             public const int YearMaxValue = 2021;
         }
@@ -34,17 +32,17 @@ namespace CarService.Data
 
         public class Issue
         {
-            public const int DescripMaxLength = 300;
             public const int DescripMinLength = 5;
-            public const int InpMaxLength = 300;
+            public const int DescripMaxLength = 300;
             public const int InpMinLength = 5;
+            public const int InpMaxLength = 300;
         }
 
 
         public class IssueType
         {
-            public const int IsTypeNameMaxLength = 100;
             public const int IsTypeNameMinLength = 5;
+            public const int IsTypeNameMaxLength = 100;
         }
 
 

@@ -9,9 +9,9 @@ namespace CarService.Services.Issues
     {
         void AddIssueToCar(string description, int carId);
 
-        CarIssuesServiceModel GetAllIssues(int carId);
+        IEnumerable<IssueServiceModel> GetAllIssues(int carId);
 
-        CarIssuesServiceModel DetailsIssue(int issueId, int carId);
+        IssueServiceModel DetailsIssue(int issueId, int carId);
 
         void DeleteToIssue(int issueId, int carId);
 

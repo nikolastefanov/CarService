@@ -24,7 +24,7 @@ namespace CarService.Models.Cars
         public string Model { get; init; }
 
         [Required]
-        [StringLength(PlateNumberMaxLength, MinimumLength = PlateNumberMinLength)]
+        [RegularExpression("CarRegexPlateNumber")]
         public string PlateNumber { get; set; }
 
         [Display(Name = "Image URL")]

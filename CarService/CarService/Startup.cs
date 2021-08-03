@@ -1,27 +1,30 @@
-using CarService.Data;
-using CarService.Data.Models;
-using CarService.Infrastructure;
-using CarService.Services;
-using CarService.Services.Cars;
-using CarService.Services.Issues;
-using CarService.Services.Mechanics;
-using CarService.Services.Works;
-using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Identity.UI;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Hosting;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace CarService
 {
+    using CarService.Data;
+    using CarService.Data.Models;
+    using CarService.Infrastructure;
+    using CarService.Services;
+    using CarService.Services.Cars;
+    using CarService.Services.Issues;
+    using CarService.Services.Mechanics;
+    using CarService.Services.Orders;
+    using CarService.Services.Works;
+    using Microsoft.AspNetCore.Builder;
+    using Microsoft.AspNetCore.Hosting;
+    using Microsoft.AspNetCore.HttpsPolicy;
+    using Microsoft.AspNetCore.Identity;
+    using Microsoft.AspNetCore.Identity.UI;
+    using Microsoft.EntityFrameworkCore;
+    using Microsoft.Extensions.Configuration;
+    using Microsoft.Extensions.DependencyInjection;
+    using Microsoft.Extensions.Hosting;
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+    using System.Threading.Tasks;
+
+
     public class Startup
     {
         public Startup(IConfiguration configuration)
@@ -61,16 +64,13 @@ namespace CarService
 
             services.AddTransient<IIssuesService, IssuesService>();
 
+            services.AddTransient<IOrdersService, OrdersService>();
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
-         //using (var serviceScope = app.ApplicationServices.CreateScope())
-         //{
-         //     var dbContext = serviceScope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
-         //     dbContext.Database.EnsureCreated();
-         // }
             app.PrepareDatabase();
 
             if (env.IsDevelopment())

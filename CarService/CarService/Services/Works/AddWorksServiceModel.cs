@@ -8,6 +8,8 @@ namespace CarService.Services.Works
 
     public class AddWorksServiceModel
     {
+        public int IssueId { get; set; }
+
         public string Description { get; set; }
 
         public decimal Price { get; set; }

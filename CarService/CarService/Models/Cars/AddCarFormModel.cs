@@ -12,6 +12,8 @@ namespace CarService.Models.Cars
     using static Data.DataConstants.Issue;
     using CarService.Models.IssueTypes;
 
+    using static Data.DataConstants.Car;
+
     public class AddCarFormModel
     {
 
@@ -24,7 +26,7 @@ namespace CarService.Models.Cars
         public string Model { get; init; }
 
         [Required]
-        [StringLength(PlateNumberMaxLength, MinimumLength = PlateNumberMinLength)]
+        [RegularExpression("CarRegexPlateNumber")]
         public string PlateNumber { get; set; }
 
         [Display(Name = "Image URL")]

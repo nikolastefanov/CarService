@@ -19,6 +19,8 @@ namespace CarService.Data.Models
 
         public decimal TotalPrice { get; set; }
 
+        public DateTime CreateOn { get; set; }
+
         public string UserId { get; set; }
 
         public User User { get; set; }

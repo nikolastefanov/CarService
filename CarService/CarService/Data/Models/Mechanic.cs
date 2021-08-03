@@ -19,6 +19,10 @@ namespace CarService.Data.Models
         public string FullName { get; set; }
 
         [Required]
+        [MaxLength(PhoneNumberMaxLength)]
+        public string PhoneNumber { get; set; }
+
+        [Required]
         public string UserId { get; set; }
      
     }

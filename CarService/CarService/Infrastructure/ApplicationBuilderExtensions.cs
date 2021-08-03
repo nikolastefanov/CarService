@@ -42,17 +42,11 @@ namespace CarService.Infrastructure
                          new IssueType { Name = "Technical inspeccion" ,ImageUrl="https://www.theolivepress.es/wp-content/uploads/2020/01/itvvv.jpg?width=1200&enable=upscale"},
                    });
                  
-                   data.SaveChanges();
-                //index page:  https://local-auto-locksmith.co.uk/wp-content/uploads/2020/01/5c7e7fc789f49339065587c2-768x459.jpg
+                   data.SaveChanges();              
             }
-
-
-         
-
-
-         
 
            return;
         }
+     
     }
 }
