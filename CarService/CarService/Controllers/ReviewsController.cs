@@ -1,24 +1,21 @@
 ﻿
 namespace CarService.Controllers
 {
-    using CarService.Data;
-    using CarService.Data.Models;
     using CarService.Models.Reviews;
+    using CarService.Services.Reviews;
     using Microsoft.AspNetCore.Mvc;
-    using System;
-    using System.Collections.Generic;
     using System.Linq;
-    using System.Threading.Tasks;
 
 
     public class ReviewsController : Controller
     {
-        private readonly ApplicationDbContext data;
+        private readonly IReviewsService reviewsService;
 
-        public ReviewsController(ApplicationDbContext data)
+        public ReviewsController(IReviewsService reviewsService)
         {
-            this.data = data;
+            this.reviewsService = reviewsService;
         }
+
         public IActionResult Create()
         {
             return this.View();
@@ -27,16 +24,9 @@ namespace CarService.Controllers
 
         [HttpPost]
         public IActionResult Create(ReviewInputFormModel review)
-        {
-            var reviewData = new Review
-            {
-                Content = review.Content,
-                CreateOn = DateTime.UtcNow,
-            };
+        {           
 
-           this.data.Reviews.Add(reviewData);
-            this.data.SaveChanges();
-
+            reviewsService.CreateReview(review.Content);
 
             return RedirectToAction("AllReviews","Reviews");
         }
@@ -44,14 +34,16 @@ namespace CarService.Controllers
         public IActionResult AllReviews()
         {
 
-            var reviewsAll = data.Reviews
+            var reviewsAll = reviewsService
+                .GetAllReview()
                 .Select(x => new ReviewViewModel
                 {
                     Id = x.Id,
                     Content = x.Content,
-                    CreateOn=x.CreateOn.ToString(),
+                    CreateOn = x.CreateOn.ToString()
                 })
                 .ToList();
+                
            
             return this.View(reviewsAll);
         }

@@ -9,6 +9,7 @@ namespace CarService
     using CarService.Services.Issues;
     using CarService.Services.Mechanics;
     using CarService.Services.Orders;
+    using CarService.Services.Reviews;
     using CarService.Services.Works;
     using Microsoft.AspNetCore.Builder;
     using Microsoft.AspNetCore.Hosting;
@@ -65,6 +66,8 @@ namespace CarService
             services.AddTransient<IIssuesService, IssuesService>();
 
             services.AddTransient<IOrdersService, OrdersService>();
+
+            services.AddTransient<IReviewsService, ReviewsService>();
 
         }
 

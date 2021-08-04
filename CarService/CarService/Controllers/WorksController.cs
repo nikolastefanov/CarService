@@ -39,8 +39,9 @@ namespace CarService.Controllers
             {
                 return BadRequest();
             }
-
-            return this.RedirectToAction("AllWorks","Works",new {issueId=issueId,carId=carId});
+            return Redirect($"/Works/AllWorks?issueId={issueId}&carId={carId}");
+            
+            //return this.RedirectToAction("AllWorks","Works",new {issueId=issueId,carId=carId});
         }
 
         public IActionResult AllWorks(int issueId,int carId)
