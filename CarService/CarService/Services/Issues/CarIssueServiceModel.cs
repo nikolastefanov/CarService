@@ -6,9 +6,8 @@ namespace CarService.Services.Issues
     using System.Linq;
     using System.Threading.Tasks;
 
-    public class IssuesServiceModel
+    public class CarIssueServiceModel
     {
-
         public int Id { get; set; }
 
         public string PlateNumber { get; set; }
@@ -19,7 +18,8 @@ namespace CarService.Services.Issues
 
         public int Year { get; set; }
 
-      //  public IEnumerable<IssueServiceModel> Issues { get; set; }
+        public IEnumerable<IssueServiceModel> Issues { get; set; }
+
 
     }
 }

@@ -13,11 +13,11 @@ namespace CarService.Controllers
 
     public class WorksController : Controller
     {
-        private readonly IWorksService worsService;
+        private readonly IWorksService worksService;
 
-        public WorksController(IWorksService worsService)
+        public WorksController(IWorksService worksService)
         {
-            this.worsService = worsService;
+            this.worksService = worksService;
         }
 
 
@@ -27,9 +27,9 @@ namespace CarService.Controllers
         }
 
         [HttpPost]
-        public IActionResult AddWorks(int issueId,AddWorkViewModel work)
+        public IActionResult AddWorks(int issueId,int carId,AddWorkViewModel work)
         {
-            var isWork=this.worsService
+            var isWork=this.worksService
                 .CreateWork(
                    issueId
                   ,work.Description
@@ -40,12 +40,25 @@ namespace CarService.Controllers
                 return BadRequest();
             }
 
-            return this.RedirectToAction("AllWorks");
+            return this.RedirectToAction("AllWorks","Works",new {issueId=issueId,carId=carId});
         }
 
-        public IActionResult AllWorks()
+        public IActionResult AllWorks(int issueId,int carId)
         {
-            return this.View();
+
+            var workData = this.worksService.GetAllWorks(issueId,carId);
+
+            var workDataView = workData
+                .Select(x => new WorkWorkViewModel
+                {
+                    Id=x.Id,
+                    IssueId=x.IssueId,
+                    Description=x.Description,
+                    Price=x.Price,
+                })
+                .ToList();
+
+            return this.View(workDataView);
         }
 
         public IActionResult EditWorks()

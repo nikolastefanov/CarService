@@ -32,15 +32,41 @@ namespace CarService.Services.Issues
 
         public void DeleteToIssue(int issueId, int carId)
         {
-            var issue = this.data.Issues.Find(issueId);
+            var issue = this.data
+                .Issues
+                .Where(x => x.CarId == carId && x.Id==issueId)
+                .FirstOrDefault();
 
             this.data.Issues.Remove(issue);
 
             this.data.SaveChanges();
         }
 
-        public IssueServiceModel DetailsIssue(int issueId, int carId)
+        public IEnumerable<CarIssueServiceModel> DetailsIssue(int issueId, int carId)
         {
+            var carData = this.data
+               .Cars
+               .Where(x => x.Id == carId)
+               .Select(x => new CarIssueServiceModel
+               {
+                   Id = x.Id,
+                   Make = x.Make,
+                   Model = x.Model,
+                   PlateNumber = x.PlateNumber,
+                   Year = x.Year,
+                   Issues = x.Issues
+                            .Where(s=>s.Id==issueId)
+                            .Select(i => new IssueServiceModel
+                            {
+                                Id = i.Id,
+                                Description = i.Description,
+                                CarId = i.CarId,
+                            }).ToList()
+               }).ToList();
+
+            return carData;
+
+
             // var carData = this.data
             //    .Cars
             //    .Where(x => x.Id == carId)
@@ -63,7 +89,7 @@ namespace CarService.Services.Issues
 
 
 
-            return null; // carData;
+          //  return null; // carData;
         }
 
         public void EditIssue(int issueId, int carId, string description)
@@ -79,40 +105,29 @@ namespace CarService.Services.Issues
             this.data.SaveChanges();
         }
 
-        public IEnumerable<IssueServiceModel> GetAllIssues(int carId)
+        public IEnumerable<CarIssueServiceModel> GetAllIssues(int carId)
         {
 
-          //ar carData = this.data
-          //   .Cars
-          //   .Where(x => x.Id == carId)
-          //   .Select(x => new IssuesServiceModel
-          //   {
-          //       Id = x.Id,
-          //       Make = x.Make,
-          //       Model = x.Model,
-          //       PlateNumber = x.PlateNumber,
-          //       Year = x.Year,
-          //      // Issues = x.Issues
-          //      //          .Select(i => new IssueServiceModel
-          //      //          {
-          //      //              Id=i.Id,
-          //      //              Description=i.Description,
-          //      //              CarId=i.CarId,
-          //      //          }).ToList()
-          //   }).FirstOrDefault();
-
             var carData = this.data
-               .Issues
+               .Cars
                .Where(x => x.Id == carId)
-               .Select(s => new IssueServiceModel
+               .Select(x => new CarIssueServiceModel
                {
-                   Id=s.Id,
-                   Description=s.Description,
-                   IsFixed=s.IsFixed,
-                   CarId=s.CarId,
-
+                   Id = x.Id,
+                   Make = x.Make,
+                   Model = x.Model,
+                   PlateNumber = x.PlateNumber,
+                   Year = x.Year,
+                   Issues = x.Issues
+                            .Select(i => new IssueServiceModel
+                            {
+                                Id = i.Id,
+                                Description = i.Description,
+                                CarId = i.CarId,
+                            }).ToList()
                }).ToList();
 
+        
 
             return carData;
         }

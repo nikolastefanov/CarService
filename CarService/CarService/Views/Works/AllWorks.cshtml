@@ -1,4 +1,5 @@
-﻿
+﻿@model List<WorkWorkViewModel>
+
 @{
     this.ViewData["Title"] = "AllWorks";
 }
@@ -9,4 +10,18 @@
     <h1>@this.ViewData["Title"]</h1>
 
 </div>
-<a asp-controller="Works" asp-action="EditWorks">Edit Works</a>
+
+@foreach (var work in Model)
+{
+<div class="card bg-light mb-3" style="max-width: 20rem;">
+    <div class="card-header">Header</div>
+    <div class="card-body">
+        <h4 class="card-title">Price: @work.Price</h4>
+        <p class="card-text">@work.Description</p>
+    </div>
+</div>
+
+
+
+    <a asp-controller="Works" asp-action="EditWorks">Edit Works</a>
+}

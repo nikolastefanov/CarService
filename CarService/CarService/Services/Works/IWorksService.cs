@@ -9,5 +9,7 @@ namespace CarService.Services.Works
     public interface IWorksService
     {
         bool CreateWork(int issueId,string description, decimal price);
+
+        IEnumerable<WorkServiceModel> GetAllWorks(int issueId,int carId);
     }
 }
