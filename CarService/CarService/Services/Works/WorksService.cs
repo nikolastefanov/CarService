@@ -38,64 +38,100 @@ namespace CarService.Services.Works
             return true;
         }
 
-        public IEnumerable<WorkServiceModel> GetAllWorks(int issueId,int carId)
+        public void DeleteToWork(int workId, int issueId,int carId)
+        {
+            var work = this.data
+             .Issues
+             .Where(x => x.Id == issueId && x.CarId == carId)
+             .Select(s => s.Works
+                         .Where(s => s.Id == workId).FirstOrDefault()
+            ).FirstOrDefault();
+
+            this.data.Works.Remove(work);
+
+            this.data.SaveChanges();
+
+        }
+
+        public WorkServiceModel DetailsWork(int workId, int issueId, int carId)
+        {
+            var work = this.data
+             .Issues
+             .Where(x => x.Id == issueId && x.CarId == carId)
+             .Select(s => s.Works
+                         .Where(x => x.Id == workId)
+                         .Select(w=>new WorkServiceModel
+                         {
+                             Id = w.Id,
+                             Description = w.Description,
+                             IssueId = w.IssueId,
+                             Price = w.Price,
+                         })
+                         .FirstOrDefault()
+            ).FirstOrDefault();
+            
+
+            return work;
+      
+        }
+
+        public bool EditToWork(int workId, int iissueId, int carId
+                    ,string description,decimal price,int id,int issueId)
+        {
+            ;
+            var workData = this.data
+             .Issues
+             .Where(x => x.Id == issueId && x.CarId == carId)
+             .Select(s => s.Works
+                         .Where(x => x.Id == workId)
+                         .Select(w => new WorkServiceModel
+                         {
+                             Id = w.Id,
+                             Description = w.Description,
+                             IssueId = w.IssueId,
+                             Price = w.Price,
+                         })
+                         .FirstOrDefault()
+            ).FirstOrDefault();
+
+            //TODO: poverka dali ima work
+            if (true)
+            {
+
+            }
+
+            workData.Description = description;
+            workData.Price = price;
+
+            this.data.SaveChanges();
+
+            return true;
+
+        }
+
+        public IEnumerable<IssueWorkServiceModel> GetAllWorks(int issueId,int carId)
         {
             var allWorks = this.data
               .Issues
-              .Where(x => x.CarId == carId && x.Id == issueId)
-              .Select(s => new IssueWorkServiceModel
-              {
-                  Id = s.Id,
-                  Description = s.Description,
-                  IsFixed = s.IsFixed,
-                  CarId = s.CarId,
-                  Works = s.Works
-                           .Select(w => new WorkServiceModel
-                           {
-                               Id = w.Id,
-                               Description = w.Description,
-                               IssueId = w.IssueId,
-                               Price = w.Price,
-                           }).ToList()
-              }).ToList();
+              .Where(x => x.Id == issueId && x.CarId == carId)
+             .Select(s => new IssueWorkServiceModel
+             {
+                 Id = s.Id,
+                 Description = s.Description,
+                 IsFixed = s.IsFixed,
+                 CarId = s.CarId,
+                 Works = s.Works
+                          .Select(w => new WorkServiceModel
+                          {
+                              Id = w.Id,
+                              Description = w.Description,
+                              IssueId = w.IssueId,
+                              Price = w.Price,
+                          }).ToList()
+             }).ToList();
 
-            return null;
-
-
+            return allWorks;
          
-
-          //  var carData = this.data
-          //     .Cars
-          //     .Where(x => x.Id == carId)
-          //     .Select(x => new CarIssueServiceModel
-          //     {
-          //         Id = x.Id,
-          //         Make = x.Make,
-          //         Model = x.Model,
-          //         PlateNumber = x.PlateNumber,
-          //         Year = x.Year,
-          //         Issues = x.Issues
-          //                  .Select(i => new IssueServiceModel
-          //                  {
-          //                      Id = i.Id,
-          //                      Description = i.Description,
-          //                      CarId = i.CarId,
-          //                  }).ToList()
-          //     }).ToList();
-
-
-            //  var listWorks = allIssues
-            //    .Works
-            //    .Select(x => new WorkServiceModel
-            //    {
-            //        Id = x.Id,
-            //        Description = x.Description,
-            //        IssueId = x.IssueId,
-            //        Price = x.Price,
-            //    }).ToList();
-            //
-
-
         }  
         
     }

@@ -10,6 +10,13 @@ namespace CarService.Services.Works
     {
         bool CreateWork(int issueId,string description, decimal price);
 
-        IEnumerable<WorkServiceModel> GetAllWorks(int issueId,int carId);
+        IEnumerable<IssueWorkServiceModel> GetAllWorks(int issueId,int carId);
+
+        void DeleteToWork(int workId, int issueId,int carId);
+
+        WorkServiceModel DetailsWork(int workId, int issueId, int carId);
+
+        bool EditToWork(int workId, int iissueId, int carId
+                     , string description, decimal price, int id, int issueId);
     }
 }

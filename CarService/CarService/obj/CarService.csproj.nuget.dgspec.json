@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\HP\\Documents\\Kurs_SoftUni\\A_C#_ASP_NET_Core_may_2021_my\\CarServiceMy\\CarService19CarMechanicIssue\\CarService\\CarService.csproj": {}
+    "C:\\Users\\HP\\Documents\\Kurs_SoftUni\\A_C#_ASP_NET_Core_may_2021_my\\CarServiceMy\\CarService22CarMechanicIssue\\CarService\\CarService.csproj": {}
   },
   "projects": {
-    "C:\\Users\\HP\\Documents\\Kurs_SoftUni\\A_C#_ASP_NET_Core_may_2021_my\\CarServiceMy\\CarService19CarMechanicIssue\\CarService\\CarService.csproj": {
+    "C:\\Users\\HP\\Documents\\Kurs_SoftUni\\A_C#_ASP_NET_Core_may_2021_my\\CarServiceMy\\CarService22CarMechanicIssue\\CarService\\CarService.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\HP\\Documents\\Kurs_SoftUni\\A_C#_ASP_NET_Core_may_2021_my\\CarServiceMy\\CarService19CarMechanicIssue\\CarService\\CarService.csproj",
+        "projectUniqueName": "C:\\Users\\HP\\Documents\\Kurs_SoftUni\\A_C#_ASP_NET_Core_may_2021_my\\CarServiceMy\\CarService22CarMechanicIssue\\CarService\\CarService.csproj",
         "projectName": "CarService",
-        "projectPath": "C:\\Users\\HP\\Documents\\Kurs_SoftUni\\A_C#_ASP_NET_Core_may_2021_my\\CarServiceMy\\CarService19CarMechanicIssue\\CarService\\CarService.csproj",
+        "projectPath": "C:\\Users\\HP\\Documents\\Kurs_SoftUni\\A_C#_ASP_NET_Core_may_2021_my\\CarServiceMy\\CarService22CarMechanicIssue\\CarService\\CarService.csproj",
         "packagesPath": "C:\\Users\\HP\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\HP\\Documents\\Kurs_SoftUni\\A_C#_ASP_NET_Core_may_2021_my\\CarServiceMy\\CarService19CarMechanicIssue\\CarService\\obj\\",
+        "outputPath": "C:\\Users\\HP\\Documents\\Kurs_SoftUni\\A_C#_ASP_NET_Core_may_2021_my\\CarServiceMy\\CarService22CarMechanicIssue\\CarService\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages",

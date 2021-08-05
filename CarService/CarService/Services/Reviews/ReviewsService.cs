@@ -30,6 +30,18 @@ namespace CarService.Services.Reviews
             this.data.SaveChanges();
         }
 
+        public void DeleteReview(int reviewId)
+        {
+            var review = this.data
+                .Reviews
+                .Where(x => x.Id == reviewId)
+                .FirstOrDefault();
+
+            this.data.Reviews.Remove(review);
+
+            this.data.SaveChanges();
+        }
+
         public IEnumerable<ReviewServiceModel> GetAllReview()
         {
             var reviews = this.data.Reviews

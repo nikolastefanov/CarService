@@ -1,4 +1,4 @@
-﻿
+﻿@model EditWorkViewModel
 
 @{
     this.ViewData["Title"] = "Edit Works";
@@ -11,4 +11,44 @@
 
 </div>
 
-<a asp-controller="Works" asp-action="DeleteWorks">DeleteWorks</a>
+<script src="~/lib/tinymce/tinymce.min.js" type="text/javascript"></script>
+<script type="text/javascript">
+    tinymce.init({
+        selector: "textarea",
+        plugins: [
+            "image paste table link code media"
+        ]
+    });
+</script>
+<form method="post">
+    <div class="row">
+        <div class="col-sm-12 offset-lg-2 col-lg-8 offset-xl-3 col-xl-6">
+            <h2 class="heading-margin text-center">@ViewBag.Title</h2>
+
+            <div class="form-group">
+                <label asp-for="Description"></label>
+                <textarea asp-for="Description" rows="4" class="form-control" placeholder="This is the perfect car..."></textarea>
+                <!--   <span asp-validation-for="Description" class="small text-danger"></span> -->
+            </div>
+
+            <div class="form-group">
+                <label asp-for="Price"></label>
+                <input asp-for="Price" class="form-control" placeholder=" Price...">
+                <!-- <span asp-validation-for="Price" class="small text-danger"></span>-->
+            </div>
+
+            <input class="btn btn-primary mt-3" type="submit" value="Save" />
+        </div>
+    </div>
+</form>
+
+
+
+
+
+
+
+
+
+
+

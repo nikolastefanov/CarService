@@ -47,29 +47,72 @@ namespace CarService.Controllers
         public IActionResult AllWorks(int issueId,int carId)
         {
 
-            var workData = this.worksService.GetAllWorks(issueId,carId);
-
-            var workDataView = workData
-                .Select(x => new WorkWorkViewModel
+            var pr = this.worksService
+                .GetAllWorks(issueId, carId)
+                .Select(x => new ListingWorkViewModel
                 {
-                    Id=x.Id,
-                    IssueId=x.IssueId,
-                    Description=x.Description,
-                    Price=x.Price,
-                })
-                .ToList();
+                    Id = x.Id,
+                    Description = x.Description,
+                    IsFixed = x.IsFixed,
+                    CarId = x.CarId,
+                    Works = x.Works.Select(w => new WorkWorkViewModel
+                    {
+                        Id = w.Id,
+                        Description = w.Description,
+                        IssueId = w.IssueId,
+                        Price = w.Price,
+                    }).ToList(),
+                }).FirstOrDefault();
 
-            return this.View(workDataView);
+            return this.View(pr);
+            
         }
 
-        public IActionResult EditWorks()
+        public IActionResult EditWorks(int workId, int issueId, int carId)
         {
-            return this.View();
+            ;
+            var workEdit=this.worksService.DetailsWork(workId, issueId, carId);
+
+            return this.View(new EditWorkViewModel
+            {
+               Id=workEdit.Id,
+               Description=workEdit.Description,
+               IssueId=workEdit.IssueId,
+               Price=workEdit.Price,
+            });
         }
 
-        public IActionResult DeleteWorks()
+        [HttpPost]
+        public IActionResult EditWorks(int workId
+            , int issueId
+            , int carId
+            , EditWorkViewModel work)
         {
-            return this.View();
+
+            var workEdit = this.worksService
+                .EditToWork(workId
+                , issueId
+                , carId
+                , work.Description
+                , work.Price
+                ,work.Id
+                ,work.IssueId);
+
+            if (!workEdit)
+            {
+                return BadRequest();
+            }
+
+            return Redirect($"/Works/AllWorks?issueId={issueId}&carId={carId}");
+        }
+
+
+
+        public IActionResult DeleteWorks(int workId,int issueId,int carId)
+        {
+            this.worksService.DeleteToWork(workId, issueId,carId);
+
+            return Redirect($"/Works/AllWorks?issueId={issueId}&carId={carId}");
         }
 
     }

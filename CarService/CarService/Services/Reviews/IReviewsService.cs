@@ -13,5 +13,7 @@ namespace CarService.Services.Reviews
 
         IEnumerable<ReviewServiceModel> GetAllReview();
 
+        void DeleteReview(int reviewId);
+
     }
 }

@@ -47,15 +47,19 @@
 
         @foreach (var review in Model)
         {
+            <br/>
             <li class="list-group-item">@review.Id  <textarea class="col-8" rows="5">@review.Content</textarea></li>
             <li class="list-group-item text-right">@review.CreateOn</li>
-
+            <div class="form-control">
+            <a class="btn btn-outline-danger"asp-controller="Reviews" asp-action="Delete" asp-route-reviewId="@review.Id">Delete</a>
+            </div>
+            <br/>
         }
 
 
     </ul>
-
-    <div class="text-center">
+    <br/>
+    <div class="form-control text-center">
         <a asp-controller="Reviews" asp-action="Create" class="btn btn-primary"> Write a review !!!</a>
     </div>
 

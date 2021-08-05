@@ -47,5 +47,12 @@ namespace CarService.Controllers
            
             return this.View(reviewsAll);
         }
+
+        public ActionResult Delete(int reviewId)
+        {
+            reviewsService.DeleteReview(reviewId);
+
+            return RedirectToAction("AllReviews");
+        }
     }
 }

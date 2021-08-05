@@ -1,12 +1,11 @@
-﻿
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+
 namespace CarService.Models.Works
 {
-    using System;
-    using System.Collections.Generic;
-    using System.Linq;
-    using System.Threading.Tasks;
-
-    public class ListingWorkViewModel
+    public class EditListingWorkViewModel
     {
         public int Id { get; set; }
 
