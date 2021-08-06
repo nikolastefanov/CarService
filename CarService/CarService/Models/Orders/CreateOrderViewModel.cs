@@ -8,10 +8,10 @@ namespace CarService.Models.Orders
 
     public class CreateOrderViewModel
     {
-        //public string UserId { get; set;}
+        public string UserId { get; set;}
 
         public decimal TotalPrice { get; set; }
 
-        //public IEnumerable<WorkViewModel> Works { get; set; }
+        public IEnumerable<WorkViewModel> Works { get; set; }
     }
 }

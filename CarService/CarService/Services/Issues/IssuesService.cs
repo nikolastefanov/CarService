@@ -42,57 +42,42 @@ namespace CarService.Services.Issues
             this.data.SaveChanges();
         }
 
-        public IEnumerable<CarIssueServiceModel> DetailsIssue(int issueId, int carId)
+        public IssueServiceModel DetailsIssue(int issueId, int carId)
         {
-            var carData = this.data
+            var issueData = this.data
                .Cars
                .Where(x => x.Id == carId)
-               .Select(x => new CarIssueServiceModel
-               {
-                   Id = x.Id,
-                   Make = x.Make,
-                   Model = x.Model,
-                   PlateNumber = x.PlateNumber,
-                   Year = x.Year,
-                   Issues = x.Issues
-                            .Where(s=>s.Id==issueId)
+               .Select(x => x.Issues
+                            .Where(s => s.Id == issueId)
                             .Select(i => new IssueServiceModel
                             {
                                 Id = i.Id,
                                 Description = i.Description,
+                                IsFixed=i.IsFixed,
                                 CarId = i.CarId,
-                            }).ToList()
-               }).ToList();
+                            }).FirstOrDefault()
+               ).FirstOrDefault();
 
-            return carData;
+            return issueData;
 
+          //  var work = this.data
+          //   .Issues
+          //   .Where(x => x.Id == issueId && x.CarId == carId)
+          //   .Select(s => s.Works
+          //               .Where(x => x.Id == workId)
+          //               .Select(w => new WorkServiceModel
+          //               {
+          //                   Id = w.Id,
+          //                   Description = w.Description,
+          //                   IssueId = w.IssueId,
+          //                   Price = w.Price,
+          //               })
+          //               .FirstOrDefault()
+          //  ).FirstOrDefault();
 
-            // var carData = this.data
-            //    .Cars
-            //    .Where(x => x.Id == carId)
-            //    .Select(x => new CarIssuesServiceModel
-            //    {
-            //        Id = x.Id,
-            //        Make = x.Make,
-            //        Model = x.Model,
-            //        PlateNumber = x.PlateNumber,
-            //        Year = x.Year,
-            //       // Issues = x.Issues
-            //       //          .Where(i=>i.Id==issueId)
-            //       //          .Select(i => new IssueServiceModel
-            //       //          {
-            //       //              Id = i.Id,
-            //       //              Description = i.Description,
-            //       //              CarId = i.CarId,
-            //       //          })
-            //    }).FirstOrDefault();
-
-
-
-          //  return null; // carData;
         }
 
-        public void EditIssue(int issueId, int carId, string description)
+        public void EditIssue(int issueId, int carId, string description,bool isfixed)
         {
             var issueData = this.data
                 .Issues
@@ -101,6 +86,8 @@ namespace CarService.Services.Issues
 
 
             issueData.Description = description;
+            issueData.IsFixed = isfixed;
+            ;
 
             this.data.SaveChanges();
         }

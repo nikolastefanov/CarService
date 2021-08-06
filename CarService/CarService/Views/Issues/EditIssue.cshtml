@@ -1,63 +1,40 @@
 ﻿
-@model CarIssuesViewModel
+@model IssueViewModel
 
-<div class="container">
-    <div class="section">
-        <div class="row">
-            <div class="col-md-10 offset-md-1">
-                <div class="page-header text-center">
-                    <h2 id="tables">Listed issues for: </h2>
-                    <h2 class="font-weight-bold font-italic">@Model.Year @Model.Make @Model.ModelCar</h2>
-                </div>
 
-                <div class="d-flex justify-content-center">
-                    <a class="btn btn-block btn-primary text-white mb-3" href="/Issues/AddIssue?carId=@Model.Id">Add a new Issue</a>
-                </div>
+<script src="~/lib/tinymce/tinymce.min.js" type="text/javascript"></script>
+<script type="text/javascript">
+    tinymce.init({
+        selector: "textarea",
+        plugins: [
+            "image paste table link code media"
+        ]
+    });
+</script>
 
-                <div class="component">
-                    <table class="table table-hover">
-                        <thead class=" table-active">
-                            <tr>
-                                <th scope="col">Description</th>
-                                <th scope="col">Is it fixed?</th>
-                                <th scope="col" class="text-center">Fix Issue</th>
-                                <th scope="col" class="text-center">Add Work</th>
-                                <th scope="col" class="text-center">Delete Issue</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @foreach (var issue in Model.Issues)
-                            {
-                            <tr class="table-light">
-                       <!--         <td>                                                                                                                                  -->
-                       <!--             <textarea asp-for="Description" row="20" class="form-control" placeholder="Description, etc..."></textarea>                       -->
-                       <!--             <span asp-validation-for="Description" class="small text-danger"></span>                                                          -->
-                       <!--         </td>                                                                                                                                 -->
-                       <!--         <td>                                                                                                                                  -->
-                       <!--         <input asp-for="IsFixed" type="text" class="form-control" placeholder="Make, etc...">                                                 -->
-                       <!--         <span asp-validation-for="IsFixed" class="small text-danger"></span>                                                                  -->
-                       <!--         </td>                                                                                                                                 -->
-                                <td>                                                                                                                                      
-                                    <a class="btn btn-block btn-primary text-white mb-3" href="/Issues/Fix?issueId=@issue.Id&CarId=issue.carId">Fix Issue</a>
-                                </td>
 
-                                <td>
-                                    <a class="btn btn-block btn-primary text-white mb-3" href="/Works/AddWorks?issueId=@issue.Id&carId=@issue.CarId">Add Work</a>
-                                </td>
-
-                                <td>
-                                    <a class="btn btn-block btn-warning text-white mb-3" href="/Issues/EditIssue?issueId=@issue.Id&carId=@issue.CarId">Edit Issue</a>
-                                </td>
-
-                                <td>
-                                    <a class="btn btn-block btn-danger text-white mb-3" href="/Issues/DeleteIssue?issueId=@issue.Id&carId=@issue.CarId">Delete Issue</a>
-                                </td>
-                            </tr>}
-
-                        </tbody>
-                    </table>
-                </div>
-            </div>
+<h2 class="text-center mt-2">Please describe the new Issue you'd like to add.</h2>
+<hr class="bg-primary w-75">
+<form class="mx-auto w-50" method="post">
+    <div class="form-group">
+        <div class="text-dark d-flex justify-content-center">
+            <label asp-for="Description" class="h3 mb-2 text-white">Description</label>
         </div>
+        <textarea asp-for="Description" row="20" class="form-control" placeholder="Description, etc..."></textarea>
+        <span asp-validation-for="Description" class="small text-danger"></span>
     </div>
-</div>
+
+
+    <div class="form-check-inline">
+        <label class="form-check-label">
+            <input asp-for="IsFixed">
+            <span asp-validation-for="IsFixed" class="small text-danger"></span>
+             Fixed
+        </label>
+    </div>
+
+    <input type="text" hidden id="id" name="CarId" value="@Model.CarId" />
+    <div class="d-flex justify-content-center">
+        <button type="submit" class="btn btn-block btn-primary text-white mb-3">Add</button>
+    </div>
+</form>

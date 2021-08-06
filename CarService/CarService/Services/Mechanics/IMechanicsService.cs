@@ -9,8 +9,9 @@ namespace CarService.Services.Mechanics
     public interface IMechanicsService
     {
         bool BecomeMechanic(
-            string fullName);
-            //, string phoneNumber);
+            string fullName
+            , string phoneNumber
+            ,string userId);
 
     }
 }

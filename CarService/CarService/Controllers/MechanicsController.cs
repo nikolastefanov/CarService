@@ -3,12 +3,14 @@ namespace CarService.Controllers
 {
     using CarService.Models.Mechanics;
     using CarService.Services.Mechanics;
+    using CarService.Infrastructure;
+    using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
     using System;
     using System.Collections.Generic;
     using System.Linq;
     using System.Threading.Tasks;
-
+    using CarService.Data.Models;
 
     public class MechanicsController : Controller
     {
@@ -26,34 +28,21 @@ namespace CarService.Controllers
         [HttpPost]
         public IActionResult Become(BecomeMechanicViewModel mechanic)
         {
-            // var userId = this.User.Id();
-            //
-            // var userIdAlreadyDealer = this.data
-            //     .Dealers
-            //     .Any(d => d.UserId == userId);
-            //
-            // if (userIdAlreadyDealer)
-            // {
-            //     return BadRequest();
-            // }
-            //
-            // if (!ModelState.IsValid)
-            // {
-            //     return View(dealer);
-            // }
-
-            // var dealerData = new Dealer
-            // {
-            //     Name = dealer.Name,
-            //     PhoneNumber = dealer.PhoneNumber,
-            //     UserId = userId
-            // };
-            //
+               var userId = this.User.GetId();
+              
+            
+             
+               if (!ModelState.IsValid)
+               {
+                   return View(mechanic);
+               }
+      
 
             var isMechanic = this.mechanicsService
                 .BecomeMechanic(
-                mechanic.FullName);
-                //, mechanic.PhoneNumber);
+                mechanic.FullName
+                , mechanic.PhoneNumber
+                ,userId);
 
             if (!isMechanic)
             {
@@ -61,7 +50,7 @@ namespace CarService.Controllers
             }
 
 
-            return RedirectToAction("All", "Cars");
+            return RedirectToAction("IndexIssueType", "IssueTypes");
         }
 
     }

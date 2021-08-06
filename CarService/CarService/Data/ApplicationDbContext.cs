@@ -25,14 +25,13 @@ namespace CarService.Data
 
         public DbSet<Review> Reviews { get; set; }
 
-
         public DbSet<Work> Works { get; set; }
 
         public DbSet<IssueType> IssueTypes { get; set; }
 
         public DbSet<Mechanic> Mechanics { get; set; }
 
-      public DbSet<User> User { get; set; }
+        public DbSet<User> User { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
@@ -40,9 +39,7 @@ namespace CarService.Data
                .HasOne(i => i.Car)
                .WithMany(c => c.Issues)
                .HasForeignKey(i => i.CarId)
-               .OnDelete(DeleteBehavior.Restrict);
-          
-        
+               .OnDelete(DeleteBehavior.Restrict); 
           
             builder.Entity<Work>()
                .HasOne(w=>w.Order)
@@ -62,14 +59,12 @@ namespace CarService.Data
                .HasForeignKey(w => w.IssueTypeId)
                .OnDelete(DeleteBehavior.Restrict);
 
-
             builder
                .Entity<Mechanic>()
                .HasOne<User>()
                .WithOne()
                .HasForeignKey<Mechanic>(d => d.UserId)
                .OnDelete(DeleteBehavior.Restrict);
-
 
             base.OnModelCreating(builder);
         }

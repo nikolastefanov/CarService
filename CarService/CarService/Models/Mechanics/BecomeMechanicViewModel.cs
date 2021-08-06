@@ -12,10 +12,10 @@ namespace CarService.Models.Mechanics
         [StringLength(NameMaxLength, MinimumLength = NameMinLength)]
         public string FullName { get; set; }
        
-       // [Required]
-       // [StringLength(PhoneNumberMaxLength, MinimumLength = PhoneNumberMinLength)]
-       // [Display(Name = "Phone Number")]
-       // public string PhoneNumber { get; set; }
+        [Required]
+        [StringLength(PhoneNumberMaxLength, MinimumLength = PhoneNumberMinLength)]
+        [Display(Name = "Phone Number")]
+        public string PhoneNumber { get; set; }
 
     }
 }

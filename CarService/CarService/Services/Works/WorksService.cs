@@ -75,39 +75,56 @@ namespace CarService.Services.Works
       
         }
 
-        public bool EditToWork(int workId, int iissueId, int carId
-                    ,string description,decimal price,int id,int issueId)
+        public bool EditToWork(int workId, int issueId, int carId
+                    ,string description,decimal price)
         {
-            ;
+            
             var workData = this.data
              .Issues
              .Where(x => x.Id == issueId && x.CarId == carId)
              .Select(s => s.Works
-                         .Where(x => x.Id == workId)
-                         .Select(w => new WorkServiceModel
-                         {
-                             Id = w.Id,
-                             Description = w.Description,
-                             IssueId = w.IssueId,
-                             Price = w.Price,
-                         })
-                         .FirstOrDefault()
+                          .Where(x => x.Id == workId).FirstOrDefault()
+                       // .Select(w => new WorkServiceModel
+                       // {
+                       //     Id = w.Id,
+                       //     Description = w.Description,
+                       //     IssueId = w.IssueId,
+                       //     Price = w.Price,
+                       // }).FirstOrDefault()
+   
             ).FirstOrDefault();
 
             //TODO: poverka dali ima work
-            if (true)
-            {
+         
 
-            }
+             workData.Description = description;
+             workData.Price = price;
 
-            workData.Description = description;
-            workData.Price = price;
+
 
             this.data.SaveChanges();
+
+           var workData1 = this.data
+            .Issues
+            .Where(x => x.Id == issueId && x.CarId == carId)
+           .Select(s => s.Works
+                       .Where(x => x.Id == workId)
+                       .Select(w => new WorkServiceModel
+                       {
+                           Id = w.Id,
+                           Description = w.Description,
+                           IssueId = w.IssueId,
+                           Price = w.Price,
+                       }).FirstOrDefault()
+          
+          ).FirstOrDefault();
+            ;
 
             return true;
 
         }
+
+
 
         public IEnumerable<IssueWorkServiceModel> GetAllWorks(int issueId,int carId)
         {

@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-
+﻿
 namespace CarService.Services.Mechanics
 {
     using CarService.Data;
@@ -21,14 +17,22 @@ namespace CarService.Services.Mechanics
             this.data = data;
         }
    
-        public bool BecomeMechanic(string fullName) //string phoneNumber)
+        public bool BecomeMechanic(string fullName ,string phoneNumber,string userId)
         {
+            var userIdAlreadyMechanic = this.data
+                   .Mechanics
+                   .Any(d => d.UserId == userId);
+
+            if (userIdAlreadyMechanic)
+            {
+                return false;
+            }
 
             var mechanicData = new Mechanic
              {
                  FullName = fullName,
-                // PhoneNumber = phoneNumber,
-                // UserId = userId
+                 PhoneNumber = phoneNumber,
+                 UserId = userId
              };
 
             if (mechanicData==null)

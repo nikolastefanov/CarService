@@ -91,80 +91,30 @@ namespace CarService.Controllers
             var issueEdit = issuesService.DetailsIssue(issueId, carId);
 
 
-            return this.View();
-
-
-         //    .Select(x => new CarIssuesViewModel
-         //    {
-         //        Id = x.Id,
-         //        Make = x.Make,
-         //        ModelCar = x.Model,
-         //        Year = x.Year,
-         //        PlateNumber = x.PlateNumber,
-         //        Issues = x.Issues
-         //                 .Where(s => s.Id == issueId)
-         //                 .Select(i => new IssueViewModel
-         //                 {
-         //                     Id = i.Id,
-         //                     Description = i.Description,
-         //                     CarId = i.CarId,
-         //                     IsFixed = i.IsFixed,
-         //                 }).ToList(),
-         //
-         //    })
-         //    .FirstOrDefault();
-         //
-         // return this.View(carData);
-
-         //   var carEdit = this.carsService.CarDetails(carId);
-         //
-         //
-         //   var issueTypes = this.carsService
-         //           .AllIssueTypes()
-         //           .Select(x => new IndexIssueTypeViewModel
-         //           {
-         //               Id = x.Id,
-         //               Name = x.Name,
-         //               ImageUrl = x.ImageUrl,
-         //           }).ToList();
-         //
-         //
-         //   return this.View(new EditCarViewModel
-         //   {
-         //       Id = carEdit.Id,
-         //       Make = carEdit.Make,
-         //       Model = carEdit.Model,
-         //       PlateNumber = carEdit.PlateNumber,
-         //       ImageUrl = carEdit.ImageUrl,
-         //       Year = carEdit.Year,
-         //       IssueTypeId = carEdit.IssueTypeId,
-         //       IssueTypes = issueTypes,
-         //   });
-
+            return this.View(new IssueViewModel
+            {
+                Id=issueEdit.Id,
+                Description=issueEdit.Description,
+                IsFixed=issueEdit.IsFixed,
+                CarId = issueEdit.CarId,
+            });
+       
+        
+   
         }
 
         [HttpPost]
-        public IActionResult EditIssue(int issueId,int carId, EditCarIssueViewModel issuesModel)
+        public IActionResult EditIssue(int issueId,int carId,IssueViewModel  issuesModel)
         {
-            // public IActionResult Edit(int carId)
-            // {
-            //     var carEdit = this.carsService.EditCar(
-            //                      carId
-            //                      , car.Make
-            //                      , car.Model
-            //                      , car.PlateNumber
-            //                      , car.ImageUrl
-            //                      , car.Year
-            //                      , car.IssueTypeId);
-            //
-            //     if (!carEdit)
+     
 
              this.issuesService.EditIssue(
                                           issueId
                                           , carId
-                                          , issuesModel.Description);
+                                          , issuesModel.Description
+                                          ,issuesModel.IsFixed);
 
-                    return this.View("AllIssues");
+                    return Redirect($"/Issues/AllIssues?carId={carId}");
         }
 
         public IActionResult DeleteIssue(int issueId, int carId)

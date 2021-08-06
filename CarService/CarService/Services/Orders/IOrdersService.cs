@@ -8,6 +8,8 @@ namespace CarService.Services.Orders
 
     public interface IOrdersService
     {
-        void CreateOrderZero(decimal price);
+        void CreateOrderZero(decimal price,string userId);
+
+        void AddWorkToOrder(int workId, int issueId, int carId);
     }
 }

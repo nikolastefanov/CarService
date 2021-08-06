@@ -11,10 +11,10 @@ namespace CarService.Services.Issues
 
         IEnumerable<CarIssueServiceModel> GetAllIssues(int carId);
 
-        IEnumerable<CarIssueServiceModel> DetailsIssue(int issueId, int carId);
+        IssueServiceModel DetailsIssue(int issueId, int carId);
 
         void DeleteToIssue(int issueId, int carId);
 
-        void EditIssue(int issueId, int carId, string description);
+        void EditIssue(int issueId, int carId, string description,bool isfixed);
     }
 }

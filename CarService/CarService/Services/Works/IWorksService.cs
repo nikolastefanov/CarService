@@ -17,6 +17,6 @@ namespace CarService.Services.Works
         WorkServiceModel DetailsWork(int workId, int issueId, int carId);
 
         bool EditToWork(int workId, int iissueId, int carId
-                     , string description, decimal price, int id, int issueId);
+                     , string description, decimal price);
     }
 }

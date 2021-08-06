@@ -1,19 +1,21 @@
 ﻿
-namespace CarService.Models.Orders
+namespace CarService.Models.Issues
 {
     using System;
     using System.Collections.Generic;
     using System.Linq;
     using System.Threading.Tasks;
 
-    public class WorkViewModel
+
+    public class EditIssueViewModel
     {
         public int Id { get; set; }
 
-        public int IssueId { get; set; }
-
         public string Description { get; set; }
 
-        public decimal Price { get; set; }
+        public bool IsFixed { get; set; }
+
+        public int CarId { get; set; }
+
     }
 }
