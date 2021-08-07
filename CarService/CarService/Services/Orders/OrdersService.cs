@@ -13,15 +13,16 @@ namespace CarService.Services.Orders
     {
         private readonly ApplicationDbContext data;
 
+
         public OrdersService(ApplicationDbContext data)
         {
             this.data = data;
         }
 
-        public void AddWorkToOrder(int workId, int issueId, int carId)
+        public void AddWorkToOrder(string userId,int workId, int issueId, int carId)
         {
 
-             var work = this.data
+            var work = this.data
                  .Issues
                  .Where(x => x.Id == issueId && x.CarId == carId)
                  .Select(s => s.Works
@@ -36,8 +37,16 @@ namespace CarService.Services.Orders
                              .FirstOrDefault()
                 ).FirstOrDefault();
 
+            var order = this.data
+                .Orders
+                .Where(x => x.UserId == userId)
+                .FirstOrDefault();
 
+              order.TotalPrice += work.Price;
+           // order.Works.
+            
      
+
             
         }
 
@@ -47,12 +56,79 @@ namespace CarService.Services.Orders
             {
                 TotalPrice = 0.0M,
                 UserId=userId,
+                CreateOn=DateTime.UtcNow,
             };
               
 
             this.data.Orders.Add(orderData);
 
             this.data.SaveChanges();
+        }
+
+        public void DeleteOrderService(string orderId, string userId)
+        {
+            var order = this.data
+              .Orders
+              .Where(x => x.Id == orderId && x.UserId == userId)
+               .FirstOrDefault();
+
+
+            this.data.Orders.Remove(order);
+
+            this.data.SaveChanges();
+
+        }
+
+        public DetailsOrderServiceModel DetailsOrder(string orderId, string userId)
+        {
+            var order = this.data
+               .Orders
+               .Where(x => x.Id == orderId && x.UserId == userId)
+               .Select(x => new DetailsOrderServiceModel
+               {
+                   Id=x.Id,
+                   TotalPrice=x.TotalPrice,
+                   UserId=x.UserId,
+                   CreateOn=x.CreateOn,
+                  Works=x.Works.Select(w=>new WorkServiceModel
+                  {
+                      Id=w.Id,
+                      IssueId=w.IssueId,
+                      Description=w.Description,
+                      Price=w.Price,
+                  }).ToList()
+               }).FirstOrDefault();
+
+
+            return order;
+        }
+
+        public IEnumerable<OrderServiceModel> GetAllOrders(string userId)
+        {
+            var orders = this.data
+                .Orders
+                .Where(x => x.UserId == userId)
+                .Select(x => new OrderServiceModel
+                {
+                    Id=x.Id,
+                    UserId=x.UserId,
+                    TotalPrice=x.TotalPrice,
+                    CreateOn=x.CreateOn,                 
+                })
+                .ToList();
+
+            return orders;
+        }
+
+        public string GetUserByName(string userId)
+        {
+            var userName = this.data
+                .Users
+                .Where(x => x.Id == userId)
+                .Select(x=>x.UserName)
+                .FirstOrDefault();
+
+                return userName;
         }
     }
 }

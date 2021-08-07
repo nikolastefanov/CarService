@@ -17,10 +17,11 @@ namespace CarService.Services.Reviews
             this.data = data;
         }
 
-        public void CreateReview(string content)
+        public void CreateReview(string userId,string content)
         {
             var reviewData = new Review
             {
+                UserId=userId,
                 Content = content,
                 CreateOn = DateTime.UtcNow,
             };

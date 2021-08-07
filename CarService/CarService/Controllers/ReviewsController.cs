@@ -1,6 +1,7 @@
 ﻿
 namespace CarService.Controllers
 {
+    using CarService.Infrastructure;
     using CarService.Models.Reviews;
     using CarService.Services.Reviews;
     using Microsoft.AspNetCore.Mvc;
@@ -24,9 +25,10 @@ namespace CarService.Controllers
 
         [HttpPost]
         public IActionResult Create(ReviewInputFormModel review)
-        {           
+        {
+            var userId = this.User.GetId();
 
-            reviewsService.CreateReview(review.Content);
+            reviewsService.CreateReview(userId,review.Content);
 
             return RedirectToAction("AllReviews","Reviews");
         }

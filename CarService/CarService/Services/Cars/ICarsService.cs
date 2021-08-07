@@ -12,7 +12,8 @@ namespace CarService.Services.Cars
 
         IEnumerable<CarIssueTypeServiceModel> AllIssueTypes();
 
-        void AddCar(string make
+        void AddCar(string userId
+            ,string make
             , string model
             , string plateNumber
             , string imageUrl

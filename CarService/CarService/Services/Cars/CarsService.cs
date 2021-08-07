@@ -22,7 +22,8 @@ namespace CarService.Services.Cars
             this.data = data;
         }
 
-        public void AddCar(string make
+        public void AddCar(string userId
+            ,string make
             ,string model
             , string plateNumber
             , string imageUrl
@@ -31,6 +32,7 @@ namespace CarService.Services.Cars
         {
             var carData = new Car
             {
+                UserId=userId,
                 Make=make,
                 Model=model,
                 PlateNumber=plateNumber,

@@ -8,6 +8,8 @@ namespace CarService.Services.Cars
     public class AddCarServiceModel
     {
       
+        public string UserId { get; set; }
+
         public string Make { get; init; }
 
         public string Model { get; init; }

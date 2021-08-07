@@ -10,6 +10,14 @@ namespace CarService.Services.Orders
     {
         void CreateOrderZero(decimal price,string userId);
 
-        void AddWorkToOrder(int workId, int issueId, int carId);
+        void AddWorkToOrder(string userId,int workId, int issueId, int carId);
+
+        IEnumerable<OrderServiceModel> GetAllOrders(string userId);
+
+        DetailsOrderServiceModel DetailsOrder(string orderId,string  userId);
+
+        void DeleteOrderService(string orderId, string userId);
+
+        string GetUserByName(string userId);
     }
 }

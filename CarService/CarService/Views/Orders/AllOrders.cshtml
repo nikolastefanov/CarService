@@ -1,4 +1,6 @@
-﻿@{
+﻿@model AllOrdersViewModel
+
+@{
     this.ViewData["Title"] = "AllOrders";
 }
 
@@ -8,5 +10,78 @@
     <h1>@this.ViewData["Title"]</h1>
 
 </div>
+
+
+
+<div class="container">
+    <div class="section">
+        <div class="row">
+            <div class="col-md-10 offset-md-1">
+                <div class="page-header text-center">
+                    <h2 id="tables">Listed orders for: </h2>
+                    <h2 class="font-weight-bold font-italic">UserName: @Model.UserName</h2>
+                </div>              
+
+                <div class="component">
+                    <table class="table table-hover">
+                        <thead class=" table-active">
+                            <tr>
+                                <th scope="col">TotalPrice</th>
+                                <th scope="col" class="text-center">CreateOn</th>
+                                <th scope="col" class="text-center">Details Order</th>
+                                <th scope="col" class="text-center">Delete Order</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var order in Model.Orders)
+                            {
+
+                                <tr class="table-light">
+                                    <td>@order.TotalPrice</td>
+                                    <td>
+                                        <span class="card-title"> @order.CreateOn</span>
+                                    </td>
+
+                                    <td>
+                                        <a class="btn btn-block btn-primary text-white mb-3" href="/Orders/DetailsOrder?orderId=@order.Id&userId=@order.UserId">Details Order</a>
+                                    </td>
+                                    <td>
+                                        <a class="btn btn-block btn-warning text-white mb-3" href="/Orders/DeleteOrder?orderId=@order.Id&userId=@order.UserId">Delete Order</a>
+                                    
+                                </tr>
+                            }
+
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 <a asp-controller="Orders" asp-action="DetailsOrder">DetailsOrder</a>

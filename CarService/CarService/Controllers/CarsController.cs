@@ -3,6 +3,7 @@ namespace CarService.Controllers
 {
     using CarService.Data;
     using CarService.Data.Models;
+    using CarService.Infrastructure;
     using CarService.Models.Cars;
     using CarService.Models.IssueTypes;
     using CarService.Services.Cars;
@@ -42,8 +43,10 @@ namespace CarService.Controllers
         [HttpPost]
         public IActionResult Add(AddCarFormModel car)
         {
+            var userId = this.User.GetId();
 
-            this.carsService.AddCar(car.Make
+            this.carsService.AddCar(userId
+                ,car.Make
                 ,car.Model
                 ,car.PlateNumber
                 ,car.ImageUrl

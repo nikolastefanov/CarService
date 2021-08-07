@@ -9,7 +9,7 @@ namespace CarService.Services.Reviews
 
     public interface IReviewsService
     {
-        void CreateReview(string content);
+        void CreateReview(string userId,string content);
 
         IEnumerable<ReviewServiceModel> GetAllReview();
 

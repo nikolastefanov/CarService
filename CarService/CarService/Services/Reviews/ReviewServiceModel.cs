@@ -9,10 +9,11 @@ namespace CarService.Services.Reviews
     public class ReviewServiceModel
     {
         public int Id { get; set; }
+
         public string Content { get; set; }
 
         public DateTime CreateOn { get; set; }
 
-        // public string UserId { get; set; }
+         public string UserId { get; set; }
     }
 }
