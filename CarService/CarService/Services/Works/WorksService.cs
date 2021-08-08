@@ -17,9 +17,9 @@ namespace CarService.Services.Works
         {
             this.data = data;
         }
-        public bool CreateWork(int issueId,string description, decimal price)
+        public bool CreateWork(string userId,int issueId,string description, decimal price,int carId)
         {
-            var workData = new Work
+            var workData = new Works
             {
                 IssueId=issueId,
                 Description=description,
@@ -34,6 +34,8 @@ namespace CarService.Services.Works
             this.data.Works.Add(workData);
 
             this.data.SaveChanges();
+
+
 
             return true;
         }

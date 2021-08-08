@@ -16,5 +16,7 @@ namespace CarService.Services.Issues
         void DeleteToIssue(int issueId, int carId);
 
         void EditIssue(int issueId, int carId, string description,bool isfixed);
+
+         void FixIssue(int issueId, int carId);
     }
 }

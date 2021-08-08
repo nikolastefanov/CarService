@@ -12,7 +12,7 @@ namespace CarService.Data.Models
         public Order()
         {
             this.Id = Guid.NewGuid().ToString();
-            this.Works = new HashSet<Work>();
+            this.Works = new HashSet<Works>();
 
         }
         public string Id { get; set; }
@@ -25,7 +25,7 @@ namespace CarService.Data.Models
 
         public User User { get; set; }
 
-        public IEnumerable<Work> Works { get; set; }
+        public IEnumerable<Works> Works { get; set; }
 
 
 

@@ -19,7 +19,12 @@ namespace CarService.Models.Cars
 
         public int Year { get; init; }
 
+        public int IssueTypeId { get; set; }
+
         public string IssueType { get; set; }
 
+        public int RemainingIssues { get; init; }
+
+        public int FixedIssues { get; init; }
     }
 }

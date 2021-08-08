@@ -92,6 +92,15 @@ namespace CarService.Services.Issues
             this.data.SaveChanges();
         }
 
+        public void FixIssue(int issueId, int carId)
+        {
+              var issue = this.data.Issues.Find(issueId);
+            
+              issue.IsFixed = true;
+            
+              this.data.SaveChanges();
+        }
+
         public IEnumerable<CarIssueServiceModel> GetAllIssues(int carId)
         {
 
@@ -111,6 +120,7 @@ namespace CarService.Services.Issues
                                 Id = i.Id,
                                 Description = i.Description,
                                 CarId = i.CarId,
+                                IsFixed=i.IsFixed,
                             }).ToList()
                }).ToList();
 

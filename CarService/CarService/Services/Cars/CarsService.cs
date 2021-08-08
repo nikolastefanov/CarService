@@ -133,6 +133,8 @@ namespace CarService.Services.Cars
                     Year=x.Year,
                     IssueTypeId=x.IssueTypeId,
                     IssueType=x.IssueType.Name,
+                    RemainingIssues = x.Issues.Count(i => !i.IsFixed),
+                    FixedIssues = x.Issues.Count(i => i.IsFixed),
                 })
                 .ToList();
 

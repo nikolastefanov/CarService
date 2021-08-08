@@ -32,10 +32,12 @@
                                 <td>
                                     @if (issue.IsFixed)
                                     {
-                            <span>Yes</span>}
+                                    <span>Yes</span>
+                                    }
                                     @if (!issue.IsFixed)
                                     {
-                            <span>Not yet</span>}
+                                       <span>Not yet</span>
+                                    }
                                 </td>
                                 <td>
                                     <a class="btn btn-block btn-primary text-white mb-3" href="/Issues/Fix?issueId=@issue.Id&carId=@issue.CarId">Fix Issue</a>

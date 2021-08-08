@@ -25,7 +25,7 @@ namespace CarService.Data
 
         public DbSet<Review> Reviews { get; set; }
 
-        public DbSet<Work> Works { get; set; }
+        public DbSet<Works> Works { get; set; }
 
         public DbSet<IssueType> IssueTypes { get; set; }
 
@@ -41,13 +41,13 @@ namespace CarService.Data
                .HasForeignKey(i => i.CarId)
                .OnDelete(DeleteBehavior.Restrict); 
           
-            builder.Entity<Work>()
+            builder.Entity<Works>()
                .HasOne(w=>w.Order)
                .WithMany(o=>o.Works)
                .HasForeignKey(w=>w.OrderId)
                .OnDelete(DeleteBehavior.Restrict);
 
-            builder.Entity<Work>()
+            builder.Entity<Works>()
                .HasOne(w => w.Issue)
                .WithMany(o => o.Works)
                .HasForeignKey(w => w.IssueId)

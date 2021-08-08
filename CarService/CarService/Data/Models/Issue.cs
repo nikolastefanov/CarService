@@ -13,7 +13,7 @@ namespace CarService.Data.Models
     {
         public Issue()
         {
-            this.Works = new HashSet<Work>();
+            this.Works = new HashSet<Works>();
         }
 
         public int Id { get; set; }
@@ -30,6 +30,6 @@ namespace CarService.Data.Models
 
         public Car Car { get; set; }
 
-        public IEnumerable<Work> Works { get; set; }
+        public IEnumerable<Works> Works { get; set; }
     }
 }

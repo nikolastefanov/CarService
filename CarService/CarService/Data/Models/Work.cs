@@ -6,7 +6,7 @@ namespace CarService.Data.Models
     using static Data.DataConstants.Work;
 
 
-    public class Work
+    public class Works
     {
         public int Id { get; set; }
 

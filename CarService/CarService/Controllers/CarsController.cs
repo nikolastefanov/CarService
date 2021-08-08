@@ -71,6 +71,8 @@ namespace CarService.Controllers
                     ImageUrl=x.ImageUrl,
                     Year=x.Year,
                     IssueType=x.IssueType,
+                    RemainingIssues =x.RemainingIssues,
+                    FixedIssues = x.FixedIssues,
                 })
                 .ToList();
 

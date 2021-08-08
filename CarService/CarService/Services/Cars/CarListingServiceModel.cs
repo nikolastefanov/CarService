@@ -23,5 +23,9 @@ namespace CarService.Services.Cars
         public int IssueTypeId { get; set; }
 
         public string IssueType { get; set; }
+
+        public int RemainingIssues { get; init; }
+
+        public int FixedIssues { get; init; }
     }
 }

@@ -19,5 +19,7 @@ namespace CarService.Models.Works
 
         public decimal Price { get; set; }
 
+        public int CarId { get; set; }
+
     }
 }

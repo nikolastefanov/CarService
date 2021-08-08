@@ -98,9 +98,7 @@ namespace CarService.Controllers
                 IsFixed=issueEdit.IsFixed,
                 CarId = issueEdit.CarId,
             });
-       
-        
-   
+
         }
 
         [HttpPost]
@@ -116,6 +114,27 @@ namespace CarService.Controllers
 
                     return Redirect($"/Issues/AllIssues?carId={carId}");
         }
+
+
+
+        public IActionResult Fix(int issueId, int carId)
+        {
+          //  var userIsMechanic = this.users.IsMechanic(this.User.Id);
+          //
+          //  if (!userIsMechanic)
+          //  {
+          //      return Unauthorized();
+          //  }
+
+            this.issuesService.FixIssue(issueId, carId);
+
+            return Redirect($"/Issues/AllIssues?carId={carId}");
+
+        }
+
+
+
+
 
         public IActionResult DeleteIssue(int issueId, int carId)
         {

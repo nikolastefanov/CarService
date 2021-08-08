@@ -1,6 +1,7 @@
 ﻿
 namespace CarService.Controllers
 {
+    using CarService.Infrastructure;
     using CarService.Models.Works;
     using CarService.Services.Works;
     using Microsoft.AspNetCore.Mvc;
@@ -29,11 +30,15 @@ namespace CarService.Controllers
         [HttpPost]
         public IActionResult AddWorks(int issueId,int carId,AddWorkViewModel work)
         {
+            var userId = this.User.GetId();
+
             var isWork=this.worksService
                 .CreateWork(
-                   issueId
+                    userId
+                   ,issueId
                   ,work.Description
-                 , work.Price);
+                 , work.Price
+                 ,work.CarId);
 
             if (!isWork)
             {

@@ -17,5 +17,7 @@ namespace CarService.Services.Orders
 
         public decimal Price { get; set; }
 
+        public string OrderId { get; set; }
+
     }
 }

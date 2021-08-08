@@ -8,7 +8,7 @@ namespace CarService.Services.Works
 
     public interface IWorksService
     {
-        bool CreateWork(int issueId,string description, decimal price);
+        bool CreateWork(string userId,int issueId,string description, decimal price,int carId);
 
         IEnumerable<IssueWorkServiceModel> GetAllWorks(int issueId,int carId);
 

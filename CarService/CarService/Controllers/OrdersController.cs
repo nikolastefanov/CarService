@@ -43,7 +43,7 @@ namespace CarService.Controllers
 
             this.ordersService.AddWorkToOrder(userId,workId, issueId, carId);
 
-            return this.RedirectToAction("AllWorks","Works");
+            return Redirect($"/Works/AllWorks?issueId={issueId}&carId={carId}");
         }
         
 
@@ -77,16 +77,28 @@ namespace CarService.Controllers
         {
             var orderDetails = this.ordersService.DetailsOrder(orderId, userId);
 
-            
+            var userName = this.ordersService.GetUserByName(userId);
+
+            var orderView = new DetailsOrderViewModel
+            {
+                Id = orderDetails.Id,
+                UserId = orderDetails.UserId,
+                UserName=userName,
+                TotalPrice = orderDetails.TotalPrice,
+                CreateOn = orderDetails.CreateOn,
+                Works = orderDetails.Works.Select(x => new WorkViewModel
+                {
+                    Id = x.Id,
+                    Description = x.Description,
+                    Price = x.Price,
+                    IssueId = x.IssueId,
+                }).ToList()
+
+            };
                 
-                
-                
 
 
-
-
-
-            return this.View();
+            return this.View(orderView);
         }
 
 
