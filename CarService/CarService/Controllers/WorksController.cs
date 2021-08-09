@@ -4,6 +4,7 @@ namespace CarService.Controllers
     using CarService.Infrastructure;
     using CarService.Models.Works;
     using CarService.Services.Works;
+    using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
     using System;
     using System.Collections.Generic;
@@ -22,11 +23,13 @@ namespace CarService.Controllers
         }
 
 
+        [Authorize]
         public IActionResult  AddWorks()
         {
             return this.View();
         }
 
+        [Authorize]
         [HttpPost]
         public IActionResult AddWorks(int issueId,int carId,AddWorkViewModel work)
         {
@@ -48,6 +51,7 @@ namespace CarService.Controllers
       
         }
 
+        [Authorize]
         public IActionResult AllWorks(int issueId,int carId)
         {
 
@@ -72,6 +76,7 @@ namespace CarService.Controllers
             
         }
 
+        [Authorize]
         public IActionResult EditWorks(int workId, int issueId, int carId)
         {
             ;
@@ -86,6 +91,7 @@ namespace CarService.Controllers
             });
         }
 
+        [Authorize]
         [HttpPost]
         public IActionResult EditWorks(int workId
             , int issueId
@@ -109,7 +115,7 @@ namespace CarService.Controllers
         }
 
 
-
+        [Authorize]
         public IActionResult DeleteWorks(int workId,int issueId,int carId)
         {
             this.worksService.DeleteToWork(workId, issueId,carId);

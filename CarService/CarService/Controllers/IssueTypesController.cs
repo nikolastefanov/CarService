@@ -1,5 +1,6 @@
 ﻿using CarService.Models.IssueTypes;
 using CarService.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -32,12 +33,14 @@ namespace CarService.Controllers
             return View(issueType);
         }
 
+        [Authorize]
         public IActionResult AddIssueType()
         {
             return this.View();
         }
 
 
+        [Authorize]
         [HttpPost]
         public IActionResult AddIssueType(IssueTypeViewModel issueType)
         {
@@ -49,7 +52,7 @@ namespace CarService.Controllers
             return this.RedirectToAction("IndexIssueType");
         }
 
-
+        [Authorize]
         public IActionResult EditIssueType(int issueTypeId)
         {
             var issueType = this.service.Details(issueTypeId);
@@ -63,7 +66,7 @@ namespace CarService.Controllers
 
         }
 
-
+        [Authorize]
         [HttpPost]
         public IActionResult EditIssueType(int issueTypeId,IssueTypeViewModel issueType)
         {
@@ -83,7 +86,7 @@ namespace CarService.Controllers
             return RedirectToAction("IndexIssueType");
         }
 
-
+        [Authorize]
         public IActionResult DeleteIssueType(int issueTypeId)
         {
             this.service.Delete(issueTypeId);

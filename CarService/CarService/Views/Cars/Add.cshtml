@@ -13,32 +13,37 @@
         <div class="form-group">
             <label for="make">Make</label>
             <input name="make" type="text" class="form-control" id="make-input">
+            <span asp-validation-for="Make" class="small text-danger"></span>
         </div>
         <div class="form-group">
             <label for="model-input">Model</label>
             <input name="model" type="text" class="form-control" id="model-input">
+            <span asp-validation-for="Model" class="small text-danger"></span>
         </div>
         <div class="form-group">
             <label for="year-input">Year</label>
             <input name="year" type="number" class="form-control" id="year-input">
+            <span asp-validation-for="Year" class="small text-danger"></span>
         </div>
 
         <div class="form-group">
             <label for="imageUrl">Image URL</label>
             <input name="imageUrl" type="text" class="form-control" id="imageUrl">
+            <span asp-validation-for="ImageUrl" class="small text-danger"></span>
         </div>
 
         <div class="form-group">
             <label for="plateNumber-input">Plate Number</label>
             <input name="plateNumber" type="text" class="form-control" id="plateNumber-input">
+            <span asp-validation-for="PlateNumber" class="small text-danger"></span>
         </div>
         <div class="form-group">
             <label asp-for="IssueTypeId"></label>
             <select asp-for="IssueTypeId" class="form-control">
                 @foreach (var category in Model.IssueTypes)
                 {
-    <option value="@category.Id">@category.Name</option>
-}
+                <option value="@category.Id">@category.Name</option>
+                 }
             </select>
             <span asp-validation-for="IssueTypeId" class="small text-danger"></span>
         </div>

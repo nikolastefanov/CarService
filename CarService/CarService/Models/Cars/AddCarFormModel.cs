@@ -23,7 +23,8 @@ namespace CarService.Models.Cars
 
         [Required]
         [StringLength(ModelMaxLength, MinimumLength = ModelMinLength)]
-        public string Model { get; init; }
+        public string Model { get; init; }     
+
 
         [Required]
         [RegularExpression("CarRegexPlateNumber")]

@@ -43,11 +43,17 @@ namespace CarService.Data
         {
             public const int IsTypeNameMinLength = 5;
             public const int IsTypeNameMaxLength = 100;
+
+            public const int  IssueTypeMinLength= 5;
+            public const int  IssueTypeMaxLength = 300;
+
+   
         }
 
-
+     
         public class Review
         {
+            public const int ContentMinLength = 5;
             public const int ContentMaxLength = 300;
         }
 

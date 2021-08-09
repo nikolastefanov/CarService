@@ -25,6 +25,7 @@ namespace CarService.Controllers
             return this.View();
         }
 
+        [Authorize]
         [HttpPost]
         public IActionResult Become(BecomeMechanicViewModel mechanic)
         {

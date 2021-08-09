@@ -8,6 +8,7 @@ namespace CarService.Models.Reviews
     public class ReviewViewModel
     {
         public int Id { get; set; }
+
         public string Content { get; set; }
 
         public string CreateOn { get; set; }

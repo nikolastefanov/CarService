@@ -11,6 +11,7 @@ namespace CarService.Controllers
     using System.Linq;
     using System.Threading.Tasks;
     using CarService.Infrastructure;
+    using Microsoft.AspNetCore.Authorization;
 
     public class OrdersController : Controller
     {
@@ -22,11 +23,13 @@ namespace CarService.Controllers
         
         }
 
+        [Authorize]
         public IActionResult CreateOrder()
         {
             return this.View(new CreateOrderGetViewModel { });
         }
 
+        [Authorize]
         [HttpPost]
         public IActionResult CreateOrder(CreateOrderViewModel order)
         {
@@ -37,6 +40,7 @@ namespace CarService.Controllers
             return this.RedirectToAction("/IssueTypes/IndexIssueType");
         }
 
+        [Authorize]
         public IActionResult AddToOrder(int workId,int issueId,int carId)
         {
             var userId = this.User.GetId();
@@ -47,7 +51,7 @@ namespace CarService.Controllers
         }
         
 
-
+        [Authorize]
         public IActionResult AllOrders()
         {
             var userId = this.User.GetId();
@@ -73,6 +77,7 @@ namespace CarService.Controllers
             return this.View(ordersData);
         }
 
+        [Authorize]
         public IActionResult DetailsOrder(string orderId,string userId)
         {
             var orderDetails = this.ordersService.DetailsOrder(orderId, userId);
@@ -102,6 +107,7 @@ namespace CarService.Controllers
         }
 
 
+        [Authorize]
         public IActionResult DeleteOrder(string orderId,string userId)
         {
 

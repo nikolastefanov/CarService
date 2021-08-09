@@ -7,6 +7,7 @@ namespace CarService.Controllers
     using CarService.Models.Cars;
     using CarService.Models.IssueTypes;
     using CarService.Services.Cars;
+    using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
     using System;
     using System.Collections.Generic;
@@ -21,6 +22,7 @@ namespace CarService.Controllers
             this.carsService = carsService;
         }
 
+        [Authorize]
         public IActionResult Add()
         {
             var issueTypes = carsService
@@ -40,6 +42,7 @@ namespace CarService.Controllers
             }) ;
         }
 
+        [Authorize]
         [HttpPost]
         public IActionResult Add(AddCarFormModel car)
         {
@@ -58,6 +61,7 @@ namespace CarService.Controllers
          
         }
 
+        [Authorize]
         public IActionResult All()
         {
             var carsData = this.carsService
@@ -79,6 +83,7 @@ namespace CarService.Controllers
             return this.View(carsData);
         }
 
+        [Authorize]
         public IActionResult Edit(int carId)
         {
          
@@ -108,6 +113,8 @@ namespace CarService.Controllers
             });
         }
 
+
+        [Authorize]
         [HttpPost]
         public IActionResult Edit(int carId,EditCarViewModel car)
         {
@@ -128,6 +135,7 @@ namespace CarService.Controllers
             return RedirectToAction("All");
         }
 
+        [Authorize]
         public IActionResult DeleteCar(int carId)
         {
             this.carsService.DeleteCar(carId);
