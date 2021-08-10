@@ -1,6 +1,7 @@
 
 namespace CarService
 {
+    using CarService.Areas.Admin.Controllers;
     using CarService.Data;
     using CarService.Data.Models;
     using CarService.Infrastructure;
@@ -105,13 +106,8 @@ namespace CarService
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllerRoute(
-                        name: "Car Details",
-                        pattern: "/Cars/Details/{id}/{information}",
-                        defaults: new
-                        {
-                          //  controller = typeof(CarsController).GetControllerName(),
-                          //  action = nameof(CarsController.Details)
-                        });
+                   name: "areaRoute",
+                   pattern: "{area:exists}/{controller=Cars}/{action=All}/{id?}");
 
                 endpoints.MapControllerRoute(
                     name: "default",

@@ -93,7 +93,8 @@ namespace CarService.Infrastructure
                     {
                         Email = adminEmail,
                         UserName = adminEmail,
-                       // FullName = "Admin"
+                        EmailConfirmed = true,
+                         //FullName = "Admin"
                     };
 
                     await userManager.CreateAsync(user, adminPassword);

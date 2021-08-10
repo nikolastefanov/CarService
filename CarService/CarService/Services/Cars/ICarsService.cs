@@ -22,6 +22,8 @@ namespace CarService.Services.Cars
 
         IEnumerable<CarListingServiceModel> GetAllCar();
 
+        IEnumerable<CarServiceModel> GetAllCarAdmin();
+
         CarDetailsServiceModel CarDetails(int id);
 
         bool EditCar(

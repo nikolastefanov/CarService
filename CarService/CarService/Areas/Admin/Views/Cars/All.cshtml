@@ -1,0 +1,35 @@
+﻿@model IEnumerable<CarAdminViewModel>
+
+@{ ViewBag.Title = "Cars Administration"; }
+
+<h1>All Cars</h1>
+
+<table class="table table-striped">
+    <thead class="thead-dark">
+        <tr>
+            <th scope="col">Id</th>
+            <th scope="col">Make</th>
+            <th scope="col">Model</th>
+            <th scope="col">Year</th>
+            <th scope="col">PlateNumber</th>
+            <th scope="col">IssueTypeName</th>
+            <th scope="col"></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var car in Model)
+        {
+             <tr>
+                 <td scope="col">@car.Id</td>
+                 <td scope="col">@car.Make</td>
+                 <td scope="col">@car.Model</td>
+                 <td scope="col">@car.Year</td>
+                 <td scope="col">@car.PlateNumber</td>
+                 <td scope="col">@car.IssueTypeName</td>
+                 <td scope="col">
+                     <a asp-area="" asp-controller="Cars" asp-action="DeleteCar" asp-route-carId="@car.Id" class="btn btn-danger float-right ml-3">Delete</a>
+                     <a asp-area="" asp-controller="Cars" asp-action="Edit" asp-route-carId="@car.Id" class="btn btn-warning float-right ml-3">Edit</a>       
+                 </td>
+             </tr>}
+    </tbody>
+</table>

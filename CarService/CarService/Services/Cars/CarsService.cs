@@ -140,6 +140,25 @@ namespace CarService.Services.Cars
 
                 return cars;
         }
+
+        public IEnumerable<CarServiceModel> GetAllCarAdmin()
+        {
+            var cars = this.data.Cars
+                .Select(x => new CarServiceModel
+                {
+                    Id=x.Id,
+                    Make=x.Make,
+                    Model=x.Model,
+                    PlateNumber=x.PlateNumber,
+                    Year=x.Year,
+                    ImageUrl=x.PlateNumber,
+                    IssueTypeName=x.IssueType.Name,
+                    
+                })
+                .ToList();
+
+                return cars;
+        }
     }
    
 }
