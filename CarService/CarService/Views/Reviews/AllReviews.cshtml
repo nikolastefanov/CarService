@@ -4,6 +4,9 @@
     this.ViewData["Title"] = "Comments!!!";
 }
 
+                                               
+               
+      
 <div class="offset-lg-1 col-lg-10 offset-xl-2 col-xl-8 offset-md-1 col-md-10 offset-2 col-sm-6">
     <div class="container text-center">
 
@@ -48,7 +51,7 @@
         @foreach (var review in Model)
         {
             <br/>
-            <li class="list-group-item">@review.Id  <textarea class="col-8" rows="5">@review.Content</textarea></li>
+            <li class="list-group-item">@review.Id  <textarea class="col-8" rows="5">@review.SanContent</textarea></li>
             <li class="list-group-item text-right">@review.CreateOn</li>
             @if (User.Identity.IsAuthenticated)
             {

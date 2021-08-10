@@ -3,7 +3,7 @@
     <script src="~/lib/tinymce/tinymce.min.js" type="text/javascript"></script>
     <script type="text/javascript">
     tinymce.init({
-        selector: "textarea",
+        selector: "",
         plugins: [
             "image paste table link code media"
         ]
@@ -18,7 +18,7 @@
             <div class="text-dark d-flex justify-content-center">
                 <label asp-for="Description" class="h3 mb-2 text-white">Description</label>
             </div>
-            <textarea asp-for="Description" row="20" class="form-control" placeholder="Description, etc..."></textarea>
+            <textarea asp-for="Description" rows="10" class="form-control" placeholder="Description, etc..."></textarea>
             <span asp-validation-for="Description" class="small text-danger"></span>
         </div>
 

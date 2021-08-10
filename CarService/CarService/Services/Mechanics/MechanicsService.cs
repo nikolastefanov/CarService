@@ -46,5 +46,14 @@ namespace CarService.Services.Mechanics
 
             return true;
         }
+
+        public bool IsMechanic(string userId)
+        {
+            var mechanic = this.data
+                .Mechanics
+                .Any(m => m.UserId == userId);
+
+            return mechanic;
+        }
     }
 }

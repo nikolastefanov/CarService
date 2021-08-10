@@ -1,6 +1,7 @@
 ﻿
 namespace CarService.Models.Reviews
 {
+    using Ganss.XSS;
     using System;
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
@@ -16,6 +17,6 @@ namespace CarService.Models.Reviews
         [StringLength(ContentMaxLength, MinimumLength = ContentMinLength)]
         public string Content { get; set; }
 
-       // public string UserId { get; set; }
+        // public string UserId { get; set; }
     }
 }

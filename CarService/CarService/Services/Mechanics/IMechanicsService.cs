@@ -13,5 +13,7 @@ namespace CarService.Services.Mechanics
             , string phoneNumber
             ,string userId);
 
+        bool IsMechanic(string userId);
+
     }
 }

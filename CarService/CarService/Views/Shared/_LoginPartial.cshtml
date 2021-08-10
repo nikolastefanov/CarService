@@ -1,15 +1,40 @@
 ﻿
 @using CarService.Data.Models
+@using CarService.Services.Mechanics
+@using CarService.Infrastructure
 @using Microsoft.AspNetCore.Identity
+
 @inject SignInManager<User> SignInManager
 @inject UserManager<User> UserManager
+@inject IMechanicsService Mechanics
 
 <ul class="navbar-nav">
     @if (SignInManager.IsSignedIn(User))
     {
-        <li class="nav-item">
-            <a class="nav-link text-dark" asp-area="" asp-controller="Mechanics" asp-action="Become">Become Mechanic</a>
-        </li>
+        var userId = User.Id();
+        var userIsMechanic = Mechanics.IsMechanic(userId);
+        var userIsAdmin = User.IsAdmin();
+
+
+        @if (userIsMechanic && !userIsAdmin)
+        {
+            <li class="nav-item">
+                <a class="nav-link text-dark" asp-area="" asp-controller="Cars" asp-action="Mine">Works</a>
+            </li>
+        }
+        else if (!userIsAdmin)
+        {
+            <li class="nav-item">
+                <a class="nav-link text-dark" asp-area="" asp-controller="Mechanics" asp-action="Become">Become Mechanic</a>
+            </li>
+        }
+        else if (userIsAdmin)
+        {
+            <li class="nav-item">
+                <a class="nav-link text-dark" asp-area="Admin" asp-controller="Cars" asp-action="All">Administration</a>
+            </li>
+        }
+
 
         <li class="nav-item">
             <a class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage">Hello @User.Identity.Name!</a>

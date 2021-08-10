@@ -16,6 +16,7 @@ namespace CarService
     using Microsoft.AspNetCore.HttpsPolicy;
     using Microsoft.AspNetCore.Identity;
     using Microsoft.AspNetCore.Identity.UI;
+    using Microsoft.AspNetCore.Mvc;
     using Microsoft.EntityFrameworkCore;
     using Microsoft.Extensions.Configuration;
     using Microsoft.Extensions.DependencyInjection;
@@ -52,8 +53,14 @@ namespace CarService
                 options.Password.RequiredUniqueChars = 0;
                 options.Password.RequireUppercase = false;
             }) 
+                    .AddRoles<IdentityRole>()
                     .AddEntityFrameworkStores<ApplicationDbContext>();
             services.AddControllersWithViews();
+
+            services.AddControllersWithViews(options =>
+            {
+                options.Filters.Add<AutoValidateAntiforgeryTokenAttribute>();
+            });
 
             services.AddTransient<IIssueTypesService, IssueTypesService>();
 
@@ -97,6 +104,15 @@ namespace CarService
 
             app.UseEndpoints(endpoints =>
             {
+                endpoints.MapControllerRoute(
+                        name: "Car Details",
+                        pattern: "/Cars/Details/{id}/{information}",
+                        defaults: new
+                        {
+                          //  controller = typeof(CarsController).GetControllerName(),
+                          //  action = nameof(CarsController.Details)
+                        });
+
                 endpoints.MapControllerRoute(
                     name: "default",
                     pattern: "{controller=Home}/{action=Index}/{id?}");

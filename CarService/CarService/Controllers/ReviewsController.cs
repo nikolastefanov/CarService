@@ -4,6 +4,7 @@ namespace CarService.Controllers
     using CarService.Infrastructure;
     using CarService.Models.Reviews;
     using CarService.Services.Reviews;
+    using Ganss.XSS;
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
     using System.Linq;
@@ -28,22 +29,28 @@ namespace CarService.Controllers
         [HttpPost]
         public IActionResult Create(ReviewInputFormModel review)
         {
+            var sanitizer = new HtmlSanitizer();
+
             var userId = this.User.GetId();
 
-            reviewsService.CreateReview(userId,review.Content);
+            var newContent = sanitizer.Sanitize(review.Content);
+            
+
+            reviewsService.CreateReview(userId,newContent);
 
             return RedirectToAction("AllReviews","Reviews");
         }
 
         public IActionResult AllReviews()
         {
+            var sanitizer = new HtmlSanitizer();
 
             var reviewsAll = reviewsService
                 .GetAllReview()
                 .Select(x => new ReviewViewModel
                 {
                     Id = x.Id,
-                    Content = x.Content,
+                    SanContent =sanitizer.Sanitize(x.Content),
                     CreateOn = x.CreateOn.ToString()
                 })
                 .ToList();
