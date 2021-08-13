@@ -5,7 +5,7 @@
 <script src="~/lib/tinymce/tinymce.min.js" type="text/javascript"></script>
 <script type="text/javascript">
     tinymce.init({
-        selector: "textarea",
+        selector: "",
         plugins: [
             "image paste table link code media"
         ]
@@ -29,7 +29,7 @@
         <label class="form-check-label">
             <input asp-for="IsFixed">
             <span asp-validation-for="IsFixed" class="small text-danger"></span>
-             Fixed
+            Fixed
         </label>
     </div>
 
@@ -38,3 +38,8 @@
         <button type="submit" class="btn btn-block btn-primary text-white mb-3">Add</button>
     </div>
 </form>
+
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

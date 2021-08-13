@@ -1,6 +1,7 @@
 ﻿
 namespace CarService.Services.Orders
 {
+    using CarService.Services.Orders.Models;
     using System;
     using System.Collections.Generic;
     using System.Linq;
@@ -13,6 +14,8 @@ namespace CarService.Services.Orders
         void AddWorkToOrder(string userId,int workId, int issueId, int carId);
 
         IEnumerable<OrderServiceModel> GetAllOrders(string userId);
+
+        IEnumerable<AdminOrderServiceModel> GetAllAdmin();
 
         DetailsOrderServiceModel DetailsOrder(string orderId,string  userId);
 

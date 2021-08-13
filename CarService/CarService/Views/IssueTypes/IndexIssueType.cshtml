@@ -1,9 +1,12 @@
-﻿
+﻿@using Microsoft.AspNetCore.Identity
+@using CarService.Infrastructure
+@using CarService.Data.Models
+
 @model List<IndexIssueTypeViewModel>
 
-@{
-    this.ViewData["Title"] = "Services";
-}
+@inject SignInManager<User> SignInManager
+
+@{ this.ViewData["Title"] = "Services"; }
 
 <div class="row">
     <div class="offset-lg-1 col-lg-10 offset-xl-2 col-xl-8 offset-md-1 col-md-10 offset-2 col-sm-6">
@@ -17,23 +20,28 @@
 
             @foreach (var issueType in Model)
             {
-                <br />
+<br />
                 <div class="col-md-4">
                     <div class="card mb-3">
                         <img src="@issueType.ImageUrl" class="card-img-top img-fluid card-image rounded" data-toggle="tooltip">
-                              <h4>@issueType.Name</h4>
-                            @if (User.Identity.IsAuthenticated)
-                            {
-                                <div class="card-body text-center">
-                                    <a asp-controller="Cars" asp-action="Add" asp-route-issueTypeId="@issueType.Id" class="btn btn-primary ">@issueType.Name</a>
-                              
-                                    <a asp-controller="IssueTypes" asp-action="EditIssueType" asp-route-issueTypeId="@issueType.Id" class="btn btn-success ">Edit IssueType</a>
-                                </div>
-                            }
+                        <h4>@issueType.Name</h4>
+                        @if (User.Identity.IsAuthenticated)
+                        {
+                            var userIsAdmin = User.IsAdmin();
+                                  <div class="card-body text-center">
+                                      <a asp-controller="Cars" asp-action="Add" asp-route-issueTypeId="@issueType.Id" class="btn btn-primary ">@issueType.Name</a>
+                                      <br />
+                                      <br />
+                                 
+                                      @if (userIsAdmin)
+                                      {
+                                  <a asp-controller="IssueTypes" asp-action="EditIssueType" asp-route-issueTypeId="@issueType.Id" class="btn btn-warning ">Edit IssueType</a>
+                                      }
+                                  </div>
+                    }
                     </div>
                 </div>
-                <br />
-            }
+                                <br />}
         </div>
     </div>
 </div>

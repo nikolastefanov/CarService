@@ -1,29 +1,35 @@
 ﻿@model AddIssueViewModel
 
-    <script src="~/lib/tinymce/tinymce.min.js" type="text/javascript"></script>
-    <script type="text/javascript">
+<script src="~/lib/tinymce/tinymce.min.js" type="text/javascript"></script>
+<script type="text/javascript">
     tinymce.init({
         selector: "",
         plugins: [
             "image paste table link code media"
         ]
     });
-    </script>
+</script>
 
 
-    <h2 class="text-center mt-2">Please describe the new Issue you'd like to add.</h2>
-    <hr class="bg-primary w-75">
-    <form class="mx-auto w-50" method="post">
-        <div class="form-group">
-            <div class="text-dark d-flex justify-content-center">
-                <label asp-for="Description" class="h3 mb-2 text-white">Description</label>
-            </div>
-            <textarea asp-for="Description" rows="10" class="form-control" placeholder="Description, etc..."></textarea>
-            <span asp-validation-for="Description" class="small text-danger"></span>
+<h2 class="text-center mt-2">Please describe the new Issue you'd like to add.</h2>
+<hr class="bg-primary w-75">
+<form class="mx-auto w-50" method="post">
+    <div class="form-group">
+        <div class="text-dark d-flex justify-content-center">
+            <label asp-for="Description" class="h3 mb-2 text-white">Description</label>
         </div>
+        <textarea asp-for="Description" rows="10" class="form-control" placeholder="Description, etc..."></textarea>
+        <span asp-validation-for="Description" class="small text-danger"></span>
+    </div>
 
-        <input type="text" hidden id="id" name="CarId" value="@Model.CarId" />
-        <div class="d-flex justify-content-center">
-            <button type="submit"  class="btn btn-block btn-primary text-white mb-3">Add</button>
-        </div>
-    </form>
+    <input type="text" hidden id="id" name="CarId" value="@Model.CarId" />
+    <div class="d-flex justify-content-center">
+        <button type="submit" class="btn btn-block btn-primary text-white mb-3">Add</button>
+    </div>
+</form>
+
+
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

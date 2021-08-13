@@ -9,7 +9,7 @@ namespace CarService.Controllers
     using Microsoft.AspNetCore.Mvc;
     using System.Linq;
 
-
+    using static WebConstants;
     public class ReviewsController : Controller
     {
         private readonly IReviewsService reviewsService;
@@ -59,7 +59,7 @@ namespace CarService.Controllers
             return this.View(reviewsAll);
         }
 
-        [Authorize]
+        [Authorize(Roles = AdministratorRoleName)]
         public ActionResult Delete(int reviewId)
         {
             reviewsService.DeleteReview(reviewId);

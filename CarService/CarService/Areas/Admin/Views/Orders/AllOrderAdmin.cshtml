@@ -1,0 +1,99 @@
+﻿@using CarService.Data.Models
+@using CarService.Infrastructure
+@using Microsoft.AspNetCore.Identity
+
+@model List<AdminAllOrdersViewModel>
+
+@inject SignInManager<User> SignInManager
+
+@{
+    this.ViewData["Title"] = "AllOrdersAdmin";
+
+    var userIsAdmin = User.IsAdmin();
+
+}
+
+
+<div class="container-fluid text-center">
+
+    <h1>@this.ViewData["Title"]</h1>
+
+</div>
+
+
+<div class="container">
+    <div class="section">
+        <div class="row">
+            <div class="col-md-10 offset-md-1">
+                <div class="page-header text-center">
+                    <h4 id="tables">Listed orders  </h4>
+                </div>
+    @foreach (var user in Model)
+    {
+                <h4 class="font-weight-bold font-italic">UserName: @user.UserName</h4>
+
+                <div class="component">
+                    <table class="table table-hover">
+                        <thead class=" table-active">
+                            <tr>
+                                <th scope="col">TotalPrice</th>
+                                <th scope="col" class="text-center">CreateOn</th>
+                                <th scope="col" class="text-center">Details Order</th>
+                                @if (userIsAdmin)
+                                {
+                                    <th scope="col" class="text-center">Delete Order</th>
+                                }
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var order in user.OrdersAdmin)
+                            {
+
+                                <tr class="table-light">
+                                    <td>@order.TotalPrice</td>
+                                    <td>
+                                        <span class="card-title"> @order.CreateOn</span>
+                                    </td>
+
+                                    <td>
+                                        <a class="btn btn-block btn-primary text-white mb-3" href="/Orders/DetailsOrder?orderId=@order.Id&userId=@order.UserId">Details Order</a>
+                                    </td>
+
+                                    @if (userIsAdmin)
+                                    {
+                                        <td>
+                                            <a class="btn btn-block btn-warning text-white mb-3" href="/Orders/DeleteOrder?orderId=@order.Id&userId=@order.UserId">Delete Order</a>
+                                        </td>
+                                    }
+                                </tr>
+                            }
+
+                        </tbody>
+                    </table>
+                </div>
+    }
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

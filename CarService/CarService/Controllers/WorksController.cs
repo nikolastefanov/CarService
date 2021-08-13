@@ -11,7 +11,7 @@ namespace CarService.Controllers
     using System.Linq;
     using System.Threading.Tasks;
 
-
+    using static WebConstants;
 
     public class WorksController : Controller
     {
@@ -75,8 +75,7 @@ namespace CarService.Controllers
             return this.View(pr);
             
         }
-
-        [Authorize]
+        [Authorize(Roles = AdministratorRoleName)]
         public IActionResult EditWorks(int workId, int issueId, int carId)
         {
             ;
@@ -91,7 +90,7 @@ namespace CarService.Controllers
             });
         }
 
-        [Authorize]
+        [Authorize(Roles = AdministratorRoleName)]
         [HttpPost]
         public IActionResult EditWorks(int workId
             , int issueId
@@ -115,7 +114,7 @@ namespace CarService.Controllers
         }
 
 
-        [Authorize]
+        [Authorize(Roles = AdministratorRoleName)]
         public IActionResult DeleteWorks(int workId,int issueId,int carId)
         {
             this.worksService.DeleteToWork(workId, issueId,carId);

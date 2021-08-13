@@ -3,6 +3,7 @@ namespace CarService.Services.Orders
 {
     using CarService.Data;
     using CarService.Data.Models;
+    using CarService.Services.Orders.Models;
     using System;
     using System.Collections.Generic;
     using System.Linq;
@@ -124,6 +125,28 @@ namespace CarService.Services.Orders
             return order;
         }
 
+        public IEnumerable<AdminOrderServiceModel> GetAllAdmin()
+        {
+            var orders = this.data
+               .Users
+               .Select(x => new AdminOrderServiceModel
+               {
+                   UserName = x.UserName,
+                   OrdersAdmin = x.Orders
+                   .Select(o => new OrderServiceModel
+                   {
+                       Id = o.Id,
+                       UserId = o.UserId,
+                       TotalPrice = o.TotalPrice,
+                       CreateOn = o.CreateOn,
+                   }).ToList()
+               }).ToList(); ;
+        
+
+
+            return orders;
+        }
+
         public IEnumerable<OrderServiceModel> GetAllOrders(string userId)
         {
             var orders = this.data
@@ -131,15 +154,17 @@ namespace CarService.Services.Orders
                 .Where(x => x.UserId == userId)
                 .Select(x => new OrderServiceModel
                 {
-                    Id=x.Id,
-                    UserId=x.UserId,
-                    TotalPrice=x.TotalPrice,
-                    CreateOn=x.CreateOn,                 
+                    Id = x.Id,
+                    UserId = x.UserId,
+                    TotalPrice = x.TotalPrice,
+                    CreateOn = x.CreateOn,
                 })
                 .ToList();
 
             return orders;
         }
+
+
 
         public string GetUserByName(string userId)
         {

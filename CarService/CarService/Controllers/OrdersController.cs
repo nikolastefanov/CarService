@@ -13,6 +13,7 @@ namespace CarService.Controllers
     using CarService.Infrastructure;
     using Microsoft.AspNetCore.Authorization;
 
+    using static WebConstants;
     public class OrdersController : Controller
     {
         private readonly IOrdersService ordersService;
@@ -54,6 +55,12 @@ namespace CarService.Controllers
         [Authorize]
         public IActionResult AllOrders()
         {
+            if( User.IsAdmin())
+            {
+                return Redirect("/Admin/Orders/AllOrderAdmin");
+            }
+
+
             var userId = this.User.GetId();
 
             var orders=this.ordersService.GetAllOrders( userId);
@@ -106,8 +113,7 @@ namespace CarService.Controllers
             return this.View(orderView);
         }
 
-
-        [Authorize]
+        [Authorize(Roles = AdministratorRoleName)]
         public IActionResult DeleteOrder(string orderId,string userId)
         {
 

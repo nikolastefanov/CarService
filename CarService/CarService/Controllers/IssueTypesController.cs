@@ -1,14 +1,21 @@
-﻿using CarService.Models.IssueTypes;
-using CarService.Services;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Mvc;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿
 
 namespace CarService.Controllers
 {
+    using CarService.Infrastructure;
+    using CarService.Models.IssueTypes;
+    using CarService.Services;
+    using Microsoft.AspNetCore.Authorization;
+    using Microsoft.AspNetCore.Mvc;
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+    using System.Threading.Tasks;
+
+    using static WebConstants;
+
+
+
     public class IssueTypesController :Controller
     {
         private readonly IIssueTypesService service;
@@ -33,14 +40,19 @@ namespace CarService.Controllers
             return View(issueType);
         }
 
+   
         [Authorize]
         public IActionResult AddIssueType()
         {
+            if (!User.IsAdmin())
+            {
+                return RedirectToAction("IndexIssueType");
+            }
             return this.View();
         }
 
 
-        [Authorize]
+        [Authorize(Roles = AdministratorRoleName)]
         [HttpPost]
         public IActionResult AddIssueType(IssueTypeViewModel issueType)
         {
@@ -52,7 +64,7 @@ namespace CarService.Controllers
             return this.RedirectToAction("IndexIssueType");
         }
 
-        [Authorize]
+        [Authorize(Roles = AdministratorRoleName)]
         public IActionResult EditIssueType(int issueTypeId)
         {
             var issueType = this.service.Details(issueTypeId);
@@ -66,7 +78,8 @@ namespace CarService.Controllers
 
         }
 
-        [Authorize]
+  
+        [Authorize(Roles = AdministratorRoleName)]
         [HttpPost]
         public IActionResult EditIssueType(int issueTypeId,IssueTypeViewModel issueType)
         {
@@ -86,7 +99,7 @@ namespace CarService.Controllers
             return RedirectToAction("IndexIssueType");
         }
 
-        [Authorize]
+        [Authorize(Roles = AdministratorRoleName)]
         public IActionResult DeleteIssueType(int issueTypeId)
         {
             this.service.Delete(issueTypeId);

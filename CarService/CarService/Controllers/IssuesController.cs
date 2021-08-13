@@ -13,6 +13,7 @@ namespace CarService.Controllers
     using System.Linq;
     using System.Threading.Tasks;
 
+    using static WebConstants;
 
     public class IssuesController : Controller
     {
@@ -89,7 +90,7 @@ namespace CarService.Controllers
             
         }
 
-        [Authorize]
+        [Authorize(Roles = AdministratorRoleName)]
          public IActionResult EditIssue(int issueId,int carId)
          {
 
@@ -106,7 +107,7 @@ namespace CarService.Controllers
 
         }
 
-        [Authorize]
+        [Authorize(Roles = AdministratorRoleName)]
         [HttpPost]
         public IActionResult EditIssue(int issueId,int carId,IssueViewModel  issuesModel)
         {
@@ -141,7 +142,8 @@ namespace CarService.Controllers
 
 
 
-        [Authorize]
+
+        [Authorize(Roles = AdministratorRoleName)]
         public IActionResult DeleteIssue(int issueId, int carId)
         {
 

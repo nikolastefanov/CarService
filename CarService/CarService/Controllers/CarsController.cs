@@ -13,6 +13,8 @@ namespace CarService.Controllers
     using System.Collections.Generic;
     using System.Linq;
     using System.Threading.Tasks;
+
+    using static WebConstants;
     public class CarsController : Controller
     {
         private readonly ICarsService carsService;
@@ -83,7 +85,8 @@ namespace CarService.Controllers
             return this.View(carsData);
         }
 
-        [Authorize]
+        
+        [Authorize(Roles =AdministratorRoleName)]
         public IActionResult Edit(int carId)
         {
          
@@ -114,7 +117,8 @@ namespace CarService.Controllers
         }
 
 
-        [Authorize]
+
+        [Authorize(Roles = AdministratorRoleName)]
         [HttpPost]
         public IActionResult Edit(int carId,EditCarViewModel car)
         {
@@ -135,7 +139,7 @@ namespace CarService.Controllers
             return RedirectToAction("All");
         }
 
-        [Authorize]
+        [Authorize(Roles = AdministratorRoleName)]
         public IActionResult DeleteCar(int carId)
         {
             this.carsService.DeleteCar(carId);

@@ -106,8 +106,12 @@ namespace CarService
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllerRoute(
-                   name: "areaRoute",
-                   pattern: "{area:exists}/{controller=Cars}/{action=All}/{id?}");
+               name: "areaRoute",
+               pattern: "{area:exists}/{controller=Orders}/{action=AllOrderAdmin}/{id?}");
+
+                endpoints.MapControllerRoute(
+                  name: "areaRoute",
+                  pattern: "{area:exists}/{controller=Cars}/{action=All}/{id?}");
 
                 endpoints.MapControllerRoute(
                     name: "default",

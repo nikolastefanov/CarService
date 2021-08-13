@@ -1,10 +1,25 @@
-﻿@model List<CarListingViewModel>
+﻿@using CarService.Data.Models
+@using CarService.Services.Mechanics
+@using CarService.Infrastructure
+@using Microsoft.AspNetCore.Identity
+
+@model List<CarListingViewModel>
+
+@inject SignInManager<User> SignInManager
+@inject UserManager<User> UserManager
+@inject IMechanicsService Mechanics
+
 
 <h1 class="text-center mt-2">My Cars</h1>
 <div class="row mt-2 mb-4">
-    
+
     @foreach (var car in Model)
     {
+        var userId = User.Id();
+        var userIsMechanic = Mechanics.IsMechanic(userId);
+        var userIsAdmin = User.IsAdmin();
+
+
     <div class="card col-6 col-lg-3 game-card">
         <img src="@car.ImageUrl"
              class="card-img-top img-fluid card-image rounded" data-toggle="tooltip"
@@ -17,11 +32,20 @@
                     <span class="bg-success col-sm">Fixed Issues: @car.FixedIssues</span>
                 </li>
             </ul>
-            <a href="/Issues/AddIssue?carId=@car.Id" class="btn btn-block btn-primary">Check issues</a>
-            <a href="/Issues/AllIssues?carId=@car.Id" class="btn btn-block btn-warning">All issues to car</a>
+
+            @if (userIsMechanic && !userIsAdmin)
+            {
+                  <a href="/Issues/AddIssue?carId=@car.Id" class="btn btn-block btn-primary">Check issues</a>
+             }
+
+               <a href="/Issues/AllIssues?carId=@car.Id" class="btn btn-block btn-warning">All issues to car</a>
+
         </div>
-        <a href="/Cars/Edit?carId=@car.Id" class="btn btn-block btn-danger">Edit car</a>
-    </div>
-    }
+        @if (userIsAdmin)
+        {
+             <a href="/Cars/Edit?carId=@car.Id" class="btn btn-block btn-danger">Edit car</a>
+        }
+   </div>
+   }
 
 </div>
