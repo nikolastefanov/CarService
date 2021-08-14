@@ -14,6 +14,11 @@ namespace CarService.Models.Reviews
 
         public string CreateOn { get; set; }
 
-       // public string UserId { get; set; }
+        public int CurrentPage { get; set; }
+
+        public int PagesCount { get; set; }
+
+
+        // public string UserId { get; set; }
     }
 }

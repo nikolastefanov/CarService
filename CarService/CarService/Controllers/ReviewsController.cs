@@ -12,6 +12,7 @@ namespace CarService.Controllers
     using static WebConstants;
     public class ReviewsController : Controller
     {
+        private const int ItemsPerPage = 2;
         private readonly IReviewsService reviewsService;
 
         public ReviewsController(IReviewsService reviewsService)
@@ -41,9 +42,10 @@ namespace CarService.Controllers
             return RedirectToAction("AllReviews","Reviews");
         }
 
-        public IActionResult AllReviews()
+        public IActionResult AllReviews(int page=1)
         {
-            var sanitizer = new HtmlSanitizer();
+
+             var sanitizer = new HtmlSanitizer();
 
             var reviewsAll = reviewsService
                 .GetAllReview()
@@ -54,8 +56,23 @@ namespace CarService.Controllers
                     CreateOn = x.CreateOn.ToString()
                 })
                 .ToList();
-                
-           
+
+            if (reviewsAll == null)
+            {
+                return this.NotFound();
+            }
+
+            var count = reviewsAll.Count();
+
+           // var reviews=reviewsAll
+           //     .Skip()
+           //     .Take()
+           //
+              //  var cars = carsQuery
+              //  .Skip((query.CurrentPage - 1) * AllCarsQueryModel.CarsPerPage)
+              //  .Take(AllCarsQueryModel.CarsPerPage)
+               // .Select....
+
             return this.View(reviewsAll);
         }
 

@@ -56,7 +56,10 @@ namespace CarService
             }) 
                     .AddRoles<IdentityRole>()
                     .AddEntityFrameworkStores<ApplicationDbContext>();
-            services.AddControllersWithViews();
+
+           // services.AddControllersWithViews();
+
+            services.AddMemoryCache();
 
             services.AddControllersWithViews(options =>
             {

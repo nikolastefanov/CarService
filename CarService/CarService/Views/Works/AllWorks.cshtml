@@ -1,8 +1,17 @@
-﻿@model ListingWorkViewModel
+﻿@using CarService.Data.Models
+@using CarService.Services.Mechanics
+@using CarService.Infrastructure
+@using Microsoft.AspNetCore.Identity
 
-@{
-    this.ViewData["Title"] = "AllWorks";
-}
+@model ListingWorkViewModel
+
+@inject SignInManager<User> SignInManager
+@inject UserManager<User> UserManager
+@inject IMechanicsService Mechanics
+
+
+
+@{ this.ViewData["Title"] = "AllWorks"; }
 
 
 <div class="container-fluid text-center">
@@ -41,24 +50,24 @@
                             @foreach (var work in Model.Works)
                             {
 
-                            <tr class="table-light">
-                                <td>@work.Description</td>
-                                <td>
-                                    <span class="card-title"> @work.Price</span>
-                                </td>
+                <tr class="table-light">
+                    <td>@work.Description</td>
+                    <td>
+                        <span class="card-title"> @work.Price</span>
+                    </td>
 
-                                <td>
-                                    <a class="btn btn-block btn-primary text-white mb-3" href="/Orders/AddToOrder?workId=@work.Id&issueId=@work.IssueId&carId=@Model.CarId">Add to Order</a>
-                                </td>
-                                <td>
-                                    <a class="btn btn-block btn-warning text-white mb-3" href="/Works/EditWorks?workId=@work.Id&issueId=@work.IssueId&carId=@Model.CarId">Edit Work</a>
-                                </td>
-                                <td>
-                                    <a class="btn btn-block btn-danger text-white mb-3" href="/Works/DeleteWorks?workId=@work.Id&issueId=@work.IssueId&carId=@Model.CarId">Delete Work</a>
-                                </td>
-                             
-                            </tr>
-                              }
+                    <td>
+                        <a class="btn btn-block btn-primary text-white mb-3" href="/Orders/AddToOrder?workId=@work.Id&issueId=@work.IssueId&carId=@Model.CarId">Add to Order</a>
+                    </td>
+                    <td>
+                        <a class="btn btn-block btn-warning text-white mb-3" href="/Works/EditWorks?workId=@work.Id&issueId=@work.IssueId&carId=@Model.CarId">Edit Work</a>
+                    </td>
+                    <td>
+                        <a class="btn btn-block btn-danger text-white mb-3" href="/Works/DeleteWorks?workId=@work.Id&issueId=@work.IssueId&carId=@Model.CarId">Delete Work</a>
+                    </td>
+
+                </tr>
+}
 
                         </tbody>
                     </table>

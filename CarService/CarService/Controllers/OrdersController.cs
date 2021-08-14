@@ -38,7 +38,9 @@ namespace CarService.Controllers
           
             this.ordersService.CreateOrderZero(order.TotalPrice,userId);
 
-            return this.RedirectToAction("/IssueTypes/IndexIssueType");
+            //return this.RedirectToAction("/IssueTypes/IndexIssueType");
+
+            return Redirect("/IssueTypes/IndexIssueType");
         }
 
         [Authorize]

@@ -7,35 +7,60 @@ namespace CarService.Controllers
     using CarService.Services;
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
+    using Microsoft.Extensions.Caching.Memory;
     using System;
     using System.Collections.Generic;
     using System.Linq;
     using System.Threading.Tasks;
 
     using static WebConstants;
-
+    using static WebConstants.Cache;
 
 
     public class IssueTypesController :Controller
     {
         private readonly IIssueTypesService service;
+        private readonly IMemoryCache cache;
 
-        public IssueTypesController(IIssueTypesService service)
+        public IssueTypesController(IIssueTypesService service, IMemoryCache cache)
         {
             this.service = service;
+            this.cache = cache;
         }
 
         public IActionResult IndexIssueType()
         {
-            var issueType = this.service
-                .GetAllCategory()
-                .Select(x => new IndexIssueTypeViewModel
-                {
-                    Id = x.Id,
-                    Name = x.Name,
-                    ImageUrl = x.ImageUrl,
+            // var issueType = this.service
+            //     .GetAllCategory()
+            //     .Select(x => new IndexIssueTypeViewModel
+            //     {
+            //         Id = x.Id,
+            //         Name = x.Name,
+            //         ImageUrl = x.ImageUrl,
+            //
+            //     }).ToList();
 
-                }).ToList();
+            var issueType = this.cache.Get<List<IndexIssueTypeViewModel>>(IssueTypeCacheKey);
+
+            if (issueType == null)
+            {
+                  issueType = this.service
+                     .GetAllCategory()
+                     .Select(x => new IndexIssueTypeViewModel
+                     {
+                         Id = x.Id,
+                         Name = x.Name,
+                         ImageUrl = x.ImageUrl,
+                
+                     }).ToList();
+
+
+
+                var cacheOptions = new MemoryCacheEntryOptions()
+                    .SetAbsoluteExpiration(TimeSpan.FromMinutes(1));
+
+                this.cache.Set(IssueTypeCacheKey, issueType, cacheOptions);
+            }
 
             return View(issueType);
         }
