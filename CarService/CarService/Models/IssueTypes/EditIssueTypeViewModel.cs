@@ -10,17 +10,10 @@ namespace CarService.Models.IssueTypes
 
     using static Data.DataConstants.IssueType;
 
-    public class EditIssueTypeViewModel
+    public class EditIssueTypeViewModel : IssueTypeViewModel
     {
         public int Id { get; set; }
 
-        [Required]
-        [StringLength(IssueTypeMaxLength, MinimumLength = IssueTypeMinLength)]
-        public string Name { get; set; }
-
-        [Required]
-        [Url]
-        public string ImageUrl { get; set; }
     }
 }
 

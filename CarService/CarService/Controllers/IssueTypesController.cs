@@ -30,37 +30,43 @@ namespace CarService.Controllers
 
         public IActionResult IndexIssueType()
         {
-            // var issueType = this.service
-            //     .GetAllCategory()
-            //     .Select(x => new IndexIssueTypeViewModel
-            //     {
-            //         Id = x.Id,
-            //         Name = x.Name,
-            //         ImageUrl = x.ImageUrl,
-            //
-            //     }).ToList();
 
-            var issueType = this.cache.Get<List<IndexIssueTypeViewModel>>(IssueTypeCacheKey);
-
-            if (issueType == null)
+            if (User.IsAdmin())
             {
-                  issueType = this.service
-                     .GetAllCategory()
-                     .Select(x => new IndexIssueTypeViewModel
-                     {
-                         Id = x.Id,
-                         Name = x.Name,
-                         ImageUrl = x.ImageUrl,
-                
-                     }).ToList();
+                var issueTypeAdmin = this.service
+                  .GetAllCategory()
+                  .Select(x => new IndexIssueTypeViewModel
+                  {
+                      Id = x.Id,
+                      Name = x.Name,
+                      ImageUrl = x.ImageUrl,
 
-
-
-                var cacheOptions = new MemoryCacheEntryOptions()
-                    .SetAbsoluteExpiration(TimeSpan.FromMinutes(1));
-
-                this.cache.Set(IssueTypeCacheKey, issueType, cacheOptions);
+                  }).ToList();
+                return View(issueTypeAdmin);
             }
+            
+                var issueType = this.cache.Get<List<IndexIssueTypeViewModel>>(IssueTypeCacheKey);
+
+                if (issueType == null)
+                {
+                    issueType = this.service
+                       .GetAllCategory()
+                       .Select(x => new IndexIssueTypeViewModel
+                       {
+                           Id = x.Id,
+                           Name = x.Name,
+                           ImageUrl = x.ImageUrl,
+
+                       }).ToList();
+
+
+
+                    var cacheOptions = new MemoryCacheEntryOptions()
+                        .SetAbsoluteExpiration(TimeSpan.FromMinutes(1));
+
+                    this.cache.Set(IssueTypeCacheKey, issueType, cacheOptions);
+                }
+            
 
             return View(issueType);
         }

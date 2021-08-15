@@ -6,7 +6,7 @@ namespace CarService.Models.Works
     using System.Linq;
     using System.Threading.Tasks;
 
-    public class ListingWorkViewModel
+    public class ListingWorkViewModel 
     {
         public int Id { get; set; }
 
