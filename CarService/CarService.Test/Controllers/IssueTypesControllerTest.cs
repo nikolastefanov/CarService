@@ -13,12 +13,27 @@ namespace CarService.Test.Controllers
     public class IssueTypesControllerTest
     {
         [Fact]
-        public void ErrorShouldReturnView()
+        public void IssueTypeShouldReturnView()
             => MyController<IssueTypesController>
                 .Instance()
                 .Calling(c => c.IndexIssueType())
                 .ShouldReturn()
                 .View();
+
+
+        [Fact]
+        public void GetAddIssueTypeShouldBeForAuthorizedUsersAndReturnView()
+           => MyController<IssueTypesController>
+               .Instance()
+               .Calling(c => c.AddIssueType())
+                .ShouldHave()
+                .ActionAttributes(attributes => attributes
+                    .RestrictingForAuthorizedRequests())
+                .AndAlso()
+               .ShouldReturn()
+               .View();
+
+
 
     }
 }

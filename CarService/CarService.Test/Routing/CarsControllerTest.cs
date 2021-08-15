@@ -25,12 +25,12 @@ namespace CarService.Test.Routing
                     .WithMethod(HttpMethod.Post))
                 .To<CarsController>(c => c.Add(With.Any<AddCarFormModel>()));
 
-   //      [Fact]
-   //      public void GetEditShouldBeMapped()
-   //         => MyRouting
-   //             .Configuration()
-   //             .ShouldMap("/Cars/Edit")
-   //             .To<CarsController>(c => c.Edit(1));
+         [Fact]
+           public void GetEditShouldBeMapped()
+              => MyRouting
+                  .Configuration()
+                  .ShouldMap("/Cars/Edit?carId=1")
+                  .To<CarsController>(c => c.Edit(1));
 
       // [Fact]
       // public void PostEditShouldBeMapped()
@@ -40,7 +40,7 @@ namespace CarService.Test.Routing
       //             .WithPath("/Cars/Edit")
       //             .WithMethod(HttpMethod.Post))
       //         .To<CarsController>(c =>
-      //         c.Edit(With.Value<EditCarViewModel>(1,EditCarViewModel car)));
+      //         c.Edit();
           
 
 

@@ -32,15 +32,15 @@ namespace CarService.Test.Routing
                     .WithPath("/IssueTypes/AddIssueType")
                     .WithMethod(HttpMethod.Post))
                 .To<IssueTypesController>(c => c.AddIssueType(With.Any<IssueTypeViewModel>()));
-      //
-      //  [Fact]
-      //  public void GetEditIssueTypeShouldBeMapped()
-      //     => MyRouting
-      //         .Configuration()
-      //         .ShouldMap("/IssueTypes/EditIssueType")
-      //         .To<IssueTypesController>(c => c.EditIssueType());
-      //
-      //
+        
+          [Fact]
+          public void GetEditIssueTypeShouldBeMapped()
+             => MyRouting
+                 .Configuration()
+                 .ShouldMap("/IssueTypes/EditIssueType")
+                 .To<IssueTypesController>(c => c.EditIssueType(1));
+        
+        
       //  [Fact]
       //  public void PostEditIssueTypeShouldBeMapped()
       //      => MyRouting

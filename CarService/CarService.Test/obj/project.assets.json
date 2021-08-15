@@ -11302,11 +11302,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\HP\\Documents\\Kurs_SoftUni\\A_C#_ASP_NET_Core_may_2021_my\\CarServiceMy\\CarService38PrtialView\\CarService.Test\\CarService.Test.csproj",
+      "projectUniqueName": "C:\\Users\\HP\\Documents\\Kurs_SoftUni\\A_C#_ASP_NET_Core_may_2021_my\\CarServiceMy\\CarService40\\CarService.Test\\CarService.Test.csproj",
       "projectName": "CarService.Test",
-      "projectPath": "C:\\Users\\HP\\Documents\\Kurs_SoftUni\\A_C#_ASP_NET_Core_may_2021_my\\CarServiceMy\\CarService38PrtialView\\CarService.Test\\CarService.Test.csproj",
+      "projectPath": "C:\\Users\\HP\\Documents\\Kurs_SoftUni\\A_C#_ASP_NET_Core_may_2021_my\\CarServiceMy\\CarService40\\CarService.Test\\CarService.Test.csproj",
       "packagesPath": "C:\\Users\\HP\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\HP\\Documents\\Kurs_SoftUni\\A_C#_ASP_NET_Core_may_2021_my\\CarServiceMy\\CarService38PrtialView\\CarService.Test\\obj\\",
+      "outputPath": "C:\\Users\\HP\\Documents\\Kurs_SoftUni\\A_C#_ASP_NET_Core_may_2021_my\\CarServiceMy\\CarService40\\CarService.Test\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages",
@@ -11328,8 +11328,8 @@
         "net5.0": {
           "targetAlias": "net5.0",
           "projectReferences": {
-            "C:\\Users\\HP\\Documents\\Kurs_SoftUni\\A_C#_ASP_NET_Core_may_2021_my\\CarServiceMy\\CarService38PrtialView\\CarService\\CarService.csproj": {
-              "projectPath": "C:\\Users\\HP\\Documents\\Kurs_SoftUni\\A_C#_ASP_NET_Core_may_2021_my\\CarServiceMy\\CarService38PrtialView\\CarService\\CarService.csproj"
+            "C:\\Users\\HP\\Documents\\Kurs_SoftUni\\A_C#_ASP_NET_Core_may_2021_my\\CarServiceMy\\CarService40\\CarService\\CarService.csproj": {
+              "projectPath": "C:\\Users\\HP\\Documents\\Kurs_SoftUni\\A_C#_ASP_NET_Core_may_2021_my\\CarServiceMy\\CarService40\\CarService\\CarService.csproj"
             }
           }
         }

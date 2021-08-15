@@ -23,5 +23,13 @@ namespace CarService.Test.Controllers
                 .ShouldReturn()
                 .View();
 
+        [Fact]
+        public void IndexActionShouldReturnCorrectView()
+            => MyController<HomeController>
+            .Instance()
+            .Calling(c => c.Index())
+            .ShouldReturn()
+            .View();
+
     }
 }

@@ -42,7 +42,7 @@ namespace CarService.Controllers
             return RedirectToAction("AllReviews","Reviews");
         }
 
-        public IActionResult AllReviews(int page=1)
+        public IActionResult AllReviews()
         {
 
              var sanitizer = new HtmlSanitizer();

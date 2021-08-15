@@ -20,6 +20,7 @@ namespace CarService.Controllers
         {
             this.mechanicsService = mechanicsService;
         }
+        [Authorize]
         public IActionResult Become()
         {
             return this.View();
