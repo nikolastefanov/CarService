@@ -9,6 +9,7 @@ namespace CarService.Test.Controllers
     using MyTested.AspNetCore.Mvc;
     using Xunit;
 
+    using static WebConstants;
 
     public class IssueTypesControllerTest
     {
@@ -21,17 +22,6 @@ namespace CarService.Test.Controllers
                 .View();
 
 
-        [Fact]
-        public void GetAddIssueTypeShouldBeForAuthorizedUsersAndReturnView()
-           => MyController<IssueTypesController>
-               .Instance()
-               .Calling(c => c.AddIssueType())
-                .ShouldHave()
-                .ActionAttributes(attributes => attributes
-                    .RestrictingForAuthorizedRequests())
-                .AndAlso()
-               .ShouldReturn()
-               .View();
 
 
 

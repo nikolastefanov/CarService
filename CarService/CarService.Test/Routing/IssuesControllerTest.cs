@@ -28,5 +28,13 @@ namespace CarService.Test.Routing
               .Configuration()
               .ShouldMap("/Issues/EditIssue?issueId=1&carId=1")
               .To<IssuesController>(c => c.EditIssue(1,1));
+
+
+        [Fact]
+        public void FixIssueRouteShouldBeMapped()
+         => MyRouting
+             .Configuration()
+             .ShouldMap("/Issues/Fix?issueId=1&carId=1")
+             .To<IssuesController>(c => c.Fix(1, 1));
     }
 }

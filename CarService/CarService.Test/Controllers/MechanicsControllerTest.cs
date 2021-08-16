@@ -50,11 +50,9 @@ namespace CarService.Test.Controllers
                             m.FullName == mechanicName &&
                             m.PhoneNumber == phoneNumber &&
                             m.UserId == TestUser.Identifier)))
-            .TempData()
             .AndAlso()
             .ShouldReturn()
-            .Redirect(redirect => redirect
-            .To<IssueTypesController>(c => c.IndexIssueType()));
+            .RedirectToAction("IndexIssueType", "IssueTypes");
     }
 
 }

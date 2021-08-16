@@ -11,8 +11,8 @@ namespace CarService.Test.Routing
         public void AddWorksRouteShouldBeMapped()
            => MyRouting
                .Configuration()
-               .ShouldMap("/Works/AddWorks?issueId=3&carId=1")
-               .To<WorksController>(c => c.AddWorks(3,1,null));
+               .ShouldMap("/Works/AddWorks?issueId=2&carId=1")
+               .To<WorksController>(c => c.AddWorks());
 
         [Fact]
         public void AllWorksRouteShouldBeMapped()

@@ -128,19 +128,16 @@ namespace CarService.Controllers
         {
           //  var userIsMechanic = this.users.IsMechanic(this.User.Id);
           //
-          //  if (!userIsMechanic)
-          //  {
-          //      return Unauthorized();
-          //  }
+           //  if (!userIsMechanic)
+           //  {
+           //      return Unauthorized();
+           //  }
 
             this.issuesService.FixIssue(issueId, carId);
 
             return Redirect($"/Issues/AllIssues?carId={carId}");
 
         }
-
-
-
 
 
         [Authorize(Roles = AdministratorRoleName)]
