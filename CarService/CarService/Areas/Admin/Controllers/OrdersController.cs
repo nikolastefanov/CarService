@@ -37,10 +37,6 @@ namespace CarService.Areas.Admin.Controllers
                     }).ToList()
                 })
                 .ToList();
-            ;
-                
-
-
 
             return this.View(orders);
         }

@@ -4,29 +4,29 @@
     this.ViewData["Title"] = "CreateOrder";
 }
 
-
 <div class="container-fluid text-center">
 
-    <h2>@this.ViewData["Title"]</h2>
+    <h3>@this.ViewData["Title"]</h3>
 
 </div>
-<form method="post">
 
-    <div class="container-fluid text-center">
-        <div class="card border-success mb-3" style="max-width: 20rem;">
-            <div class="card-header">Yous Order!!!</div>
-            <div class="card-body">
-                <h4 class="card-title">Success card title</h4>
-                <p class="card-text">Total Price: @Model.TotalPrice </p>
+<br/>
+<div class="text-center">
+    <form method="post">
+        <div class="text-center">
+            <div class="card border-success  offset-4" style="max-width: 20rem;">
+                <div class="card-header">Yous Order!!!</div>
+                <div class="card-body">
+                    <h4 class="card-title">Success !!!</h4>
+                    <p class="card-text">Total Price: @Model.TotalPrice </p>
+                </div>
             </div>
         </div>
-    </div>
+        <br />
+        <button type="submit" class="btn btn-primary">OK!!!</button>
 
-    <button type="submit" class="btn btn-primary">OK!!!</button>
-
-</form>
-
-
-@section Scripts {
-    <partial name="_ValidationScriptsPartial" />
-}
+    </form>
+</div>
+    @section Scripts {
+        <partial name="_ValidationScriptsPartial" />
+    }

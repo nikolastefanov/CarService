@@ -20,6 +20,8 @@ namespace CarService.Services.Cars
             , int year
             , int issueType);
 
+        IEnumerable<CarListingServiceModel> GetAllCar(string userId);
+
         IEnumerable<CarListingServiceModel> GetAllCar();
 
         IEnumerable<CarServiceModel> GetAllCarAdmin();

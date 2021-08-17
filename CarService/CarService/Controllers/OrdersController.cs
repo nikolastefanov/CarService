@@ -14,13 +14,18 @@ namespace CarService.Controllers
     using Microsoft.AspNetCore.Authorization;
 
     using static WebConstants;
+    using CarService.Services.Mechanics;
+
     public class OrdersController : Controller
     {
         private readonly IOrdersService ordersService;
+        private readonly IMechanicsService mechanicsService;
     
-        public OrdersController(IOrdersService ordersService)
+        public OrdersController(IOrdersService ordersService,
+            IMechanicsService mechanicsService)
         {
             this.ordersService = ordersService;
+            this.mechanicsService = mechanicsService;
         
         }
 
@@ -36,9 +41,29 @@ namespace CarService.Controllers
         {
             var userId = this.User.GetId();
           
+            var userIsMechanic = mechanicsService.IsMechanic(userId);
+           
+
+
+            if (User.IsAdmin())
+            {
+                return Redirect("/Admin/Orders/AllOrderAdmin");
+            }
+
+            if (userIsMechanic)
+            {
+                return Redirect("/IssueTypes/IndexIssueType");
+            }
+
+            var isOrder=this.ordersService.OrderExists(userId);
+
+            if (isOrder)
+            {
+                return Redirect("/IssueTypes/IndexIssueType");
+            }
+          
             this.ordersService.CreateOrderZero(order.TotalPrice,userId);
 
-            //return this.RedirectToAction("/IssueTypes/IndexIssueType");
 
             return Redirect("/IssueTypes/IndexIssueType");
         }
@@ -57,13 +82,20 @@ namespace CarService.Controllers
         [Authorize]
         public IActionResult AllOrders()
         {
-            if( User.IsAdmin())
+            var userId = this.User.GetId();
+
+            var userIsMechanic = mechanicsService.IsMechanic(userId);
+
+            if ( User.IsAdmin())
             {
                 return Redirect("/Admin/Orders/AllOrderAdmin");
             }
 
+            if (userIsMechanic)
+            {
+                return Redirect("/IssueTypes/IndexIssueType");
+            }
 
-            var userId = this.User.GetId();
 
             var orders=this.ordersService.GetAllOrders( userId);
 
@@ -111,7 +143,6 @@ namespace CarService.Controllers
             };
                 
 
-
             return this.View(orderView);
         }
 
@@ -121,7 +152,7 @@ namespace CarService.Controllers
 
             this.ordersService.DeleteOrderService(orderId, userId);
 
-            return this.View("AllOrders","Orders");
+            return this.RedirectToAction("AllOrders","Orders");
         }
     }
 }

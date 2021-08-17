@@ -7,6 +7,7 @@ namespace CarService.Controllers
     using CarService.Models.Cars;
     using CarService.Models.IssueTypes;
     using CarService.Services.Cars;
+    using CarService.Services.Mechanics;
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
     using System;
@@ -18,10 +19,12 @@ namespace CarService.Controllers
     public class CarsController : Controller
     {
         private readonly ICarsService carsService;
-
-        public CarsController(ICarsService carsService)
+        private readonly IMechanicsService mechanicsService;
+        public CarsController(ICarsService carsService,
+            IMechanicsService mechanicsService)
         {
             this.carsService = carsService;
+            this.mechanicsService = mechanicsService;
         }
 
         [Authorize]
@@ -65,24 +68,59 @@ namespace CarService.Controllers
 
         [Authorize]
         public IActionResult All()
-        {
-            var carsData = this.carsService
-                .GetAllCar()
-                .Select(x => new CarListingViewModel
-                {
-                    Id=x.Id,
-                    Make=x.Make,
-                    Model=x.Model,
-                    PlateNumber=x.PlateNumber,
-                    ImageUrl=x.ImageUrl,
-                    Year=x.Year,
-                    IssueType=x.IssueType,
-                    RemainingIssues =x.RemainingIssues,
-                    FixedIssues = x.FixedIssues,
-                })
-                .ToList();
+        {  
 
-            return this.View(carsData);
+            var userId = this.User.GetId();
+
+            var userIsMechanic = mechanicsService.IsMechanic(userId);
+
+            if (!userIsMechanic)
+            {
+
+                 var carsData = this.carsService
+                    .GetAllCar(userId)
+                    .Select(x => new CarListingViewModel
+                    {
+                        Id = x.Id,
+                        Make = x.Make,
+                        Model = x.Model,
+                        PlateNumber = x.PlateNumber,
+                        ImageUrl = x.ImageUrl,
+                        Year = x.Year,
+                        IssueType = x.IssueType,
+                        RemainingIssues = x.RemainingIssues,
+                        FixedIssues = x.FixedIssues,
+                    })
+                    .ToList();
+
+                return this.View(carsData);
+            }
+            else if(userIsMechanic)
+            {
+                 var carsData1 = this.carsService
+                   .GetAllCar()
+                   .Select(x => new CarListingViewModel
+                   {
+                       Id = x.Id,
+                       Make = x.Make,
+                       Model = x.Model,
+                       PlateNumber = x.PlateNumber,
+                       ImageUrl = x.ImageUrl,
+                       Year = x.Year,
+                       IssueType = x.IssueType,
+                       RemainingIssues = x.RemainingIssues,
+                       FixedIssues = x.FixedIssues,
+                   })
+                   .ToList();
+
+                return this.View(carsData1);
+            }
+
+            if (User.IsAdmin())
+            {
+                return Redirect("/Admin/Cars/All");
+            }
+            return this.View("IndexIssueType","IssueTypes");
         }
 
         
@@ -136,7 +174,7 @@ namespace CarService.Controllers
                 return BadRequest();
             }
 
-            return RedirectToAction("All");
+            return RedirectToAction("All","Cars");
         }
 
         [Authorize(Roles = AdministratorRoleName)]
@@ -144,7 +182,7 @@ namespace CarService.Controllers
         {
             this.carsService.DeleteCar(carId);
 
-            return this.RedirectToAction("All");
+            return this.RedirectToAction("All","Cars");
         }
     }
 }

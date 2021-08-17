@@ -42,6 +42,7 @@ namespace CarService.Test.Controllers
                },1))
                .ShouldHave()
                .ActionAttributes(attributes => attributes
+                    .RestrictingForHttpMethod(HttpMethod.Post)
                    .RestrictingForAuthorizedRequests())
                  .Data(data=>data
                     .WithSet<Issue>(issue=>issue
@@ -65,7 +66,6 @@ namespace CarService.Test.Controllers
               .ShouldReturn()
               .View();
 
-
         [Theory]
         [InlineData("descr", 1)]
         public void PostEditIssueShouldBeForAuthorizedUsersAndReturnView(
@@ -81,6 +81,7 @@ namespace CarService.Test.Controllers
                }, 1))
                .ShouldHave()
                .ActionAttributes(attributes => attributes
+                  .RestrictingForHttpMethod(HttpMethod.Post)
                    .RestrictingForAuthorizedRequests())
                  .Data(data => data
                     .WithSet<Issue>(issue => issue
@@ -91,7 +92,6 @@ namespace CarService.Test.Controllers
                .AndAlso()
                .ShouldReturn()
                .Redirect("/Issues/AllIssues?carId=1");
-
 
 
     }

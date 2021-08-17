@@ -22,6 +22,19 @@ namespace CarService.Test.Controllers
                 .View();
 
 
+    //   [Fact]
+    //   public void GetAddIssueTypeShouldBeForAuthorizedUsersAndReturnView()
+    //      => MyController<IssueTypesController>
+    //          .Instance(controller => controller
+    //                     .WithUser())
+    //          .Calling(c => c.AddIssueType())
+    //           .ShouldHave()
+    //           .ActionAttributes(attributes => attributes
+    //               .RestrictingForAuthorizedRequests(AdministratorRoleName))
+    //               .AndAlso()
+    //             .ShouldReturn()
+    //             .View();
+               
 
 
 

@@ -21,6 +21,8 @@ namespace CarService.Services.Orders
 
         void DeleteOrderService(string orderId, string userId);
 
+        bool OrderExists(string userId);
+
         string GetUserByName(string userId);
     }
 }

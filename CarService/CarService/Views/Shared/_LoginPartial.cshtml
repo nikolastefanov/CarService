@@ -16,14 +16,14 @@
         var userIsAdmin = User.IsAdmin();
 
 
-  
+
         @if (userIsAdmin || userIsMechanic)
         {
             <li class="nav-item">
                 <a class="nav-link text-dark" asp-area="" asp-controller="Mechanics" asp-action="Become">Become Mechanic</a>
             </li>
         }
-        else if (userIsAdmin)
+        @if (userIsAdmin)
         {
             <li class="nav-item">
                 <a class="nav-link text-dark" asp-area="Admin" asp-controller="Cars" asp-action="All">Administration for Cars</a>

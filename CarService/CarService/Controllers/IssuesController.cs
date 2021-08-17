@@ -126,12 +126,12 @@ namespace CarService.Controllers
         [Authorize]
         public IActionResult Fix(int issueId, int carId)
         {
-          //  var userIsMechanic = this.users.IsMechanic(this.User.Id);
-          //
-           //  if (!userIsMechanic)
-           //  {
-           //      return Unauthorized();
-           //  }
+           //var userIsMechanic = this.User.IsMechanic(this.User.Id);
+           //
+           // if (!userIsMechanic)
+           // {
+           //     return Unauthorized();
+           // }
 
             this.issuesService.FixIssue(issueId, carId);
 

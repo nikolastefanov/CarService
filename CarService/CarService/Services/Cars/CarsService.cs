@@ -86,7 +86,7 @@ namespace CarService.Services.Cars
                 .FirstOrDefault();
 
             this.data.Cars.Remove(carData);
-
+            
             this.data.SaveChanges();
         }
 
@@ -102,9 +102,9 @@ namespace CarService.Services.Cars
               var carData = this.data.Cars.Find(id);
             
               //TODO proverka dali ima car
-              if (false)
+              if (carData==null)
               {
-            
+                return false;
               }
 
             carData.Make = make;
@@ -119,10 +119,11 @@ namespace CarService.Services.Cars
             return true;
         }
 
-        public IEnumerable<CarListingServiceModel> GetAllCar()
+        public IEnumerable<CarListingServiceModel> GetAllCar(string userId)
         {
             var cars = this.data
                 .Cars
+                .Where(x=>x.UserId==userId)
                 .Select(x => new CarListingServiceModel
                 {
                     Id=x.Id,
@@ -137,9 +138,32 @@ namespace CarService.Services.Cars
                     FixedIssues = x.Issues.Count(i => i.IsFixed),
                 })
                 .ToList();
-
+            
                 return cars;
         }
+
+        public IEnumerable<CarListingServiceModel> GetAllCar()
+        {
+            var cars = this.data
+                .Cars
+                .Select(x => new CarListingServiceModel
+                {
+                    Id = x.Id,
+                    Make = x.Make,
+                    Model = x.Model,
+                    PlateNumber = x.PlateNumber,
+                    ImageUrl = x.ImageUrl,
+                    Year = x.Year,
+                    IssueTypeId = x.IssueTypeId,
+                    IssueType = x.IssueType.Name,
+                    RemainingIssues = x.Issues.Count(i => !i.IsFixed),
+                    FixedIssues = x.Issues.Count(i => i.IsFixed),
+                })
+                .ToList();
+
+            return cars;
+        }
+
 
         public IEnumerable<CarServiceModel> GetAllCarAdmin()
         {

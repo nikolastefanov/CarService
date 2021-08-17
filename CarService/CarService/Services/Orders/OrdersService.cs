@@ -19,41 +19,21 @@ namespace CarService.Services.Orders
         }
 
         public void AddWorkToOrder(string userId,int workId, int issueId, int carId)
-        {
+        {         
+            var userIdCar = this.data.Cars
+                .Where(x => x.Id == carId)
+                .Select(x => x.UserId)
+                .FirstOrDefault();
+
             var orderId = this.data.Orders
-            .Where(x => x.UserId == userId)
-            .Select(x => x.Id)
-            .FirstOrDefault();
+             .Where(x => x.UserId == userIdCar)
+             .Select(x=>x.Id)
+             .FirstOrDefault();
 
-
-           //var work = this.data
-           //     .Issues
-           //     .Where(x => x.Id == issueId && x.CarId == carId)
-           //     .Select(s => s.Works
-           //                 .Where(x => x.Id == workId)
-           //                 .Select(w => new  WorkServiceModel
-           //                 {
-           //                     Id = w.Id,
-           //                     Description = w.Description,
-           //                     IssueId = w.IssueId,
-           //                     Price = w.Price,
-           //                     OrderId=orderId,
-           //                 })
-           //                 .FirstOrDefault()
-           //    ).FirstOrDefault();
-           //
-
-           // var workList = this.data
-           //     .Issues
-           //     .Where(x => x.Id == issueId && x.CarId == carId)
-           //     .Select(s => s.Works
-           //                 .Where(x => x.Id == workId)
-           //                 .ToList());
-           // 
-
+        
             var order = this.data
                 .Orders
-                .Where(x => x.UserId == userId && x.Id==orderId)
+                .Where(x => x.UserId == userIdCar && x.Id==orderId)
                 .FirstOrDefault();
             
 
@@ -64,16 +44,20 @@ namespace CarService.Services.Orders
              .FirstOrDefault();
 
             vr.OrderId = orderId;
+            
             this.data.SaveChanges();
 
             order.Works.ToList().Add(vr);
+
             order.TotalPrice += vr.Price;
+
             this.data.SaveChanges();
 
         }
 
         public void CreateOrderZero(decimal price,string userId)
         {
+
             var orderData = new Order
             {
                 TotalPrice = 0.0M,
@@ -94,7 +78,7 @@ namespace CarService.Services.Orders
               .Where(x => x.Id == orderId && x.UserId == userId)
                .FirstOrDefault();
 
-
+            ;
             this.data.Orders.Remove(order);
 
             this.data.SaveChanges();
@@ -127,23 +111,23 @@ namespace CarService.Services.Orders
 
         public IEnumerable<AdminOrderServiceModel> GetAllAdmin()
         {
-            var orders = this.data
-               .Users
-               .Select(x => new AdminOrderServiceModel
-               {
-                   UserName = x.UserName,
-                   OrdersAdmin = x.Orders
-                   .Select(o => new OrderServiceModel
-                   {
-                       Id = o.Id,
-                       UserId = o.UserId,
-                       TotalPrice = o.TotalPrice,
-                       CreateOn = o.CreateOn,
-                   }).ToList()
-               }).ToList(); ;
-        
+          var orders = this.data
+             .Users
+             .Where(x=>x.Orders.Count()!=0)
+             .Select(x => new AdminOrderServiceModel
+             {
+                 UserName = x.UserName,
+                 OrdersAdmin = x.Orders
+                 .Select(o => new OrderServiceModel
+                 {
+                     Id = o.Id,
+                     UserId = o.UserId,
+                     TotalPrice = o.TotalPrice,
+                     CreateOn = o.CreateOn,
+                 }).ToList()
+             }).ToList(); ;
 
-
+     
             return orders;
         }
 
@@ -175,6 +159,21 @@ namespace CarService.Services.Orders
                 .FirstOrDefault();
 
                 return userName;
+        }
+
+        public bool OrderExists(string userId)
+        {
+            var order = this.data
+                        .Orders
+                        .Where(x => x.UserId == userId)
+                        .FirstOrDefault();
+
+            if (order==null)
+            {
+                return false;
+            }
+
+            return true;
         }
     }
 }

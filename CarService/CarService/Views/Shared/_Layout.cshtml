@@ -7,9 +7,10 @@
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" />
 </head>
-<body>
-    <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
+<body class="bg-warning">
+    <!--navbar-light bg-white-->
+    <header >
+        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-info border-bottom box-shadow mb-3">
             <div class="container">
                 <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">CarService</a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
@@ -31,7 +32,7 @@
 
                         @if (User.Identity.IsAuthenticated)
                         {
-                           
+
                             <li class="nav-item">
                                 <a class="nav-link text-dark" asp-area="" asp-controller="IssueTypes" asp-action="AddIssueType">AddIssueType</a>
                             </li>
@@ -43,7 +44,7 @@
                             <li class="nav-item">
                                 <a class="nav-link text-dark" asp-area="" asp-controller="Cars" asp-action="All">All Car</a>
                             </li>
-                           
+
                             <li class="nav-item">
                                 <a class="nav-link text-dark" asp-area="" asp-controller="Orders" asp-action="AllOrders">AllOrders</a>
                             </li>
@@ -52,8 +53,8 @@
                                 <a class="nav-link text-dark" asp-area="" asp-controller="Orders" asp-action="CreateOrder">Create Order</a>
                             </li>
 
-                            }
-                        </ul>
+                        }
+                    </ul>
                     <partial name="_LoginPartial" />
                 </div>
             </div>
@@ -65,7 +66,7 @@
         </main>
     </div>
 
-    <footer class="border-top footer text-muted">
+    <footer class="border-top footer text-white bg-info">
         <div class="container">
             &copy; @DateTime.UtcNow.Year - CarService  <a asp-area="" asp-controller="Home" asp-action="Privacy"> </a>
         </div>
