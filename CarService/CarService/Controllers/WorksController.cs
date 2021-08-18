@@ -33,21 +33,25 @@ namespace CarService.Controllers
         [HttpPost]
         public IActionResult AddWorks(int issueId,int carId,AddWorkViewModel work)
         {
-            var userId = this.User.GetId();
+            
 
-            var isWork=this.worksService
+            var userIdCar=this.worksService.GetUserId(carId);
+
+            int workId=this.worksService
                 .CreateWork(
-                    userId
+                    userIdCar
                    ,issueId
                   ,work.Description
                  , work.Price
                  ,work.CarId);
-
-            if (!isWork)
+            
+            if (workId==0)
             {
                 return BadRequest();
             }
-            return Redirect($"/Works/AllWorks?issueId={issueId}&carId={carId}");
+
+            return Redirect($"/Orders/AddToOrder?workId={workId}&issueId={issueId}&carId={carId}");
+  
       
         }
 
@@ -75,7 +79,8 @@ namespace CarService.Controllers
             return this.View(pr);
             
         }
-        [Authorize(Roles = AdministratorRoleName)]
+
+        [Authorize]
         public IActionResult EditWorks(int workId, int issueId, int carId)
         {
             ;
@@ -90,7 +95,7 @@ namespace CarService.Controllers
             });
         }
 
-        [Authorize(Roles = AdministratorRoleName)]
+        [Authorize]
         [HttpPost]
         public IActionResult EditWorks(int workId
             , int issueId
@@ -114,7 +119,7 @@ namespace CarService.Controllers
         }
 
 
-        [Authorize(Roles = AdministratorRoleName)]
+        [Authorize]
         public IActionResult DeleteWorks(int workId,int issueId,int carId)
         {
             this.worksService.DeleteToWork(workId, issueId,carId);

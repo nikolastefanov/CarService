@@ -8,6 +8,7 @@ namespace CarService.Controllers
     using CarService.Models.IssueTypes;
     using CarService.Services.Cars;
     using CarService.Services.Mechanics;
+    using CarService.Services.Orders;
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
     using System;
@@ -20,10 +21,13 @@ namespace CarService.Controllers
     {
         private readonly ICarsService carsService;
         private readonly IMechanicsService mechanicsService;
+        private readonly IOrdersService ordersService;
         public CarsController(ICarsService carsService,
+            IOrdersService ordersService,
             IMechanicsService mechanicsService)
         {
             this.carsService = carsService;
+            this.ordersService = ordersService;
             this.mechanicsService = mechanicsService;
         }
 
@@ -60,7 +64,15 @@ namespace CarService.Controllers
                 ,car.ImageUrl
                 ,car.Year
                 ,car.IssueTypeId
-                );                     
+                );
+
+            var isOrder = this.ordersService.OrderExists(userId);
+
+            if (!isOrder)
+            {
+                return RedirectToAction("CreateOrder","Orders");
+            }
+
 
             return RedirectToAction("All","Cars");
          
@@ -124,12 +136,12 @@ namespace CarService.Controllers
         }
 
         
-        [Authorize(Roles =AdministratorRoleName)]
+        [Authorize]
         public IActionResult Edit(int carId)
         {
          
             var carEdit = this.carsService.CarDetails(carId);
-                
+            
 
            var issueTypes = this.carsService
                    .AllIssueTypes()
@@ -156,7 +168,7 @@ namespace CarService.Controllers
 
 
 
-        [Authorize(Roles = AdministratorRoleName)]
+        [Authorize]
         [HttpPost]
         public IActionResult Edit(int carId,EditCarViewModel car)
         {

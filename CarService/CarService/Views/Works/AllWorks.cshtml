@@ -19,8 +19,10 @@
     <h1>@this.ViewData["Title"]</h1>
 
 </div>
-
-
+               @{ 
+                   var userId = User.Id();
+                   var userIsMechanic = Mechanics.IsMechanic(userId);
+               }
 
 <div class="container">
     <div class="section">
@@ -39,7 +41,6 @@
                             <tr>
                                 <th scope="col">Description</th>
                                 <th scope="col">Price</th>
-                                <th scope="col" class="text-center">Add to Order</th>
                                 <th scope="col" class="text-center">Edit Work</th>
                                 <th scope="col" class="text-center">Delete Work</th>
                             </tr>
@@ -53,19 +54,16 @@
                     <td>
                         <span class="card-title"> @work.Price</span>
                     </td>
-
-                    <td>
-                        <a class="btn btn-block btn-primary text-white mb-3" href="/Orders/AddToOrder?workId=@work.Id&issueId=@work.IssueId&carId=@Model.CarId">Add to Order</a>
-                    </td>
+                   @if (userIsMechanic)
+                   {
                     <td>
                         <a class="btn btn-block btn-warning text-white mb-3" href="/Works/EditWorks?workId=@work.Id&issueId=@work.IssueId&carId=@Model.CarId">Edit Work</a>
                     </td>
                     <td>
                         <a class="btn btn-block btn-danger text-white mb-3" href="/Works/DeleteWorks?workId=@work.Id&issueId=@work.IssueId&carId=@Model.CarId">Delete Work</a>
                     </td>
-
-                </tr>
-}
+                   }
+                </tr>}
 
                         </tbody>
                     </table>

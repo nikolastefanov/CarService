@@ -39,11 +39,11 @@
                                 <th scope="col">TotalPrice</th>
                                 <th scope="col" class="text-center">CreateOn</th>
                                 <th scope="col" class="text-center">Details Order</th>
-                                @if (userIsAdmin)
-                                {
-                                    <th scope="col" class="text-center">Delete Order</th>
-                                }
-                            </tr>
+                              <!--  if (userIsAdmin)                                               -->
+                              <!--  {                                                               -->
+                              <!--      <th scope="col" class="text-center">Delete Order</th>       -->
+                              <!--  }                                                               -->
+                            </tr>                                                                   
                         </thead>
                         <tbody>
                             @foreach (var order in user.OrdersAdmin)
@@ -55,13 +55,13 @@
                                     </td>
                                     <td>
                                         <a class="btn btn-block btn-primary text-white mb-3" href="/Orders/DetailsOrder?orderId=@order.Id&userId=@order.UserId">Details Order</a>
-                                    </td>
-                                    @if (userIsAdmin)
-                                    {
-                                        <td>
-                                            <a class="btn btn-block btn-warning text-white mb-3" href="/Orders/DeleteOrder?orderId=@order.Id&userId=@order.UserId">Delete Order</a>
-                                        </td>
-                                    }
+                                    </td>                                                                                                                                                     
+                                  <!--  if (userIsAdmin)                                                                                                                                     -->
+                                  <!--  {                                                                                                                                                     -->
+                                  <!--      <td>                                                                                                                                              -->
+                                  <!--          <a class="btn btn-block btn-warning text-white mb-3" href="/Orders/DeleteOrder?orderId=order.Id&userId=order.UserId">Delete Order</a>       -->
+                                  <!--      </td>                                                                                                                                             -->
+                                  <!--  }                                                                                                                                                     -->
                                 </tr>
                             }
 

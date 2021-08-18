@@ -15,9 +15,7 @@
         var userIsMechanic = Mechanics.IsMechanic(userId);
         var userIsAdmin = User.IsAdmin();
 
-
-
-        @if (userIsAdmin || userIsMechanic)
+        @if (!userIsAdmin || !userIsMechanic)
         {
             <li class="nav-item">
                 <a class="nav-link text-dark" asp-area="" asp-controller="Mechanics" asp-action="Become">Become Mechanic</a>

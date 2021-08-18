@@ -24,6 +24,7 @@ namespace CarService.Services.Issues
                     Description=description,
                     CarId=carId,
                     IsFixed=false,
+                    IsDelete=false,
                 };
             
                 this.data.Issues.Add(issueData);
@@ -34,10 +35,10 @@ namespace CarService.Services.Issues
         {
             var issue = this.data
                 .Issues
-                .Where(x => x.CarId == carId && x.Id==issueId)
+                .Where(x => x.CarId == carId && x.Id==issueId && x.IsDelete==false)
                 .FirstOrDefault();
 
-            this.data.Issues.Remove(issue);
+            issue.IsDelete = true;
 
             this.data.SaveChanges();
         }
@@ -46,9 +47,9 @@ namespace CarService.Services.Issues
         {
             var issueData = this.data
                .Cars
-               .Where(x => x.Id == carId)
+               .Where(x => x.Id == carId && x.IsDelete==false)
                .Select(x => x.Issues
-                            .Where(s => s.Id == issueId)
+                            .Where(s => s.Id == issueId && s.IsDelete==false)
                             .Select(i => new IssueServiceModel
                             {
                                 Id = i.Id,
@@ -60,28 +61,13 @@ namespace CarService.Services.Issues
 
             return issueData;
 
-          //  var work = this.data
-          //   .Issues
-          //   .Where(x => x.Id == issueId && x.CarId == carId)
-          //   .Select(s => s.Works
-          //               .Where(x => x.Id == workId)
-          //               .Select(w => new WorkServiceModel
-          //               {
-          //                   Id = w.Id,
-          //                   Description = w.Description,
-          //                   IssueId = w.IssueId,
-          //                   Price = w.Price,
-          //               })
-          //               .FirstOrDefault()
-          //  ).FirstOrDefault();
-
         }
 
         public void EditIssue(int issueId, int carId, string description,bool isfixed)
         {
             var issueData = this.data
                 .Issues
-                .Where(x => x.CarId == carId && x.Id == issueId)
+                .Where(x => x.CarId == carId && x.Id == issueId && x.IsDelete==false)
                 .FirstOrDefault();
 
 
@@ -94,7 +80,10 @@ namespace CarService.Services.Issues
 
         public void FixIssue(int issueId, int carId)
         {
-              var issue = this.data.Issues.Find(issueId);
+            var issue = this.data
+              .Issues
+              .Where(x => x.IsDelete == false)
+              .FirstOrDefault(x=>x.Id==issueId);
             
               issue.IsFixed = true;
             
@@ -106,7 +95,7 @@ namespace CarService.Services.Issues
 
             var carData = this.data
                .Cars
-               .Where(x => x.Id == carId)
+               .Where(x => x.Id == carId && x.IsDelete==false)
                .Select(x => new CarIssueServiceModel
                {
                    Id = x.Id,
@@ -115,6 +104,7 @@ namespace CarService.Services.Issues
                    PlateNumber = x.PlateNumber,
                    Year = x.Year,
                    Issues = x.Issues
+                            .Where(i=>i.IsDelete==false)
                             .Select(i => new IssueServiceModel
                             {
                                 Id = i.Id,

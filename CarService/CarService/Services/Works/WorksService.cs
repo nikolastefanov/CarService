@@ -17,39 +17,46 @@ namespace CarService.Services.Works
         {
             this.data = data;
         }
-        public bool CreateWork(string userId,int issueId,string description, decimal price,int carId)
+        public int CreateWork(string userId,int issueId,string description, decimal price,int carId)
         {
             var workData = new Works
             {
                 IssueId=issueId,
                 Description=description,
                 Price=price,
+                IsDelete=false,
             };
 
-            if (workData==null)
-            {
-                return false;
-            }
 
             this.data.Works.Add(workData);
 
             this.data.SaveChanges();
 
-
-
-            return true;
+            int workId = workData.Id;
+            
+            return workId;
         }
 
         public void DeleteToWork(int workId, int issueId,int carId)
         {
             var work = this.data
              .Issues
-             .Where(x => x.Id == issueId && x.CarId == carId)
+             .Where(x => x.Id == issueId && x.CarId == carId && x.IsDelete==false)
              .Select(s => s.Works
-                         .Where(s => s.Id == workId).FirstOrDefault()
+                         .Where(s => s.Id == workId && s.IsDelete==false).FirstOrDefault()
             ).FirstOrDefault();
 
-            this.data.Works.Remove(work);
+            ;
+            work.IsDelete = true;
+
+            var workDelete = this.data
+             .Issues
+             .Where(x => x.Id == issueId && x.CarId == carId )
+             .Select(s => s.Works
+                         .Where(s => s.Id == workId && s.IsDelete == false).FirstOrDefault()
+            ).FirstOrDefault();
+
+            ;
 
             this.data.SaveChanges();
 
@@ -59,9 +66,9 @@ namespace CarService.Services.Works
         {
             var work = this.data
              .Issues
-             .Where(x => x.Id == issueId && x.CarId == carId)
+             .Where(x => x.Id == issueId && x.CarId == carId && x.IsDelete==false)
              .Select(s => s.Works
-                         .Where(x => x.Id == workId)
+                         .Where(x => x.Id == workId && x.IsDelete==false)
                          .Select(w=>new WorkServiceModel
                          {
                              Id = w.Id,
@@ -72,9 +79,8 @@ namespace CarService.Services.Works
                          .FirstOrDefault()
             ).FirstOrDefault();
             
-
             return work;
-      
+            
         }
 
         public bool EditToWork(int workId, int issueId, int carId
@@ -83,34 +89,28 @@ namespace CarService.Services.Works
             
             var workData = this.data
              .Issues
-             .Where(x => x.Id == issueId && x.CarId == carId)
+             .Where(x => x.Id == issueId && x.CarId == carId && x.IsDelete==false)
              .Select(s => s.Works
-                          .Where(x => x.Id == workId).FirstOrDefault()
-                       // .Select(w => new WorkServiceModel
-                       // {
-                       //     Id = w.Id,
-                       //     Description = w.Description,
-                       //     IssueId = w.IssueId,
-                       //     Price = w.Price,
-                       // }).FirstOrDefault()
-   
+                          .Where(x => x.Id == workId && x.IsDelete==false).FirstOrDefault()                   
             ).FirstOrDefault();
 
-            //TODO: poverka dali ima work
+            if (workData==null)
+            {
+                return false;
+            }
          
-
              workData.Description = description;
              workData.Price = price;
 
-
-
             this.data.SaveChanges();
+
+            //Za proverka sled SaveChanges !!!
 
            var workData1 = this.data
             .Issues
-            .Where(x => x.Id == issueId && x.CarId == carId)
+            .Where(x => x.Id == issueId && x.CarId == carId && x.IsDelete==false)
            .Select(s => s.Works
-                       .Where(x => x.Id == workId)
+                       .Where(x => x.Id == workId && x.IsDelete==false)
                        .Select(w => new WorkServiceModel
                        {
                            Id = w.Id,
@@ -119,11 +119,9 @@ namespace CarService.Services.Works
                            Price = w.Price,
                        }).FirstOrDefault()
           
-          ).FirstOrDefault();
-            ;
+          ).FirstOrDefault();            
 
             return true;
-
         }
 
 
@@ -132,7 +130,7 @@ namespace CarService.Services.Works
         {
             var allWorks = this.data
               .Issues
-              .Where(x => x.Id == issueId && x.CarId == carId)
+              .Where(x => x.Id == issueId && x.CarId == carId && x.IsDelete==false)
              .Select(s => new IssueWorkServiceModel
              {
                  Id = s.Id,
@@ -140,6 +138,7 @@ namespace CarService.Services.Works
                  IsFixed = s.IsFixed,
                  CarId = s.CarId,
                  Works = s.Works
+                          .Where(x=>x.IsDelete==false)
                           .Select(w => new WorkServiceModel
                           {
                               Id = w.Id,
@@ -150,8 +149,17 @@ namespace CarService.Services.Works
              }).ToList();
 
             return allWorks;
-         
-        }  
-        
+            
+        }
+        public string GetUserId(int carId)
+        {
+            var carData = this.data
+                .Cars
+                .Where(x => x.IsDelete == false)
+               .FirstOrDefault(x => x.Id == carId);
+
+
+            return carData.UserId;
+        }
     }
 }

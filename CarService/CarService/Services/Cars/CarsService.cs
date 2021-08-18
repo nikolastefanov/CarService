@@ -39,6 +39,7 @@ namespace CarService.Services.Cars
                 ImageUrl=imageUrl,
                 Year=year,
                 IssueTypeId=issueType,
+                IsDelete=false,
             };
             
              this.data.Cars.Add(carData);
@@ -62,7 +63,7 @@ namespace CarService.Services.Cars
         {
             var car = this.data
                 .Cars
-                .Where(x => x.Id == id)
+                .Where(x => x.Id == id && x.IsDelete==false )
                 .Select(x => new CarDetailsServiceModel
                 {
                     Id=x.Id,
@@ -82,10 +83,10 @@ namespace CarService.Services.Cars
         {
 
             var carData = this.data
-                .Cars.Where(x => x.Id == carId)
+                .Cars.Where(x => x.Id == carId && x.IsDelete==false)
                 .FirstOrDefault();
 
-            this.data.Cars.Remove(carData);
+            carData.IsDelete = true;
             
             this.data.SaveChanges();
         }
@@ -99,9 +100,12 @@ namespace CarService.Services.Cars
             , int year
             , int issueTypeId)
         {
-              var carData = this.data.Cars.Find(id);
+            var carData = this.data
+              .Cars
+              .Where(x => x.IsDelete == false)
+              .FirstOrDefault(x => x.Id == id);
             
-              //TODO proverka dali ima car
+             
               if (carData==null)
               {
                 return false;
@@ -123,7 +127,7 @@ namespace CarService.Services.Cars
         {
             var cars = this.data
                 .Cars
-                .Where(x=>x.UserId==userId)
+                .Where(x=>x.UserId==userId && x.IsDelete==false)
                 .Select(x => new CarListingServiceModel
                 {
                     Id=x.Id,
@@ -146,6 +150,7 @@ namespace CarService.Services.Cars
         {
             var cars = this.data
                 .Cars
+                .Where(x=>x.IsDelete==false)
                 .Select(x => new CarListingServiceModel
                 {
                     Id = x.Id,
@@ -168,6 +173,7 @@ namespace CarService.Services.Cars
         public IEnumerable<CarServiceModel> GetAllCarAdmin()
         {
             var cars = this.data.Cars
+                .Where(x=>x.IsDelete==false)
                 .Select(x => new CarServiceModel
                 {
                     Id=x.Id,
@@ -183,7 +189,9 @@ namespace CarService.Services.Cars
 
                 return cars;
         }
-    }
+
+      
+    }  
    
 }
 

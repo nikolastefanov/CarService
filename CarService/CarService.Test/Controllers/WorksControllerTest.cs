@@ -28,13 +28,14 @@ namespace CarService.Test.Controllers
 
 
         [Theory]
-        [InlineData(1,1,"desckr",12.21,1)]
+        [InlineData(1,1,"desckr",12.21,1,1)]
         public void PostAddWorksShouldBeForAuthorizedUsersAndReturnView(
                                                   int issueId
                                                   ,int carId
                                                    ,string description
-                                                   ,decimal price,
-                                                    int carId1)
+                                                   ,decimal price
+                                                    ,int carId1
+                                                     ,int workId)
          => MyController<WorksController>
              .Instance(controller => controller
                  .WithUser())
@@ -60,13 +61,12 @@ namespace CarService.Test.Controllers
                      s.IssueId==issueId )))
              .AndAlso()
              .ShouldReturn()
-              .Redirect($"/Works/AllWorks?issueId={issueId}&carId={carId}");
-        
+              .Redirect($"/Orders/AddToOrder?workId={workId}&issueId={issueId}&carId={carId}");
 
 
 
-       
-      
+
+
 
 
     }

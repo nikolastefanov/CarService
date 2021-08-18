@@ -19,7 +19,7 @@ namespace CarService.Services.Orders
 
         DetailsOrderServiceModel DetailsOrder(string orderId,string  userId);
 
-        void DeleteOrderService(string orderId, string userId);
+       // void DeleteOrderService(string orderId, string userId);
 
         bool OrderExists(string userId);
 

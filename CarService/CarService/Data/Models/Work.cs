@@ -16,6 +16,8 @@ namespace CarService.Data.Models
 
         public decimal Price { get; set; }
 
+        public bool IsDelete { get; set; }
+
         public string OrderId { get; set; }
 
         public Order Order { get; set; }

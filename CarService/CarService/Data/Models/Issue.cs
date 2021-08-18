@@ -25,6 +25,8 @@ namespace CarService.Data.Models
         [Required]
         public bool IsFixed { get; set; }
 
+        public bool IsDelete { get; set; }
+
         [Required]
         public int CarId {get;set;}
 

@@ -21,28 +21,28 @@ namespace CarService.Services.Orders
         public void AddWorkToOrder(string userId,int workId, int issueId, int carId)
         {         
             var userIdCar = this.data.Cars
-                .Where(x => x.Id == carId)
+                .Where(x => x.Id == carId && x.IsDelete==false)
                 .Select(x => x.UserId)
                 .FirstOrDefault();
 
             var orderId = this.data.Orders
-             .Where(x => x.UserId == userIdCar)
+             .Where(x => x.UserId == userIdCar && x.IsDelete==false)
              .Select(x=>x.Id)
              .FirstOrDefault();
 
         
             var order = this.data
                 .Orders
-                .Where(x => x.UserId == userIdCar && x.Id==orderId)
+                .Where(x => x.UserId == userIdCar && x.Id==orderId && x.IsDelete==false)
                 .FirstOrDefault();
             
 
 
             var vr = this.data
              .Works
-             .Where(x => x.Id == workId && x.IssueId == issueId)
+             .Where(x => x.Id == workId && x.IssueId == issueId && x.IsDelete==false)
              .FirstOrDefault();
-
+            ;
             vr.OrderId = orderId;
             
             this.data.SaveChanges();
@@ -50,7 +50,7 @@ namespace CarService.Services.Orders
             order.Works.ToList().Add(vr);
 
             order.TotalPrice += vr.Price;
-
+            ;
             this.data.SaveChanges();
 
         }
@@ -63,6 +63,7 @@ namespace CarService.Services.Orders
                 TotalPrice = 0.0M,
                 UserId=userId,
                 CreateOn=DateTime.UtcNow,
+                IsDelete=false,
             };
               
 
@@ -71,32 +72,33 @@ namespace CarService.Services.Orders
             this.data.SaveChanges();
         }
 
-        public void DeleteOrderService(string orderId, string userId)
-        {
-            var order = this.data
-              .Orders
-              .Where(x => x.Id == orderId && x.UserId == userId)
-               .FirstOrDefault();
-
-            ;
-            this.data.Orders.Remove(order);
-
-            this.data.SaveChanges();
-
-        }
+      //  public void DeleteOrderService(string orderId, string userId)
+      //  {
+      //      var order = this.data
+      //        .Orders
+      //        .Where(x => x.Id == orderId && x.UserId == userId && x.IsDelete==false)
+      //         .FirstOrDefault();
+      //
+      //      order.IsDelete = true;
+      //
+      //      this.data.SaveChanges();
+      //
+      //  }
 
         public DetailsOrderServiceModel DetailsOrder(string orderId, string userId)
         {
             var order = this.data
                .Orders
-               .Where(x => x.Id == orderId && x.UserId == userId)
+               .Where(x => x.Id == orderId && x.UserId == userId && x.IsDelete==false)
                .Select(x => new DetailsOrderServiceModel
                {
                    Id=x.Id,
                    TotalPrice=x.TotalPrice,
                    UserId=x.UserId,
                    CreateOn=x.CreateOn,
-                  Works=x.Works.Select(w=>new WorkServiceModel
+                  Works=x.Works
+                  .Where(w=>w.IsDelete==false)
+                  .Select(w=>new WorkServiceModel
                   {
                       Id=w.Id,
                       IssueId=w.IssueId,
@@ -113,11 +115,12 @@ namespace CarService.Services.Orders
         {
           var orders = this.data
              .Users
-             .Where(x=>x.Orders.Count()!=0)
+             .Where(x=> x.Orders.Count()!=0)
              .Select(x => new AdminOrderServiceModel
              {
                  UserName = x.UserName,
                  OrdersAdmin = x.Orders
+                 .Where(x=>x.IsDelete==false)
                  .Select(o => new OrderServiceModel
                  {
                      Id = o.Id,
@@ -135,7 +138,7 @@ namespace CarService.Services.Orders
         {
             var orders = this.data
                 .Orders
-                .Where(x => x.UserId == userId)
+                .Where(x => x.UserId == userId && x.IsDelete==false)
                 .Select(x => new OrderServiceModel
                 {
                     Id = x.Id,
@@ -165,7 +168,7 @@ namespace CarService.Services.Orders
         {
             var order = this.data
                         .Orders
-                        .Where(x => x.UserId == userId)
+                        .Where(x => x.UserId == userId && x.IsDelete==false)
                         .FirstOrDefault();
 
             if (order==null)

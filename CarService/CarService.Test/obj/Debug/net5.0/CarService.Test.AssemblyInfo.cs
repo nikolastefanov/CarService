@@ -13,7 +13,7 @@ using System.Reflection;
 
 [assembly: Microsoft.AspNetCore.Identity.UI.UIFrameworkAttribute("Bootstrap4")]
 [assembly: Microsoft.AspNetCore.Mvc.Testing.WebApplicationFactoryContentRootAttribute("CarService, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null", "C:\\Users\\HP\\Documents\\Kurs_SoftUni\\A_C#_ASP_NET_Core_may_2021_my\\CarServiceMy\\Car" +
-    "Service44\\CarService", "CarService.csproj", "0")]
+    "Service47\\CarService", "CarService.csproj", "0")]
 [assembly: System.Reflection.AssemblyCompanyAttribute("CarService.Test")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]

@@ -35,6 +35,8 @@ namespace CarService.Data.Models
         [Required]
         public string ImageUrl { get; set; }
 
+        public bool IsDelete { get; set; }
+
 
         public string UserId { get; set; }
 

@@ -38,6 +38,9 @@ namespace CarService.Services.Cars
               , int issueTypeId);
 
         void DeleteCar(int carId);
+
+
+      
     }
  
 }

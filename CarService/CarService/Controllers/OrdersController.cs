@@ -65,7 +65,7 @@ namespace CarService.Controllers
             this.ordersService.CreateOrderZero(order.TotalPrice,userId);
 
 
-            return Redirect("/IssueTypes/IndexIssueType");
+            return Redirect("/Cars/All");
         }
 
         [Authorize]
@@ -146,13 +146,13 @@ namespace CarService.Controllers
             return this.View(orderView);
         }
 
-        [Authorize(Roles = AdministratorRoleName)]
-        public IActionResult DeleteOrder(string orderId,string userId)
-        {
-
-            this.ordersService.DeleteOrderService(orderId, userId);
-
-            return this.RedirectToAction("AllOrders","Orders");
-        }
+      //  [Authorize(Roles = AdministratorRoleName)]
+      //  public IActionResult DeleteOrder(string orderId,string userId)
+      //  {
+      //
+      //      this.ordersService.DeleteOrderService(orderId, userId);
+      //
+      //      return this.RedirectToAction("AllOrders","Orders");
+      //  }
     }
 }

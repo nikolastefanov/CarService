@@ -21,6 +21,8 @@ namespace CarService.Data.Models
 
         public DateTime CreateOn { get; set; }
 
+        public bool IsDelete { get; set; }
+
         public string UserId { get; set; }
 
         public User User { get; set; }
