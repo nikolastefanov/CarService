@@ -151,7 +151,7 @@ namespace CarService.Controllers
                        Name = x.Name,
                        ImageUrl = x.ImageUrl,
                    }).ToList();
-           
+            
 
             return this.View(new EditCarViewModel
             {

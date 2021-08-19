@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "OjpktmH9UcfI1LsPsRd0K3DYkGDxDuvKReBqEPYH8YTGLnd23hjn6jaadyXWGpp3uYnkx9kpFuqxgq0F4c9IsA==",
+  "dgSpecHash": "TfbXtMNX/FlwRM2OdYgCUa4u7aD3AJNEQQurp82ebu1zQ3rVlMcQ7WdRrpdEXfGsaC3PI3dRBexQ7Vvw2aA7Uw==",
   "success": true,
-  "projectFilePath": "C:\\Users\\HP\\Documents\\Kurs_SoftUni\\A_C#_ASP_NET_Core_may_2021_my\\CarServiceMy\\CarService47\\CarService.Test\\CarService.Test.csproj",
+  "projectFilePath": "C:\\Users\\HP\\Documents\\Kurs_SoftUni\\A_C#_ASP_NET_Core_may_2021_my\\CarServiceMy\\CarService50\\CarService.Test\\CarService.Test.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\HP\\.nuget\\packages\\anglesharp\\0.16.0\\anglesharp.0.16.0.nupkg.sha512",
     "C:\\Users\\HP\\.nuget\\packages\\anglesharp.css\\0.16.0\\anglesharp.css.0.16.0.nupkg.sha512",

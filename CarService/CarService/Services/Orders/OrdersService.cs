@@ -72,18 +72,18 @@ namespace CarService.Services.Orders
             this.data.SaveChanges();
         }
 
-      //  public void DeleteOrderService(string orderId, string userId)
-      //  {
-      //      var order = this.data
-      //        .Orders
-      //        .Where(x => x.Id == orderId && x.UserId == userId && x.IsDelete==false)
-      //         .FirstOrDefault();
-      //
-      //      order.IsDelete = true;
-      //
-      //      this.data.SaveChanges();
-      //
-      //  }
+       public void DeleteOrderService(string orderId, string userId)
+       {
+           var order = this.data
+             .Orders
+             .Where(x => x.Id == orderId && x.UserId == userId && x.IsDelete==false)
+              .FirstOrDefault();
+     
+           order.IsDelete = true;
+     
+           this.data.SaveChanges();
+     
+       }
 
         public DetailsOrderServiceModel DetailsOrder(string orderId, string userId)
         {
@@ -113,24 +113,23 @@ namespace CarService.Services.Orders
 
         public IEnumerable<AdminOrderServiceModel> GetAllAdmin()
         {
-          var orders = this.data
-             .Users
-             .Where(x=> x.Orders.Count()!=0)
-             .Select(x => new AdminOrderServiceModel
-             {
-                 UserName = x.UserName,
-                 OrdersAdmin = x.Orders
-                 .Where(x=>x.IsDelete==false)
-                 .Select(o => new OrderServiceModel
-                 {
-                     Id = o.Id,
-                     UserId = o.UserId,
-                     TotalPrice = o.TotalPrice,
-                     CreateOn = o.CreateOn,
-                 }).ToList()
-             }).ToList(); ;
+            var orders = this.data
+            .Users
+            .Where(x => x.Orders.Where(s=>s.IsDelete==false).Count() != 0)
+            .Select(x => new AdminOrderServiceModel
+            {
+                UserName = x.UserName,
+                OrdersAdmin = x.Orders
+                .Where(x => x.IsDelete == false)
+                .Select(o => new OrderServiceModel
+                {
+                    Id = o.Id,
+                    UserId = o.UserId,
+                    TotalPrice = o.TotalPrice,
+                    CreateOn = o.CreateOn,
+                }).ToList()
+            }).ToList(); 
 
-     
             return orders;
         }
 

@@ -96,6 +96,10 @@ namespace CarService.Controllers
                 return Redirect("/IssueTypes/IndexIssueType");
             }
 
+            if(!this.ordersService.OrderExists(userId))
+            {
+                return Redirect("/IssueTypes/IndexIssueType");
+            }
 
             var orders=this.ordersService.GetAllOrders( userId);
 
@@ -146,13 +150,13 @@ namespace CarService.Controllers
             return this.View(orderView);
         }
 
-      //  [Authorize(Roles = AdministratorRoleName)]
-      //  public IActionResult DeleteOrder(string orderId,string userId)
-      //  {
-      //
-      //      this.ordersService.DeleteOrderService(orderId, userId);
-      //
-      //      return this.RedirectToAction("AllOrders","Orders");
-      //  }
+        [Authorize(Roles = AdministratorRoleName)]
+        public IActionResult DeleteOrder(string orderId,string userId)
+        {
+      
+            this.ordersService.DeleteOrderService(orderId, userId);
+      
+            return this.RedirectToAction("AllOrders","Orders");
+        }
     }
 }

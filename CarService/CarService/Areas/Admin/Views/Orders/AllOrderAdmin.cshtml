@@ -39,10 +39,10 @@
                                 <th scope="col">TotalPrice</th>
                                 <th scope="col" class="text-center">CreateOn</th>
                                 <th scope="col" class="text-center">Details Order</th>
-                              <!--  if (userIsAdmin)                                               -->
-                              <!--  {                                                               -->
-                              <!--      <th scope="col" class="text-center">Delete Order</th>       -->
-                              <!--  }                                                               -->
+                               @if(userIsAdmin)                                         
+                               {                                                        
+                                   <th scope="col" class="text-center">Delete Order</th>
+                               }                                                        
                             </tr>                                                                   
                         </thead>
                         <tbody>
@@ -56,19 +56,19 @@
                                     <td>
                                         <a class="btn btn-block btn-primary text-white mb-3" href="/Orders/DetailsOrder?orderId=@order.Id&userId=@order.UserId">Details Order</a>
                                     </td>                                                                                                                                                     
-                                  <!--  if (userIsAdmin)                                                                                                                                     -->
-                                  <!--  {                                                                                                                                                     -->
-                                  <!--      <td>                                                                                                                                              -->
-                                  <!--          <a class="btn btn-block btn-warning text-white mb-3" href="/Orders/DeleteOrder?orderId=order.Id&userId=order.UserId">Delete Order</a>       -->
-                                  <!--      </td>                                                                                                                                             -->
-                                  <!--  }                                                                                                                                                     -->
+                                    @if(userIsAdmin)                                                                                                                             
+                                    {                                                                                                                                            
+                                        <td>                                                                                                                                     
+                                            <a class="btn btn-block btn-warning text-white mb-3" href="/Orders/DeleteOrder?orderId=@order.Id&userId=@order.UserId">Delete Order</a>
+                                        </td>                                                                                                                                    
+                                    }                                                                                                                                            
                                 </tr>
                             }
 
                         </tbody>
                     </table>
                 </div>
-    }
+     }
             </div>
         </div>
     </div>
