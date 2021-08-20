@@ -35,55 +35,59 @@
                             <tr>
                                 <th scope="col">Description</th>
                                 <th scope="col">Is it fixed?</th>
+                                <th scope="col">All works to issue</th>
                                 @if (userIsMechanic || userIsAdmin)
                                 {
-                                <th scope="col" class="text-center">Fix Issue</th>
-                                <th scope="col" class="text-center">Add Work</th>
+                                    <th scope="col" class="text-center">Fix Issue</th>
+                                    <th scope="col" class="text-center">Add Work</th>
                                 }
                                 @if (userIsAdmin)
                                 {
-                                <th scope="col" class="text-center">Edit Issue</th>
-                                <th scope="col" class="text-center">Delete Issue</th>
+                                    <th scope="col" class="text-center">Edit Issue</th>
+                                    <th scope="col" class="text-center">Delete Issue</th>
                                 }
                             </tr>
                         </thead>
                         <tbody>
                             @foreach (var issue in Model.Issues)
                             {
-                <tr class="table-light">
-                    <td>@issue.Description</td>
-                    <td>
-                        @if (issue.IsFixed)
-                        {
-                             <span>Yes</span>
-                        }
-                        @if (!issue.IsFixed)
-                        {
-                            <span>Not yet</span>
-                        }
-                    </td>
-                  
-                    @if (userIsMechanic || userIsAdmin)
-                    {
-                    <td>
-                        <a class="btn btn-block btn-primary text-white mb-3" href="/Issues/Fix?issueId=@issue.Id&carId=@issue.CarId">Fix Issue</a>
-                    </td>
+                            <tr class="table-light">
+                                <td>@issue.Description</td>
+                                <td>
+                                    @if (issue.IsFixed)
+                                    {
+                                        <span>Yes</span>
+                                    }
+                                    @if (!issue.IsFixed)
+                                    {
+                                        <span>Not yet</span>
+                                    }
+                                </td>
+                                <td>
+                                    <a class="btn btn-block btn-primary text-white mb-3" href="/Works/AllWorks?issueId=@issue.Id&carId=@issue.CarId">All Work</a>
+                                </td>
 
-                    <td>
-                        <a class="btn btn-block btn-primary text-white mb-3" href="/Works/AddWorks?issueId=@issue.Id&carId=@issue.CarId">Add Work</a>
-                    </td>
-                    }
-                    @if (userIsAdmin)
-                    {
-                    <td>
-                        <a class="btn btn-block btn-warning text-white mb-3" href="/Issues/EditIssue?issueId=@issue.Id&carId=@issue.CarId">Edit Issue</a>
-                    </td>
+                                @if (userIsMechanic || userIsAdmin)
+                                {
+                                    <td>
+                                        <a class="btn btn-block btn-primary text-white mb-3" href="/Issues/Fix?issueId=@issue.Id&carId=@issue.CarId">Fix Issue</a>
+                                    </td>
 
-                    <td>
-                        <a class="btn btn-block btn-danger text-white mb-3" href="/Issues/DeleteIssue?issueId=@issue.Id&carId=@issue.CarId">Delete Issue</a>
-                    </td>
-                    }
-                </tr>
+                                    <td>
+                                        <a class="btn btn-block btn-primary text-white mb-3" href="/Works/AddWorks?issueId=@issue.Id&carId=@issue.CarId">Add Work</a>
+                                    </td>                                                                            
+                                }
+                                @if (userIsAdmin)
+                                {
+                                    <td>
+                                        <a class="btn btn-block btn-warning text-white mb-3" href="/Issues/EditIssue?issueId=@issue.Id&carId=@issue.CarId">Edit Issue</a>
+                                    </td>
+
+                                    <td>
+                                        <a class="btn btn-block btn-danger text-white mb-3" href="/Issues/DeleteIssue?issueId=@issue.Id&carId=@issue.CarId">Delete Issue</a>
+                                    </td>
+                                }
+                            </tr>
                  }
 
                         </tbody>

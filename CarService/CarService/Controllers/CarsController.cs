@@ -132,7 +132,8 @@ namespace CarService.Controllers
             {
                 return Redirect("/Admin/Cars/All");
             }
-            return this.View("IndexIssueType","IssueTypes");
+
+            return this.RedirectToAction("IndexIssueType","IssueTypes");
         }
 
         

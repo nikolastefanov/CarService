@@ -64,6 +64,8 @@ namespace CarService.Data
         {
             public const int WorkMinLength = 10;
             public const int WorkMaxLength = 300;
+            public const decimal WorkMinPrice = 0.0M;
+            public const decimal WorkMaxPrice = 79228162514264337593543950335.0M;
         }
     }
 }

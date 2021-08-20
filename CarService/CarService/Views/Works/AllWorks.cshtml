@@ -41,8 +41,11 @@
                             <tr>
                                 <th scope="col">Description</th>
                                 <th scope="col">Price</th>
+                                @if (userIsMechanic)
+                                {
                                 <th scope="col" class="text-center">Edit Work</th>
                                 <th scope="col" class="text-center">Delete Work</th>
+                                }
                             </tr>
                         </thead>
                         <tbody>

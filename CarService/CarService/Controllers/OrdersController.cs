@@ -71,9 +71,9 @@ namespace CarService.Controllers
         [Authorize]
         public IActionResult AddToOrder(int workId,int issueId,int carId)
         {
-            var userId = this.User.GetId();
+            //var userId = this.User.GetId();
 
-            this.ordersService.AddWorkToOrder(userId,workId, issueId, carId);
+            this.ordersService.AddWorkToOrder(workId, issueId, carId);
 
             return Redirect($"/Works/AllWorks?issueId={issueId}&carId={carId}");
         }

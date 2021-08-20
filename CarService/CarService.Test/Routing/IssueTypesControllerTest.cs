@@ -41,15 +41,15 @@ namespace CarService.Test.Routing
                  .To<IssueTypesController>(c => c.EditIssueType(1));
 
 
-        // [Fact]
-        // public void PostEditIssueTypeShouldBeMapped()
-        //     => MyRouting
-        //         .Configuration()
-        //         .ShouldMap(request => request
-        //             .WithPath("/IssueTypes/EditIssueType?issueTypeId=1")
-        //             .WithMethod(HttpMethod.Post))
-        //             .To<IssueTypesController>(c => c.EditIssueType(1,null));
-                     
+      //  [Fact]
+      //  public void PostEditIssueTypeShouldBeMapped()
+      //      => MyRouting
+      //          .Configuration()
+      //          .ShouldMap(request => request
+      //              .WithPath("/IssueTypes/EditIssueType?issueTypeId=1")
+      //              .WithMethod(HttpMethod.Post))
+      //              .To<IssueTypesController>(c => c.EditIssueType(1,With.Any<IssueTypeViewModel>()));
+                    
 
     }
 }

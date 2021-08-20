@@ -106,20 +106,20 @@ namespace CarService.Services.Works
 
             //Za proverka sled SaveChanges !!!
 
-           var workData1 = this.data
-            .Issues
-            .Where(x => x.Id == issueId && x.CarId == carId && x.IsDelete==false)
-           .Select(s => s.Works
-                       .Where(x => x.Id == workId && x.IsDelete==false)
-                       .Select(w => new WorkServiceModel
-                       {
-                           Id = w.Id,
-                           Description = w.Description,
-                           IssueId = w.IssueId,
-                           Price = w.Price,
-                       }).FirstOrDefault()
-          
-          ).FirstOrDefault();            
+       //  var workData1 = this.data
+       //   .Issues
+       //   .Where(x => x.Id == issueId && x.CarId == carId && x.IsDelete==false)
+       //  .Select(s => s.Works
+       //              .Where(x => x.Id == workId && x.IsDelete==false)
+       //              .Select(w => new WorkServiceModel
+       //              {
+       //                  Id = w.Id,
+       //                  Description = w.Description,
+       //                  IssueId = w.IssueId,
+       //                  Price = w.Price,
+       //              }).FirstOrDefault()
+       // 
+       // ).FirstOrDefault();            
 
             return true;
         }

@@ -17,6 +17,7 @@ namespace CarService.Models.Works
         [StringLength(WorkMaxLength, MinimumLength = WorkMinLength)]
         public string Description { get; set; }
 
+        [Range((double)WorkMinPrice,(double)WorkMaxPrice)]
         public decimal Price { get; set; }
 
         public int CarId { get; set; }

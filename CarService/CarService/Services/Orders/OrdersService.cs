@@ -18,7 +18,7 @@ namespace CarService.Services.Orders
             this.data = data;
         }
 
-        public void AddWorkToOrder(string userId,int workId, int issueId, int carId)
+        public void AddWorkToOrder(int workId, int issueId, int carId)
         {         
             var userIdCar = this.data.Cars
                 .Where(x => x.Id == carId && x.IsDelete==false)

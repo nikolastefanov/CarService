@@ -11,7 +11,7 @@ namespace CarService.Services.Orders
     {
         void CreateOrderZero(decimal price,string userId);
 
-        void AddWorkToOrder(string userId,int workId, int issueId, int carId);
+        void AddWorkToOrder(int workId, int issueId, int carId);
 
         IEnumerable<OrderServiceModel> GetAllOrders(string userId);
 

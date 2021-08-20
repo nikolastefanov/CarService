@@ -3,6 +3,7 @@ namespace CarService.Controllers
 {
     using CarService.Infrastructure;
     using CarService.Models.Works;
+    using CarService.Services.Mechanics;
     using CarService.Services.Works;
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
@@ -16,16 +17,27 @@ namespace CarService.Controllers
     public class WorksController : Controller
     {
         private readonly IWorksService worksService;
-
-        public WorksController(IWorksService worksService)
+        private readonly IMechanicsService mechanicsService;
+        public WorksController(IWorksService worksService,
+                                IMechanicsService mechanicsService)
         {
             this.worksService = worksService;
+            this.mechanicsService = mechanicsService;
         }
 
 
         [Authorize]
         public IActionResult  AddWorks()
         {
+            var userId = this.User.GetId();
+
+            var userIsMechanic = mechanicsService.IsMechanic(userId);
+
+            if (!userIsMechanic)
+            {
+                return RedirectToAction("IndexIssueType", "IssueTypes");
+            }
+
             return this.View();
         }
 
