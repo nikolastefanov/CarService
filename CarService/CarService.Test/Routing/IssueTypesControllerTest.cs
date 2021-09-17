@@ -32,24 +32,26 @@ namespace CarService.Test.Routing
                     .WithPath("/IssueTypes/AddIssueType")
                     .WithMethod(HttpMethod.Post))
                 .To<IssueTypesController>(c => c.AddIssueType(With.Any<IssueTypeViewModel>()));
-        
-          [Fact]
-          public void GetEditIssueTypeShouldBeMapped()
+
+        [Fact]
+        public void GetEditIssueTypeShouldBeMapped()
+           => MyRouting
+               .Configuration()
+               .ShouldMap("/IssueTypes/EditIssueType?issueTypeId=1")
+               .To<IssueTypesController>(c => c.EditIssueType(1));
+
+
+
+        [Theory]
+        [InlineData(1)]
+        public void PostEditIssueTypeShouldBeMapped(int issuetypeId)
              => MyRouting
                  .Configuration()
-                 .ShouldMap("/IssueTypes/EditIssueType?issueTypeId=1")
-                 .To<IssueTypesController>(c => c.EditIssueType(1));
-
-
-      //  [Fact]
-      //  public void PostEditIssueTypeShouldBeMapped()
-      //      => MyRouting
-      //          .Configuration()
-      //          .ShouldMap(request => request
-      //              .WithPath("/IssueTypes/EditIssueType?issueTypeId=1")
-      //              .WithMethod(HttpMethod.Post))
-      //              .To<IssueTypesController>(c => c.EditIssueType(1,With.Any<IssueTypeViewModel>()));
-                    
+                 .ShouldMap(request => request
+                     .WithLocation($"/IssueTypes/EditIssueType?issueTypeId={issuetypeId}")            
+                     .WithMethod(HttpMethod.Post))
+                     .To<IssueTypesController>(c => c.EditIssueType(issuetypeId, With.Any<IssueTypeViewModel>()));
+                  
 
     }
 }

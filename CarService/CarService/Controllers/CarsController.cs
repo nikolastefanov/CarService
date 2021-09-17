@@ -1,6 +1,7 @@
 ﻿
 namespace CarService.Controllers
 {
+    using AutoMapper;
     using CarService.Data;
     using CarService.Data.Models;
     using CarService.Infrastructure;
@@ -22,13 +23,16 @@ namespace CarService.Controllers
         private readonly ICarsService carsService;
         private readonly IMechanicsService mechanicsService;
         private readonly IOrdersService ordersService;
+        private readonly IMapper mapper;
         public CarsController(ICarsService carsService,
             IOrdersService ordersService,
-            IMechanicsService mechanicsService)
+            IMechanicsService mechanicsService,
+            IMapper mapper)
         {
             this.carsService = carsService;
             this.ordersService = ordersService;
             this.mechanicsService = mechanicsService;
+            this.mapper = mapper;
         }
 
         [Authorize]
@@ -188,6 +192,27 @@ namespace CarService.Controllers
             }
 
             return RedirectToAction("All","Cars");
+        }
+
+        public IActionResult Details(int carId, string information)
+        {
+
+            var carDetails = this.carsService.CarDetails(carId);
+
+           // return this.View(new CarDetailsViewModel
+           // {
+           //     Id=carDetails.Id,
+           //     Make=carDetails.Make,
+           //     Model=carDetails.Model,
+           //     PlateNumber=carDetails.PlateNumber,
+           //     ImageUrl=carDetails.ImageUrl,
+           //     Year=carDetails.Year,
+           // });
+
+            var carView = this.mapper.Map<CarDetailsViewModel>(carDetails);
+
+            return this.View(carView);
+
         }
 
         [Authorize(Roles = AdministratorRoleName)]

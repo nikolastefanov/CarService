@@ -1,6 +1,8 @@
 ﻿
 namespace CarService.Services.Reviews
 {
+    using AutoMapper;
+    using AutoMapper.QueryableExtensions;
     using CarService.Data;
     using CarService.Data.Models;
     using System;
@@ -11,9 +13,11 @@ namespace CarService.Services.Reviews
     public class ReviewsService : IReviewsService
     {
         private readonly ApplicationDbContext data;
+        private readonly IMapper mapper;
 
-        public ReviewsService(ApplicationDbContext data)
+        public ReviewsService(IMapper mapper,ApplicationDbContext data)
         {
+            this.mapper = mapper;
             this.data = data;
         }
 
@@ -45,16 +49,21 @@ namespace CarService.Services.Reviews
 
         public IEnumerable<ReviewServiceModel> GetAllReview()
         {
-            var reviews = this.data.Reviews
-                .Select(x => new ReviewServiceModel
-                {
-                    Id = x.Id,
-                    Content = x.Content,
-                    CreateOn = x.CreateOn,
-                }).ToList();
+            var reviews = this.data
+                .Reviews
+                .ProjectTo<ReviewServiceModel>(mapper.ConfigurationProvider)
+                .ToList();
 
+           // var reviews = this.data.Reviews
+           //     .Select(x => new ReviewServiceModel
+           //     {
+           //         Id = x.Id,
+           //         Content = x.Content,
+           //         CreateOn = x.CreateOn,
+           //     }).ToList();
+           //
 
-            return reviews;
+             return reviews;
         }
     }
 }

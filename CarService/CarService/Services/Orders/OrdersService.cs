@@ -42,7 +42,7 @@ namespace CarService.Services.Orders
              .Works
              .Where(x => x.Id == workId && x.IssueId == issueId && x.IsDelete==false)
              .FirstOrDefault();
-            ;
+            
             vr.OrderId = orderId;
             
             this.data.SaveChanges();
@@ -50,7 +50,7 @@ namespace CarService.Services.Orders
             order.Works.ToList().Add(vr);
 
             order.TotalPrice += vr.Price;
-            ;
+            
             this.data.SaveChanges();
 
         }

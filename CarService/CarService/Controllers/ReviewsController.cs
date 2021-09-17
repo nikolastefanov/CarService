@@ -1,6 +1,7 @@
 ﻿
 namespace CarService.Controllers
 {
+    using AutoMapper;
     using CarService.Infrastructure;
     using CarService.Models.Reviews;
     using CarService.Services.Reviews;
@@ -14,9 +15,11 @@ namespace CarService.Controllers
     {
         private const int ItemsPerPage = 2;
         private readonly IReviewsService reviewsService;
+        private readonly IMapper mapper;
 
-        public ReviewsController(IReviewsService reviewsService)
+        public ReviewsController(IMapper mapper,IReviewsService reviewsService)
         {
+            this.mapper = mapper;
             this.reviewsService = reviewsService;
         }
 
@@ -47,15 +50,20 @@ namespace CarService.Controllers
 
              var sanitizer = new HtmlSanitizer();
 
-            var reviewsAll = reviewsService
-                .GetAllReview()
-                .Select(x => new ReviewViewModel
-                {
-                    Id = x.Id,
-                    SanContent =sanitizer.Sanitize(x.Content),
-                    CreateOn = x.CreateOn.ToString()
-                })
-                .ToList();
+          // var reviewsAll = reviewsService
+          //                .GetAllReview()
+          //                .ProjectTo<ReviewViewModel>(mapper.ConfigurationProvider)
+          //                .ToList();
+
+           var reviewsAll = reviewsService
+               .GetAllReview()
+               .Select(x => new ReviewViewModel
+               {
+                   Id = x.Id,
+                   SanContent =sanitizer.Sanitize(x.Content),
+                   CreateOn = x.CreateOn.ToString()
+               })
+               .ToList();
 
             if (reviewsAll == null)
             {

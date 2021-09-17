@@ -126,7 +126,7 @@ namespace CarService.Controllers
             {
                 return BadRequest();
             }
-
+          
             return RedirectToAction("IndexIssueType");
         }
 

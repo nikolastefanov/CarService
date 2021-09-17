@@ -30,8 +30,6 @@ namespace CarService.Test.Controllers
                .View();
 
 
-          
-
 
         [Fact]
         public void GetAllCarsShouldBeForAuthorizedUsersAndReturnView()
@@ -46,10 +44,7 @@ namespace CarService.Test.Controllers
               .ShouldReturn()
               .View();
 
-      
+       
 
-                      
-
-        
     }
 }

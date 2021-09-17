@@ -44,8 +44,7 @@
             <select asp-for="IssueTypeId" class="form-control">
                 @foreach (var category in Model.IssueTypes)
                 {
-    <option value="@category.Id">@category.Name</option>
-}
+    <option value="@category.Id">@category.Name</option>}
             </select>
             <span asp-validation-for="IssueTypeId" class="small text-danger"></span>
         </div>
@@ -53,7 +52,7 @@
         <div class="text-center">
             <input class="btn btn-block btn-primary" type="submit" value="Save" />
         </div>
-      
+
 
         <button asp-controller="Cars" asp-action="DeleteCar" asp-route-carId="@Model.Id"
                 class="btn btn-block btn-danger">
@@ -61,3 +60,8 @@
         </button>
     </form>
 </div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}
+
